@@ -1,0 +1,133 @@
+/* ================================
+   index.css — Estilos globais
+   Mobile-first | Portfolio V2
+   ================================ */
+
+/* Variáveis de cor — paleta principal */
+:root {
+    --rich-black:        #000F08;
+    --dark-green:        #032221;
+    --bangladesh-green:  #03624C;
+    --mountain-meadow:   #2CC295;
+    --caribbean-green:   #00DF91;
+    --white:             #F1F7F6;
+
+    /* Cores secundárias */
+    --pine:       #06302B;
+    --basil:      #08453A;
+    --forest:     #095544;
+    --frog:       #17BE6D;
+    --mint:       #2FA98C;
+    --stone:      #707D70;
+    --pistachio:  #AAC8C4;
+
+    /* Tipografia */
+    --font-pixel: "Press Start 2P", "Courier New", monospace;
+    --font-mono:  "Share Tech Mono", "Courier New", monospace;
+
+    /* Espaçamentos base (mobile) */
+    --padding-page: 1rem;
+    --gap-section:  4rem;
+}
+
+/* ================================
+   Reset
+   ================================ */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    /* Scroll suave para os links de âncora */
+    scroll-behavior: smooth;
+    /* Evita zoom indesejado em inputs no iOS */
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    background-color: var(--rich-black);
+    color: var(--white);
+    font-family: var(--font-mono);
+    line-height: 1.6;
+    min-height: 100dvh;
+    overflow-x: hidden;
+}
+
+/* Remove estilo padrão de listas */
+ul,
+ol {
+    list-style: none;
+}
+
+/* Remove estilo padrão de links */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Imagens responsivas por padrão */
+img,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+/* Botões sem estilo padrão */
+button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    color: inherit;
+}
+
+/* ================================
+   Utilitários globais
+   ================================ */
+
+/* Container centralizado */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--padding-page);
+}
+
+/* Seção padrão */
+.section {
+    padding: var(--gap-section) 0;
+}
+
+/* Texto com destaque verde */
+.destaque {
+    color: var(--caribbean-green);
+}
+
+/* Scrollbar personalizada — desktop */
+@media (min-width: 768px) {
+    :root {
+        --padding-page: 3rem;
+    }
+
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--dark-green);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--bangladesh-green);
+        border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--mountain-meadow);
+    }
+}
