@@ -353,7 +353,7 @@ export default function LoadingScreen({ onCarregado }: LoadingScreenProps) {
                 $destinoY={destinoY}
             >
                 <LogoImagem
-                    src="/Logo.svg"
+                    src={`${import.meta.env.BASE_URL}Logo.svg`}
                     alt="Logo Alexon"
                 />
             </PlanetaWrapper>

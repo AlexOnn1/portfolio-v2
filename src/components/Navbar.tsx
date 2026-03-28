@@ -24,6 +24,7 @@ interface NavbarProps {
 
 interface ContainerProps {
     $scrolled: boolean
+    $visivel: boolean
 }
 
 interface MenuMobileProps {
@@ -59,19 +60,22 @@ const Header = styled.header<ContainerProps>`
     left: 0;
     width: 100%;
     z-index: 100;
+    padding: 0.75rem 1rem;
+    opacity: 0;
     transition: background 0.4s ease, padding 0.4s ease;
 
-    /* Mobile-first: padding menor */
-    padding: 0.75rem 1rem;
-
     background: ${({ $scrolled }) =>
-        $scrolled
-            ? "rgba(3, 34, 33, 0.95)"
-            : "transparent"};
+        $scrolled ? "rgba(3, 34, 33, 0.95)" : "transparent"};
 
     backdrop-filter: ${({ $scrolled }) => ($scrolled ? "blur(8px)" : "none")};
 
-    /* Desktop */
+    /* Desliza de cima para baixo assim que visivel vira true */
+    ${({ $visivel }) =>
+        $visivel &&
+        css`
+            animation: ${fadeSlideDown} 0.6s ease forwards;
+        `}
+
     @media (min-width: 768px) {
         padding: ${({ $scrolled }) => ($scrolled ? "0.75rem 3rem" : "1.25rem 3rem")};
     }
@@ -96,7 +100,7 @@ const LogoLink = styled.a<LogoProps>`
     ${({ $aparecer }) =>
         $aparecer &&
         css`
-            animation: ${logoPouso} 0.5s ease forwards;
+            animation: ${logoPouso} 0.5s ease 0.3s forwards;
         `}
 `
 
@@ -119,7 +123,6 @@ const LogoNome = styled.span`
     color: ${colors.white};
     letter-spacing: 0.05em;
 
-    /* Destaque no ON */
     span {
         color: ${colors.caribbeanGreen};
     }
@@ -152,7 +155,6 @@ const MenuItem = styled.li`
         transition: color 0.3s ease;
         position: relative;
 
-        /* Underline animado */
         &::after {
             content: "";
             position: absolute;
@@ -204,26 +206,16 @@ const Linha = styled.span<LinhaProps>`
     transition: transform 0.3s ease, opacity 0.3s ease;
 
     ${({ $aberto, $posicao }) =>
-        $aberto &&
-        $posicao === "top" &&
-        css`
-            transform: translateY(7px) rotate(45deg);
-        `}
+        $aberto && $posicao === "top" &&
+        css`transform: translateY(7px) rotate(45deg);`}
 
     ${({ $aberto, $posicao }) =>
-        $aberto &&
-        $posicao === "mid" &&
-        css`
-            opacity: 0;
-            transform: scaleX(0);
-        `}
+        $aberto && $posicao === "mid" &&
+        css`opacity: 0; transform: scaleX(0);`}
 
     ${({ $aberto, $posicao }) =>
-        $aberto &&
-        $posicao === "bot" &&
-        css`
-            transform: translateY(-7px) rotate(-45deg);
-        `}
+        $aberto && $posicao === "bot" &&
+        css`transform: translateY(-7px) rotate(-45deg);`}
 `
 
 /* Menu mobile — drawer lateral */
@@ -264,7 +256,6 @@ const MenuMobileItem = styled.a`
     }
 `
 
-/* Overlay escuro atrás do menu mobile */
 const Backdrop = styled.div<MenuMobileProps>`
     position: fixed;
     inset: 0;
@@ -318,13 +309,13 @@ export default function Navbar({ visivel }: NavbarProps) {
 
     return (
         <>
-            <Header $scrolled={scrolled}>
+            <Header $scrolled={scrolled} $visivel={visivel}>
                 <Nav>
 
                     {/* Logo — planeta pousa aqui vindo do loading */}
                     <LogoLink href="#home" $aparecer={visivel}>
                         <LogoPlaneta
-                            src="/Logo.svg"
+                            src={`${import.meta.env.BASE_URL}Logo.svg`}
                             alt="Logo Alexon"
                         />
                         <LogoNome>

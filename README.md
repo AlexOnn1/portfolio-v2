@@ -50,7 +50,8 @@ src/
 ├── App.tsx
 └── main.tsx
 public/
-└── planetinha_6.png
+├── logo-favicon.svg
+└── Logo.svg
 ```
 
 ---
