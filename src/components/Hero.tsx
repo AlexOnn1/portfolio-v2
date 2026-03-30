@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react"
 import styled, { keyframes } from "styled-components"
 
 /* ================================
@@ -36,7 +37,7 @@ const starTwinkle = keyframes`
 `
 
 /* ================================
-   Estrelas de fundo (geradas estaticamente)
+   Estrelas de fundo
    ================================ */
 
 const STARS_HERO = Array.from({ length: 60 }, (_, i) => ({
@@ -47,6 +48,9 @@ const STARS_HERO = Array.from({ length: 60 }, (_, i) => ({
     delay: 2 + Math.random() * 4,
     offset: Math.random() * 5,
 }))
+
+// Texto que será digitado
+const TEXTO_DIGITADO = "Front-End Developer"
 
 /* ================================
    Styled Components
@@ -106,7 +110,6 @@ const Conteudo = styled.div`
     gap: 1.25rem;
 `
 
-/* "Hi, i'm" — igual ao original mas mais sutil */
 const Saudacao = styled.p`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: clamp(0.85rem, 2.5vw, 1rem);
@@ -117,7 +120,6 @@ const Saudacao = styled.p`
     animation: ${fadeSlideUp} 0.6s ease 0.2s forwards;
 `
 
-/* Nome principal */
 const Nome = styled.h1`
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: clamp(2rem, 8vw, 4.5rem);
@@ -126,35 +128,43 @@ const Nome = styled.h1`
     opacity: 0;
     animation: ${fadeSlideUp} 0.6s ease 0.4s forwards;
 
-    /* Destaque no ON */
     span {
         color: ${colors.caribbeanGreen};
     }
 `
 
-/* Cursor piscando após o nome */
-const Cursor = styled.span`
-    display: inline-block;
-    width: clamp(2px, 0.8vw, 4px);
-    height: 0.85em;
-    background: ${colors.caribbeanGreen};
-    margin-left: 4px;
-    vertical-align: middle;
-    animation: ${piscarCursor} 1s step-end infinite;
+/* Linha do título com cursor piscando no final */
+const TituloContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    min-height: 2rem;
+    opacity: 0;
+    animation: ${fadeSlideUp} 0.6s ease 0.6s forwards;
+
+    @media (min-width: 768px) {
+        justify-content: flex-start;
+    }
 `
 
-/* Título / cargo */
-const Titulo = styled.h2`
+const TituloTexto = styled.h2`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: clamp(1rem, 3.5vw, 1.4rem);
     color: ${colors.mountainMeadow};
     font-weight: 400;
     letter-spacing: 0.05em;
-    opacity: 0;
-    animation: ${fadeSlideUp} 0.6s ease 0.6s forwards;
 `
 
-/* Descrição curta */
+const Cursor = styled.span`
+    display: inline-block;
+    width: clamp(2px, 0.8vw, 3px);
+    height: 1.2em;
+    background: ${colors.caribbeanGreen};
+    vertical-align: middle;
+    animation: ${piscarCursor} 1s step-end infinite;
+`
+
 const Descricao = styled.p`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: clamp(0.85rem, 2vw, 1rem);
@@ -163,13 +173,8 @@ const Descricao = styled.p`
     max-width: 520px;
     opacity: 0;
     animation: ${fadeSlideUp} 0.6s ease 0.8s forwards;
-
-    @media (min-width: 768px) {
-        font-size: 1rem;
-    }
 `
 
-/* Botões de ação */
 const BotoesContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -227,6 +232,24 @@ const BotaoSecundario = styled.a`
    ================================ */
 
 export default function Hero() {
+    const [textoAtual, setTextoAtual] = useState<string>("")
+
+    // Digita o texto letra por letra — para quando termina
+    useEffect(() => {
+        let index = 0
+
+        const intervalo = setInterval(() => {
+            setTextoAtual(TEXTO_DIGITADO.slice(0, index + 1))
+            index++
+
+            if (index === TEXTO_DIGITADO.length) {
+                clearInterval(intervalo)
+            }
+        }, 100)
+
+        return () => clearInterval(intervalo)
+    }, [])
+
     return (
         <Secao id="home">
 
@@ -244,25 +267,23 @@ export default function Hero() {
 
             <Conteudo>
 
-                {/* Saudação */}
                 <Saudacao>Hi, i'm</Saudacao>
 
-                {/* Nome com cursor piscando */}
                 <Nome>
                     ALEX<span>ON</span>
-                    <Cursor />
                 </Nome>
 
-                {/* Cargo */}
-                <Titulo>Front-End Developer</Titulo>
+                {/* Título com animação de digitação */}
+                <TituloContainer>
+                    <TituloTexto>{textoAtual}</TituloTexto>
+                    <Cursor />
+                </TituloContainer>
 
-                {/* Descrição */}
                 <Descricao>
                     Computer Science student passionate about building
                     intuitive and functional web experiences.
                 </Descricao>
 
-                {/* CTAs */}
                 <BotoesContainer>
                     <BotaoPrimario href="#projects">
                         See my work
