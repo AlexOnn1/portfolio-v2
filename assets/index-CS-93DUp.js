@@ -334,7 +334,7 @@ Error generating stack: `+e.message+`
 `,Mr=Un`
     0%, 100% { opacity: 0.15; }
     50%       { opacity: 0.8;  }
-`,Nr=Array.from({length:60},(e,t)=>({id:t,top:Math.random()*100,left:Math.random()*100,size:Math.random()<.7?1:2,delay:2+Math.random()*4,offset:Math.random()*5})),Pr=M.section`
+`,Nr=Array.from({length:60},(e,t)=>({id:t,top:Math.random()*100,left:Math.random()*100,size:Math.random()<.7?1:2,delay:2+Math.random()*4,offset:Math.random()*5})),Pr=`Front-End Developer`,Fr=M.section`
     position: relative;
     min-height: 100dvh;
     display: flex;
@@ -356,7 +356,7 @@ Error generating stack: `+e.message+`
         text-align: left;
         align-items: flex-start;
     }
-`,Fr=M.span`
+`,Ir=M.span`
     position: absolute;
     width: ${({$size:e})=>e}px;
     height: ${({$size:e})=>e}px;
@@ -367,14 +367,14 @@ Error generating stack: `+e.message+`
     pointer-events: none;
     animation: ${Mr} ${({$delay:e})=>e}s infinite ease-in-out;
     animation-delay: ${({$offset:e})=>e}s;
-`,Ir=M.div`
+`,Lr=M.div`
     position: relative;
     z-index: 1;
     max-width: 800px;
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
-`,Lr=M.p`
+`,Rr=M.p`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: clamp(0.85rem, 2.5vw, 1rem);
     color: ${kr.mountainMeadow};
@@ -382,7 +382,7 @@ Error generating stack: `+e.message+`
     text-transform: uppercase;
     opacity: 0;
     animation: ${Ar} 0.6s ease 0.2s forwards;
-`,Rr=M.h1`
+`,zr=M.h1`
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: clamp(2rem, 8vw, 4.5rem);
     color: ${kr.white};
@@ -390,27 +390,35 @@ Error generating stack: `+e.message+`
     opacity: 0;
     animation: ${Ar} 0.6s ease 0.4s forwards;
 
-    /* Destaque no ON */
     span {
         color: ${kr.caribbeanGreen};
     }
-`,zr=M.span`
-    display: inline-block;
-    width: clamp(2px, 0.8vw, 4px);
-    height: 0.85em;
-    background: ${kr.caribbeanGreen};
-    margin-left: 4px;
-    vertical-align: middle;
-    animation: ${jr} 1s step-end infinite;
-`,Br=M.h2`
+`,Br=M.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    min-height: 2rem;
+    opacity: 0;
+    animation: ${Ar} 0.6s ease 0.6s forwards;
+
+    @media (min-width: 768px) {
+        justify-content: flex-start;
+    }
+`,Vr=M.h2`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: clamp(1rem, 3.5vw, 1.4rem);
     color: ${kr.mountainMeadow};
     font-weight: 400;
     letter-spacing: 0.05em;
-    opacity: 0;
-    animation: ${Ar} 0.6s ease 0.6s forwards;
-`,Vr=M.p`
+`,Hr=M.span`
+    display: inline-block;
+    width: clamp(2px, 0.8vw, 3px);
+    height: 1.2em;
+    background: ${kr.caribbeanGreen};
+    vertical-align: middle;
+    animation: ${jr} 1s step-end infinite;
+`,Ur=M.p`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: clamp(0.85rem, 2vw, 1rem);
     color: rgba(241, 247, 246, 0.65);
@@ -418,11 +426,7 @@ Error generating stack: `+e.message+`
     max-width: 520px;
     opacity: 0;
     animation: ${Ar} 0.6s ease 0.8s forwards;
-
-    @media (min-width: 768px) {
-        font-size: 1rem;
-    }
-`,Hr=M.div`
+`,Wr=M.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -434,7 +438,7 @@ Error generating stack: `+e.message+`
         flex-direction: row;
         align-items: center;
     }
-`,Ur=M.a`
+`,Gr=M.a`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.9rem;
     letter-spacing: 0.1em;
@@ -451,7 +455,7 @@ Error generating stack: `+e.message+`
         background: ${kr.mountainMeadow};
         transform: translateY(-2px);
     }
-`,Wr=M.a`
+`,Kr=M.a`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.9rem;
     letter-spacing: 0.1em;
@@ -468,4 +472,4 @@ Error generating stack: `+e.message+`
         background: rgba(0, 223, 145, 0.08);
         transform: translateY(-2px);
     }
-`;function Gr(){return(0,N.jsxs)(Pr,{id:`home`,children:[Nr.map(e=>(0,N.jsx)(Fr,{$top:e.top,$left:e.left,$size:e.size,$delay:e.delay,$offset:e.offset},e.id)),(0,N.jsxs)(Ir,{children:[(0,N.jsx)(Lr,{children:`Hi, i'm`}),(0,N.jsxs)(Rr,{children:[`ALEX`,(0,N.jsx)(`span`,{children:`ON`}),(0,N.jsx)(zr,{})]}),(0,N.jsx)(Br,{children:`Front-End Developer`}),(0,N.jsx)(Vr,{children:`Computer Science student passionate about building intuitive and functional web experiences.`}),(0,N.jsxs)(Hr,{children:[(0,N.jsx)(Ur,{href:`#projects`,children:`See my work`}),(0,N.jsx)(Wr,{href:`#contact`,children:`Get in touch`})]})]})]})}function Kr(){let[e,t]=(0,_.useState)(!1),n=(0,_.useRef)(null);return(0,N.jsxs)(N.Fragment,{children:[!e&&(0,N.jsx)(dr,{onCarregado:()=>t(!0),logoRef:n}),(0,N.jsx)(Or,{visivel:e,logoRef:n}),(0,N.jsx)(`main`,{children:(0,N.jsx)(Gr,{})})]})}(0,v.createRoot)(document.getElementById(`root`)).render((0,N.jsx)(_.StrictMode,{children:(0,N.jsx)(Kr,{})}));
+`;function qr(){let[e,t]=(0,_.useState)(``);return(0,_.useEffect)(()=>{let e=0,n=setInterval(()=>{t(Pr.slice(0,e+1)),e++,e===19&&clearInterval(n)},100);return()=>clearInterval(n)},[]),(0,N.jsxs)(Fr,{id:`home`,children:[Nr.map(e=>(0,N.jsx)(Ir,{$top:e.top,$left:e.left,$size:e.size,$delay:e.delay,$offset:e.offset},e.id)),(0,N.jsxs)(Lr,{children:[(0,N.jsx)(Rr,{children:`Hi, i'm`}),(0,N.jsxs)(zr,{children:[`ALEX`,(0,N.jsx)(`span`,{children:`ON`})]}),(0,N.jsxs)(Br,{children:[(0,N.jsx)(Vr,{children:e}),(0,N.jsx)(Hr,{})]}),(0,N.jsx)(Ur,{children:`Computer Science student passionate about building intuitive and functional web experiences.`}),(0,N.jsxs)(Wr,{children:[(0,N.jsx)(Gr,{href:`#projects`,children:`See my work`}),(0,N.jsx)(Kr,{href:`#contact`,children:`Get in touch`})]})]})]})}function Jr(){let[e,t]=(0,_.useState)(!1),n=(0,_.useRef)(null);return(0,N.jsxs)(N.Fragment,{children:[!e&&(0,N.jsx)(dr,{onCarregado:()=>t(!0),logoRef:n}),(0,N.jsx)(Or,{visivel:e,logoRef:n}),(0,N.jsx)(`main`,{children:(0,N.jsx)(qr,{})})]})}(0,v.createRoot)(document.getElementById(`root`)).render((0,N.jsx)(_.StrictMode,{children:(0,N.jsx)(Jr,{})}));
