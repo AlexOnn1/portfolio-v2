@@ -232,24 +232,45 @@ const BotaoSecundario = styled.a`
 
 export default function Hero() {
     const [textoAtual, setTextoAtual] = useState<string>("")
+    const [apagando, setApagando] = useState<boolean>(false)
 
-    // Digita letra por letra — ao terminar zera e reinicia (loop abrupto)
+    /*
+       Duas fases controladas pelo estado "apagando":
+       - false: digita letra por letra até completar o texto
+       - true:  apaga letra por letra até esvaziar
+       Bug proposital: mesma velocidade nas duas fases — fica mecânico
+    */
     useEffect(() => {
-        let index = 0
-
         const intervalo = setInterval(() => {
-            index++
-            setTextoAtual(TEXTO_DIGITADO.slice(0, index))
+            if (!apagando) {
+                // Fase de digitação
+                setTextoAtual((prev) => {
+                    const proximo = TEXTO_DIGITADO.slice(0, prev.length + 1)
 
-            // Terminou de digitar — zera e reinicia do zero
-            if (index === TEXTO_DIGITADO.length) {
-                index = 0
-                setTextoAtual("")
+                    // Terminou de digitar — muda para fase de apagar
+                    if (proximo === TEXTO_DIGITADO) {
+                        setApagando(true)
+                    }
+
+                    return proximo
+                })
+            } else {
+                // Fase de apagar
+                setTextoAtual((prev) => {
+                    const proximo = prev.slice(0, prev.length - 1)
+
+                    // Terminou de apagar — volta para fase de digitação
+                    if (proximo === "") {
+                        setApagando(false)
+                    }
+
+                    return proximo
+                })
             }
         }, 100)
 
         return () => clearInterval(intervalo)
-    }, [])
+    }, [apagando])
 
     return (
         <Secao id="home">
@@ -274,7 +295,7 @@ export default function Hero() {
                     ALEX<span>ON</span>
                 </Nome>
 
-                {/* Título com animação de digitação em loop */}
+                {/* Título com animação de digitação e apagar */}
                 <TituloContainer>
                     <TituloTexto>{textoAtual}</TituloTexto>
                     <Cursor />
