@@ -133,7 +133,6 @@ const Nome = styled.h1`
     }
 `
 
-/* Linha do título com cursor piscando no final */
 const TituloContainer = styled.div`
     display: flex;
     align-items: center;
@@ -234,16 +233,18 @@ const BotaoSecundario = styled.a`
 export default function Hero() {
     const [textoAtual, setTextoAtual] = useState<string>("")
 
-    // Digita o texto letra por letra — para quando termina
+    // Digita letra por letra — ao terminar zera e reinicia (loop abrupto)
     useEffect(() => {
         let index = 0
 
         const intervalo = setInterval(() => {
-            setTextoAtual(TEXTO_DIGITADO.slice(0, index + 1))
             index++
+            setTextoAtual(TEXTO_DIGITADO.slice(0, index))
 
+            // Terminou de digitar — zera e reinicia do zero
             if (index === TEXTO_DIGITADO.length) {
-                clearInterval(intervalo)
+                index = 0
+                setTextoAtual("")
             }
         }, 100)
 
@@ -273,7 +274,7 @@ export default function Hero() {
                     ALEX<span>ON</span>
                 </Nome>
 
-                {/* Título com animação de digitação */}
+                {/* Título com animação de digitação em loop */}
                 <TituloContainer>
                     <TituloTexto>{textoAtual}</TituloTexto>
                     <Cursor />
