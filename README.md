@@ -69,4 +69,4 @@ public/
 
 ---
 
-<p align="center">Feito por <strong>Alexsander Albino</strong> — 2025</p>
+<p align="center">Feito por <strong>Alexsander Albino</strong> — 2026</p>
