@@ -334,7 +334,7 @@ Error generating stack: `+e.message+`
 `,Mr=Un`
     0%, 100% { opacity: 0.15; }
     50%       { opacity: 0.8;  }
-`,Nr=Array.from({length:60},(e,t)=>({id:t,top:Math.random()*100,left:Math.random()*100,size:Math.random()<.7?1:2,delay:2+Math.random()*4,offset:Math.random()*5})),Pr=`Front-End Developer`,Fr=M.section`
+`,Nr=Array.from({length:60},(e,t)=>({id:t,top:Math.random()*100,left:Math.random()*100,size:Math.random()<.7?1:2,delay:2+Math.random()*4,offset:Math.random()*5})),Pr=`Front-End Developer`,Fr=120,Ir=60,Lr=1500,Rr=400,zr=M.section`
     position: relative;
     min-height: 100dvh;
     display: flex;
@@ -356,7 +356,7 @@ Error generating stack: `+e.message+`
         text-align: left;
         align-items: flex-start;
     }
-`,Ir=M.span`
+`,Br=M.span`
     position: absolute;
     width: ${({$size:e})=>e}px;
     height: ${({$size:e})=>e}px;
@@ -367,14 +367,14 @@ Error generating stack: `+e.message+`
     pointer-events: none;
     animation: ${Mr} ${({$delay:e})=>e}s infinite ease-in-out;
     animation-delay: ${({$offset:e})=>e}s;
-`,Lr=M.div`
+`,Vr=M.div`
     position: relative;
     z-index: 1;
     max-width: 800px;
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
-`,Rr=M.p`
+`,Hr=M.p`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: clamp(0.85rem, 2.5vw, 1rem);
     color: ${kr.mountainMeadow};
@@ -382,7 +382,7 @@ Error generating stack: `+e.message+`
     text-transform: uppercase;
     opacity: 0;
     animation: ${Ar} 0.6s ease 0.2s forwards;
-`,zr=M.h1`
+`,Ur=M.h1`
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: clamp(2rem, 8vw, 4.5rem);
     color: ${kr.white};
@@ -393,7 +393,7 @@ Error generating stack: `+e.message+`
     span {
         color: ${kr.caribbeanGreen};
     }
-`,Br=M.div`
+`,Wr=M.div`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -405,20 +405,20 @@ Error generating stack: `+e.message+`
     @media (min-width: 768px) {
         justify-content: flex-start;
     }
-`,Vr=M.h2`
+`,Gr=M.h2`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: clamp(1rem, 3.5vw, 1.4rem);
     color: ${kr.mountainMeadow};
     font-weight: 400;
     letter-spacing: 0.05em;
-`,Hr=M.span`
+`,Kr=M.span`
     display: inline-block;
     width: clamp(2px, 0.8vw, 3px);
     height: 1.2em;
     background: ${kr.caribbeanGreen};
     vertical-align: middle;
     animation: ${jr} 1s step-end infinite;
-`,Ur=M.p`
+`,qr=M.p`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: clamp(0.85rem, 2vw, 1rem);
     color: rgba(241, 247, 246, 0.65);
@@ -426,7 +426,7 @@ Error generating stack: `+e.message+`
     max-width: 520px;
     opacity: 0;
     animation: ${Ar} 0.6s ease 0.8s forwards;
-`,Wr=M.div`
+`,Jr=M.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -438,7 +438,7 @@ Error generating stack: `+e.message+`
         flex-direction: row;
         align-items: center;
     }
-`,Gr=M.a`
+`,Yr=M.a`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.9rem;
     letter-spacing: 0.1em;
@@ -455,7 +455,7 @@ Error generating stack: `+e.message+`
         background: ${kr.mountainMeadow};
         transform: translateY(-2px);
     }
-`,Kr=M.a`
+`,Xr=M.a`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.9rem;
     letter-spacing: 0.1em;
@@ -472,4 +472,4 @@ Error generating stack: `+e.message+`
         background: rgba(0, 223, 145, 0.08);
         transform: translateY(-2px);
     }
-`;function qr(){let[e,t]=(0,_.useState)(``);return(0,_.useEffect)(()=>{let e=0,n=setInterval(()=>{e++,t(Pr.slice(0,e)),e===19&&(e=0,t(``))},100);return()=>clearInterval(n)},[]),(0,N.jsxs)(Fr,{id:`home`,children:[Nr.map(e=>(0,N.jsx)(Ir,{$top:e.top,$left:e.left,$size:e.size,$delay:e.delay,$offset:e.offset},e.id)),(0,N.jsxs)(Lr,{children:[(0,N.jsx)(Rr,{children:`Hi, i'm`}),(0,N.jsxs)(zr,{children:[`ALEX`,(0,N.jsx)(`span`,{children:`ON`})]}),(0,N.jsxs)(Br,{children:[(0,N.jsx)(Vr,{children:e}),(0,N.jsx)(Hr,{})]}),(0,N.jsx)(Ur,{children:`Computer Science student passionate about building intuitive and functional web experiences.`}),(0,N.jsxs)(Wr,{children:[(0,N.jsx)(Gr,{href:`#projects`,children:`See my work`}),(0,N.jsx)(Kr,{href:`#contact`,children:`Get in touch`})]})]})]})}function Jr(){let[e,t]=(0,_.useState)(!1),n=(0,_.useRef)(null);return(0,N.jsxs)(N.Fragment,{children:[!e&&(0,N.jsx)(dr,{onCarregado:()=>t(!0),logoRef:n}),(0,N.jsx)(Or,{visivel:e,logoRef:n}),(0,N.jsx)(`main`,{children:(0,N.jsx)(qr,{})})]})}(0,v.createRoot)(document.getElementById(`root`)).render((0,N.jsx)(_.StrictMode,{children:(0,N.jsx)(Jr,{})}));
+`;function Zr(){let[e,t]=(0,_.useState)(``),[n,r]=(0,_.useState)(!1),[i,a]=(0,_.useState)(!1);return(0,_.useEffect)(()=>{if(i)return;let e=setInterval(()=>{t(n?e=>{let t=e.slice(0,e.length-1);return t===``&&(a(!0),setTimeout(()=>{r(!1),a(!1)},Rr)),t}:e=>{let t=Pr.slice(0,e.length+1);return t===Pr&&(a(!0),setTimeout(()=>{r(!0),a(!1)},Lr)),t})},n?Ir:Fr);return()=>clearInterval(e)},[]),(0,N.jsxs)(zr,{id:`home`,children:[Nr.map(e=>(0,N.jsx)(Br,{$top:e.top,$left:e.left,$size:e.size,$delay:e.delay,$offset:e.offset},e.id)),(0,N.jsxs)(Vr,{children:[(0,N.jsx)(Hr,{children:`Hi, i'm`}),(0,N.jsxs)(Ur,{children:[`ALEX`,(0,N.jsx)(`span`,{children:`ON`})]}),(0,N.jsxs)(Wr,{children:[(0,N.jsx)(Gr,{children:e}),(0,N.jsx)(Kr,{})]}),(0,N.jsx)(qr,{children:`Computer Science student passionate about building intuitive and functional web experiences.`}),(0,N.jsxs)(Jr,{children:[(0,N.jsx)(Yr,{href:`#projects`,children:`See my work`}),(0,N.jsx)(Xr,{href:`#contact`,children:`Get in touch`})]})]})]})}function Qr(){let[e,t]=(0,_.useState)(!1),n=(0,_.useRef)(null);return(0,N.jsxs)(N.Fragment,{children:[!e&&(0,N.jsx)(dr,{onCarregado:()=>t(!0),logoRef:n}),(0,N.jsx)(Or,{visivel:e,logoRef:n}),(0,N.jsx)(`main`,{children:(0,N.jsx)(Zr,{})})]})}(0,v.createRoot)(document.getElementById(`root`)).render((0,N.jsx)(_.StrictMode,{children:(0,N.jsx)(Qr,{})}));
