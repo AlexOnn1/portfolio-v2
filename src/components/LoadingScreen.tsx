@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, type RefObject } from "react"
 import styled, { keyframes, css } from "styled-components"
 
 /* ================================
@@ -20,6 +20,7 @@ const colors = {
 // Tipos
 interface LoadingScreenProps {
     onCarregado: () => void
+    logoRef: RefObject<HTMLImageElement | null>
 }
 
 interface StarProps {
@@ -44,9 +45,9 @@ interface ProgressoProps {
 }
 
 interface PlanetaWrapperProps {
+    $translateX: number
+    $translateY: number
     $voando: boolean
-    $destinoX: number
-    $destinoY: number
 }
 
 /* ================================
@@ -115,7 +116,7 @@ const Overlay = styled.div<OverlayProps>`
     ${({ $saindo }) =>
         $saindo &&
         css`
-            animation: ${fadeOut} 0.6s ease 0.9s forwards;
+            animation: ${fadeOut} 0.5s ease 0.7s forwards;
         `}
 `
 
@@ -138,17 +139,22 @@ const Star = styled.span<StarProps>`
     animation-delay: ${({ $offset }) => $offset}s;
 `
 
-/* Wrapper do planeta — vira position:fixed quando voa */
+/*
+   PlanetaWrapper permanece no fluxo normal — sem position fixed.
+   O voo é feito inteiramente via transform: translate + scale,
+   então os elementos irmãos nunca se reorganizam (zero flicker).
+*/
 const PlanetaWrapper = styled.div<PlanetaWrapperProps>`
     position: relative;
     width: 100px;
     height: 100px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10000;
 
-    /* Anel decorativo */
+    /* Anel decorativo — some antes do voo */
     &::after {
         content: "";
         position: absolute;
@@ -157,39 +163,18 @@ const PlanetaWrapper = styled.div<PlanetaWrapperProps>`
         border-radius: 50%;
         border: 1px solid rgba(44, 194, 149, 0.3);
         animation: ${ringRotate} 8s linear infinite;
+        opacity: ${({ $voando }) => ($voando ? 0 : 1)};
+        transition: opacity 0.15s ease;
     }
 
-    /* Quando voando: sai do fluxo e anima até o destino */
-    ${({ $voando, $destinoX, $destinoY }) =>
+    ${({ $voando, $translateX, $translateY }) =>
         $voando &&
         css`
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: voarParaHeader 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-
-            @keyframes voarParaHeader {
-                0% {
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%) scale(1);
-                    opacity: 1;
-                }
-                60% {
-                    opacity: 1;
-                }
-                100% {
-                    top: ${$destinoY}px;
-                    left: ${$destinoX}px;
-                    transform: translate(0, 0) scale(0.45);
-                    opacity: 0;
-                }
-            }
-
-            &::after {
-                display: none;
-            }
+            transition:
+                transform 0.85s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity   0.25s ease 0.6s;
+            transform: translate(${$translateX}px, ${$translateY}px) scale(0.42);
+            opacity: 0;
         `}
 `
 
@@ -258,7 +243,6 @@ const Progresso = styled.div<ProgressoProps>`
    Dados estáticos
    ================================ */
 
-// Estrelas geradas uma única vez (evita re-render)
 const STARS = Array.from({ length: 80 }, (_, i) => ({
     id: i,
     top: Math.random() * 100,
@@ -275,28 +259,37 @@ const LETRAS_DESTAQUE = [4, 5] // O e N em verde caribenho
    Componente principal
    ================================ */
 
-export default function LoadingScreen({ onCarregado }: LoadingScreenProps) {
+export default function LoadingScreen({ onCarregado, logoRef }: LoadingScreenProps) {
     const [progresso, setProgresso] = useState<number>(0)
     const [voando, setVoando] = useState<boolean>(false)
     const [saindo, setSaindo] = useState<boolean>(false)
-
-    // Destino do planeta no header (posição do logo)
-    const [destinoX, setDestinoX] = useState<number>(16)
-    const [destinoY, setDestinoY] = useState<number>(12)
+    const [translateX, setTranslateX] = useState<number>(0)
+    const [translateY, setTranslateY] = useState<number>(0)
 
     const planetaRef = useRef<HTMLDivElement>(null)
 
-    // Calcula o destino baseado no tamanho real da tela
-    useEffect(() => {
-        const calcularDestino = () => {
-            // Padding do navbar: 16px da esquerda, 12px do topo
-            setDestinoX(16)
-            setDestinoY(12)
-        }
-        calcularDestino()
-        window.addEventListener("resize", calcularDestino)
-        return () => window.removeEventListener("resize", calcularDestino)
-    }, [])
+    /*
+       Calcula o translate usando getBoundingClientRect() de ambos:
+       - planetaRef: posição atual do planeta na loading screen
+       - logoRef:    posição real do logo no Navbar no DOM
+
+       A diferença entre os centros é exatamente o translate necessário.
+    */
+    const calcularTranslate = () => {
+        if (!planetaRef.current || !logoRef.current) return
+
+        const planeta = planetaRef.current.getBoundingClientRect()
+        const logo    = logoRef.current.getBoundingClientRect()
+
+        const planetaCentroX = planeta.left + planeta.width  / 2
+        const planetaCentroY = planeta.top  + planeta.height / 2
+
+        const logoCentroX = logo.left + logo.width  / 2
+        const logoCentroY = logo.top  + logo.height / 2
+
+        setTranslateX(logoCentroX - planetaCentroX)
+        setTranslateY(logoCentroY - planetaCentroY)
+    }
 
     // Simula progresso de carregamento
     useEffect(() => {
@@ -305,21 +298,21 @@ export default function LoadingScreen({ onCarregado }: LoadingScreenProps) {
                 if (prev >= 100) {
                     clearInterval(intervalo)
 
-                    // Pequena pausa → inicia voo do planeta
                     setTimeout(() => {
+                        // Calcula destino real no momento exato do voo
+                        calcularTranslate()
                         setVoando(true)
 
-                        // Após o voo: fade out + chama onCarregado
+                        // Após o voo: fade out e chama onCarregado
                         setTimeout(() => {
                             setSaindo(true)
-                            setTimeout(() => onCarregado(), 700)
-                        }, 600)
+                            setTimeout(() => onCarregado(), 600)
+                        }, 550)
                     }, 300)
 
                     return 100
                 }
 
-                // Velocidade variável — parece mais natural
                 const incremento = prev < 70 ? 2 : prev < 90 ? 1 : 0.5
                 return Math.min(prev + incremento, 100)
             })
@@ -345,12 +338,12 @@ export default function LoadingScreen({ onCarregado }: LoadingScreenProps) {
                 ))}
             </StarsCanvas>
 
-            {/* Logo planeta */}
+            {/* Logo planeta — permanece no fluxo, voa via transform */}
             <PlanetaWrapper
                 ref={planetaRef}
                 $voando={voando}
-                $destinoX={destinoX}
-                $destinoY={destinoY}
+                $translateX={translateX}
+                $translateY={translateY}
             >
                 <LogoImagem
                     src={`${import.meta.env.BASE_URL}Logo.svg`}

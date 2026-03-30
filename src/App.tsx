@@ -1,9 +1,9 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import LoadingScreen from "./components/LoadingScreen"
 import Navbar from "./components/Navbar"
+import Hero from "./components/Hero"
 
 // Seções do portfólio (serão importadas conforme formos construindo)
-// import Hero from "./components/Hero"
 // import About from "./components/About"
 // import Experience from "./components/Experience"
 // import Projects from "./components/Projects"
@@ -18,19 +18,26 @@ import Navbar from "./components/Navbar"
 export default function App() {
     const [carregado, setCarregado] = useState<boolean>(false)
 
+    // Ref do logo no Navbar — usada pelo LoadingScreen para
+    // calcular o destino exato do planeta ao voar
+    const logoRef = useRef<HTMLImageElement | null>(null)
+
     return (
         <>
             {/* Tela de carregamento — some após o progresso completar */}
             {!carregado && (
-                <LoadingScreen onCarregado={() => setCarregado(true)} />
+                <LoadingScreen
+                    onCarregado={() => setCarregado(true)}
+                    logoRef={logoRef}
+                />
             )}
 
-            {/* Navbar — recebe visivel para animar o logo planeta */}
-            <Navbar visivel={carregado} />
+            {/* Navbar — expõe o ref do logo para o LoadingScreen mirar */}
+            <Navbar visivel={carregado} logoRef={logoRef} />
 
             {/* Portfólio principal */}
             <main>
-                {/* <Hero /> */}
+                <Hero />
                 {/* <About /> */}
                 {/* <Experience /> */}
                 {/* <Projects /> */}

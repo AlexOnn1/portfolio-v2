@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import type { RefObject } from "react"
 import styled, { keyframes, css } from "styled-components"
 
 /* ================================
@@ -20,6 +21,7 @@ const colors = {
 // Tipos
 interface NavbarProps {
     visivel: boolean
+    logoRef: RefObject<HTMLImageElement | null>
 }
 
 interface ContainerProps {
@@ -69,7 +71,6 @@ const Header = styled.header<ContainerProps>`
 
     backdrop-filter: ${({ $scrolled }) => ($scrolled ? "blur(8px)" : "none")};
 
-    /* Desliza de cima para baixo assim que visivel vira true */
     ${({ $visivel }) =>
         $visivel &&
         css`
@@ -89,7 +90,6 @@ const Nav = styled.nav`
     margin: 0 auto;
 `
 
-/* Logo — planeta + nome */
 const LogoLink = styled.a<LogoProps>`
     display: flex;
     align-items: center;
@@ -132,7 +132,6 @@ const LogoNome = styled.span`
     }
 `
 
-/* Links desktop */
 const MenuDesktop = styled.ul`
     display: none;
     list-style: none;
@@ -176,7 +175,6 @@ const MenuItem = styled.li`
     }
 `
 
-/* Botão hamburguer — só mobile */
 const BtnHamburguer = styled.button`
     display: flex;
     flex-direction: column;
@@ -218,7 +216,6 @@ const Linha = styled.span<LinhaProps>`
         css`transform: translateY(-7px) rotate(-45deg);`}
 `
 
-/* Menu mobile — drawer lateral */
 const MenuMobile = styled.div<MenuMobileProps>`
     position: fixed;
     top: 0;
@@ -285,18 +282,16 @@ const LINKS = [
    Componente principal
    ================================ */
 
-export default function Navbar({ visivel }: NavbarProps) {
+export default function Navbar({ visivel, logoRef }: NavbarProps) {
     const [scrolled, setScrolled] = useState<boolean>(false)
     const [menuAberto, setMenuAberto] = useState<boolean>(false)
 
-    // Detecta scroll para mudar fundo do header
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 60)
         window.addEventListener("scroll", handleScroll)
         return () => window.removeEventListener("scroll", handleScroll)
     }, [])
 
-    // Fecha menu ao redimensionar para desktop
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth >= 768) setMenuAberto(false)
@@ -312,9 +307,10 @@ export default function Navbar({ visivel }: NavbarProps) {
             <Header $scrolled={scrolled} $visivel={visivel}>
                 <Nav>
 
-                    {/* Logo — planeta pousa aqui vindo do loading */}
+                    {/* Logo — ref exposto para o LoadingScreen calcular destino exato */}
                     <LogoLink href="#home" $aparecer={visivel}>
                         <LogoPlaneta
+                            ref={logoRef}
                             src={`${import.meta.env.BASE_URL}Logo.svg`}
                             alt="Logo Alexon"
                         />
@@ -345,10 +341,8 @@ export default function Navbar({ visivel }: NavbarProps) {
                 </Nav>
             </Header>
 
-            {/* Overlay escuro — fecha o menu ao clicar fora */}
             <Backdrop $aberto={menuAberto} onClick={fecharMenu} />
 
-            {/* Drawer mobile */}
             <MenuMobile $aberto={menuAberto}>
                 {LINKS.map((link) => (
                     <MenuMobileItem
