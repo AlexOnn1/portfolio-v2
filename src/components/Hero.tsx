@@ -54,10 +54,10 @@ const TEXTO_PRINCIPAL = "Front-End Developer"
 
 // Textos secundários — rodam em sequência após a pausa longa
 const TEXTOS_SECUNDARIOS = [
-    "Front-End Developer",
+    "A good Front-End Developer",
     "Nerd 🤓",
     "Future Fullstack Developer",
-    "DungeonMaster",
+    "DungeonMaster 🎲🐲",
     "Hardworking Programmer! 🚀",
     "A awesome person! (i try...)",
 ]
