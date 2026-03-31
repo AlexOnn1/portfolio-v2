@@ -25,6 +25,10 @@ const fadeSlideUp = keyframes`
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0);    }
 `
+const fadeSlideUpCentered = keyframes`
+    from { opacity: 0; transform: translate(-50%, 24px); }
+    to   { opacity: 1; transform: translate(-50%, 0);    }
+`
 
 const piscarCursor = keyframes`
     0%, 100% { opacity: 1; }
@@ -37,9 +41,9 @@ const starTwinkle = keyframes`
 `
 
 const descerSeta = keyframes`
-    0%   { opacity: 0; transform: rotate(45deg) translate(-3px, -3px) translateY(-6px); }
-    50%  { opacity: 1; transform: rotate(45deg) translate(-3px, -3px) translateY(0);    }
-    100% { opacity: 0; transform: rotate(45deg) translate(-3px, -3px) translateY(6px);  }
+    0%   { opacity: 0; transform: translateY(-5px) rotate(45deg); }
+    50%  { opacity: 1; transform: translateY(0) rotate(45deg);    }
+    100% { opacity: 0; transform: translateY(5px) rotate(45deg);  }
 `
 
 /* ================================
@@ -254,14 +258,15 @@ const ScrollIndicator = styled.a`
     position: absolute;
     bottom: 2rem;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%); /* Mantém aqui para o estado inicial antes da animação */
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.4rem;
     text-decoration: none;
     opacity: 0;
-    animation: ${fadeSlideUp} 0.6s ease 1.4s forwards;
+    animation: ${fadeSlideUpCentered} 0.6s ease 1.4s forwards;
+    
     z-index: 1;
 `
 
@@ -278,17 +283,18 @@ const ChevronWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
-    overflow: visible;
+    gap: 6px;
     padding: 4px;
 `
 
-const Chevron = styled.span<{ $delay: number }>`
+/* ChevronItem: só segura o rotate, não anima */
+const ChevronItem = styled.span<{ $delay: number }>`
     display: block;
     width: 10px;
     height: 10px;
     border-right: 2px solid ${colors.mountainMeadow};
     border-bottom: 2px solid ${colors.mountainMeadow};
+    transform: rotate(45deg);
     animation: ${descerSeta} 1.4s ease-in-out infinite;
     animation-delay: ${({ $delay }) => $delay}s;
 `
@@ -443,9 +449,9 @@ export default function Hero() {
             <ScrollIndicator href="#about">
                 <ScrollTexto>scroll</ScrollTexto>
                 <ChevronWrapper>
-                    <Chevron $delay={0}   />
-                    <Chevron $delay={0.2} />
-                    <Chevron $delay={0.4} />
+                    <ChevronItem $delay={0}   />
+                    <ChevronItem $delay={0.2} />
+                    <ChevronItem $delay={0.4} />
                 </ChevronWrapper>
             </ScrollIndicator>
 
