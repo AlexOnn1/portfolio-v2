@@ -329,16 +329,19 @@ Error generating stack: `+e.message+`
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0);    }
 `,Ar=Hn`
+    from { opacity: 0; transform: translate(-50%, 24px); }
+    to   { opacity: 1; transform: translate(-50%, 0);    }
+`,jr=Hn`
     0%, 100% { opacity: 1; }
     50%       { opacity: 0; }
-`,jr=Hn`
+`,Mr=Hn`
     0%, 100% { opacity: 0.15; }
     50%       { opacity: 0.8;  }
-`,Mr=Hn`
-    0%   { opacity: 0; transform: rotate(45deg) translate(-3px, -3px) translateY(-6px); }
-    50%  { opacity: 1; transform: rotate(45deg) translate(-3px, -3px) translateY(0);    }
-    100% { opacity: 0; transform: rotate(45deg) translate(-3px, -3px) translateY(6px);  }
-`,Nr=Array.from({length:60},(e,t)=>({id:t,top:Math.random()*100,left:Math.random()*100,size:Math.random()<.7?1:2,delay:2+Math.random()*4,offset:Math.random()*5})),Pr=`Front-End Developer`,Fr=[`A good Front-End Developer`,`Nerd 🤓`,`Future Fullstack Developer`,`DungeonMaster 🎲🐲`,`Hardworking Programmer! 🚀`,`A awesome person! (i try...)`],Ir=120,Lr=60,Rr=1500,zr=400,Br=15e3,Vr=N.section`
+`,Nr=Hn`
+    0%   { opacity: 0; transform: translateY(-5px) rotate(45deg); }
+    50%  { opacity: 1; transform: translateY(0) rotate(45deg);    }
+    100% { opacity: 0; transform: translateY(5px) rotate(45deg);  }
+`,Pr=Array.from({length:60},(e,t)=>({id:t,top:Math.random()*100,left:Math.random()*100,size:Math.random()<.7?1:2,delay:2+Math.random()*4,offset:Math.random()*5})),Fr=`Front-End Developer`,Ir=[`A good Front-End Developer`,`Nerd 🤓`,`Future Fullstack Developer`,`DungeonMaster 🎲🐲`,`Hardworking Programmer! 🚀`,`A awesome person! (i try...)`],Lr=120,Rr=60,zr=1500,Br=400,Vr=15e3,Hr=N.section`
     position: relative;
     min-height: 100dvh;
     display: flex;
@@ -360,7 +363,7 @@ Error generating stack: `+e.message+`
         text-align: left;
         align-items: flex-start;
     }
-`,Hr=N.span`
+`,Ur=N.span`
     position: absolute;
     width: ${({$size:e})=>e}px;
     height: ${({$size:e})=>e}px;
@@ -369,16 +372,16 @@ Error generating stack: `+e.message+`
     top: ${({$top:e})=>e}%;
     left: ${({$left:e})=>e}%;
     pointer-events: none;
-    animation: ${jr} ${({$delay:e})=>e}s infinite ease-in-out;
+    animation: ${Mr} ${({$delay:e})=>e}s infinite ease-in-out;
     animation-delay: ${({$offset:e})=>e}s;
-`,Ur=N.div`
+`,Wr=N.div`
     position: relative;
     z-index: 1;
     max-width: 800px;
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
-`,Wr=N.p`
+`,Gr=N.p`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: clamp(0.85rem, 2.5vw, 1rem);
     color: ${Or.mountainMeadow};
@@ -386,7 +389,7 @@ Error generating stack: `+e.message+`
     text-transform: uppercase;
     opacity: 0;
     animation: ${kr} 0.6s ease 0.2s forwards;
-`,Gr=N.h1`
+`,Kr=N.h1`
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: clamp(2rem, 8vw, 4.5rem);
     color: ${Or.white};
@@ -397,7 +400,7 @@ Error generating stack: `+e.message+`
     span {
         color: ${Or.caribbeanGreen};
     }
-`,Kr=N.div`
+`,qr=N.div`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -409,20 +412,20 @@ Error generating stack: `+e.message+`
     @media (min-width: 768px) {
         justify-content: flex-start;
     }
-`,qr=N.h2`
+`,Jr=N.h2`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: clamp(1rem, 3.5vw, 1.4rem);
     color: ${Or.mountainMeadow};
     font-weight: 400;
     letter-spacing: 0.05em;
-`,Jr=N.span`
+`,Yr=N.span`
     display: inline-block;
     width: clamp(2px, 0.8vw, 3px);
     height: 1.2em;
     background: ${Or.caribbeanGreen};
     vertical-align: middle;
-    animation: ${Ar} 1s step-end infinite;
-`,Yr=N.p`
+    animation: ${jr} 1s step-end infinite;
+`,Xr=N.p`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: clamp(0.85rem, 2vw, 1rem);
     color: rgba(241, 247, 246, 0.65);
@@ -430,7 +433,7 @@ Error generating stack: `+e.message+`
     max-width: 520px;
     opacity: 0;
     animation: ${kr} 0.6s ease 0.8s forwards;
-`,Xr=N.div`
+`,Zr=N.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -442,7 +445,7 @@ Error generating stack: `+e.message+`
         flex-direction: row;
         align-items: center;
     }
-`,Zr=N.a`
+`,Qr=N.a`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.9rem;
     letter-spacing: 0.1em;
@@ -459,7 +462,7 @@ Error generating stack: `+e.message+`
         background: ${Or.mountainMeadow};
         transform: translateY(-2px);
     }
-`,Qr=N.a`
+`,$r=N.a`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.9rem;
     letter-spacing: 0.1em;
@@ -476,38 +479,39 @@ Error generating stack: `+e.message+`
         background: rgba(0, 223, 145, 0.08);
         transform: translateY(-2px);
     }
-`,$r=N.a`
+`,ei=N.a`
     position: absolute;
     bottom: 2rem;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%); /* Mantém aqui para o estado inicial antes da animação */
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.4rem;
     text-decoration: none;
     opacity: 0;
-    animation: ${kr} 0.6s ease 1.4s forwards;
+    animation: ${Ar} 0.6s ease 1.4s forwards;
+    
     z-index: 1;
-`,ei=N.span`
+`,ti=N.span`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.65rem;
     color: rgba(44, 194, 149, 0.5);
     letter-spacing: 0.2em;
     text-transform: uppercase;
-`,ti=N.div`
+`,ni=N.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
-    overflow: visible;
+    gap: 6px;
     padding: 4px;
-`,ni=N.span`
+`,ri=N.span`
     display: block;
     width: 10px;
     height: 10px;
     border-right: 2px solid ${Or.mountainMeadow};
     border-bottom: 2px solid ${Or.mountainMeadow};
-    animation: ${Mr} 1.4s ease-in-out infinite;
+    transform: rotate(45deg);
+    animation: ${Nr} 1.4s ease-in-out infinite;
     animation-delay: ${({$delay:e})=>e}s;
-`;function ri(){let[e,t]=(0,_.useState)(``),n=(0,_.useRef)(null);return(0,_.useEffect)(()=>{let e=(i,a,o)=>{let s=Fr[o];if(a){let a=i.slice(0,i.length-1);if(t(a),a===``){let t=o+1;t<Fr.length?n.current=setTimeout(()=>e(``,!1,t),zr):n.current=setTimeout(()=>r(``,!1),zr)}else n.current=setTimeout(()=>e(a,!0,o),Lr)}else{let r=s.slice(0,i.length+1);t(r),r===s?n.current=setTimeout(()=>e(r,!0,o),Rr):n.current=setTimeout(()=>e(r,!1,o),Ir)}},r=(i,a)=>{if(a){let a=i.slice(0,i.length-1);t(a),a===``?n.current=setTimeout(()=>e(``,!1,0),zr):n.current=setTimeout(()=>r(a,!0),Lr)}else{let e=Pr.slice(0,i.length+1);t(e),e===Pr?n.current=setTimeout(()=>r(e,!0),Br):n.current=setTimeout(()=>r(e,!1),Ir)}};return n.current=setTimeout(()=>r(``,!1),Ir),()=>{n.current&&clearTimeout(n.current)}},[]),(0,P.jsxs)(Vr,{id:`home`,children:[Nr.map(e=>(0,P.jsx)(Hr,{$top:e.top,$left:e.left,$size:e.size,$delay:e.delay,$offset:e.offset},e.id)),(0,P.jsxs)(Ur,{children:[(0,P.jsx)(Wr,{children:`Hi, i'm`}),(0,P.jsxs)(Gr,{children:[`ALEX`,(0,P.jsx)(`span`,{children:`ON`})]}),(0,P.jsxs)(Kr,{children:[(0,P.jsx)(qr,{children:e}),(0,P.jsx)(Jr,{})]}),(0,P.jsx)(Yr,{children:`Computer Science student passionate about building intuitive and functional web experiences.`}),(0,P.jsxs)(Xr,{children:[(0,P.jsx)(Zr,{href:`#projects`,children:`See my work`}),(0,P.jsx)(Qr,{href:`#contact`,children:`Get in touch`})]})]}),(0,P.jsxs)($r,{href:`#about`,children:[(0,P.jsx)(ei,{children:`scroll`}),(0,P.jsxs)(ti,{children:[(0,P.jsx)(ni,{$delay:0}),(0,P.jsx)(ni,{$delay:.2}),(0,P.jsx)(ni,{$delay:.4})]})]})]})}function ii(){let[e,t]=(0,_.useState)(!1),n=(0,_.useRef)(null);return(0,P.jsxs)(P.Fragment,{children:[!e&&(0,P.jsx)(ur,{onCarregado:()=>t(!0),logoRef:n}),(0,P.jsx)(Dr,{visivel:e,logoRef:n}),(0,P.jsx)(`main`,{children:(0,P.jsx)(ri,{})})]})}(0,v.createRoot)(document.getElementById(`root`)).render((0,P.jsx)(_.StrictMode,{children:(0,P.jsx)(ii,{})}));
+`;function ii(){let[e,t]=(0,_.useState)(``),n=(0,_.useRef)(null);return(0,_.useEffect)(()=>{let e=(i,a,o)=>{let s=Ir[o];if(a){let a=i.slice(0,i.length-1);if(t(a),a===``){let t=o+1;t<Ir.length?n.current=setTimeout(()=>e(``,!1,t),Br):n.current=setTimeout(()=>r(``,!1),Br)}else n.current=setTimeout(()=>e(a,!0,o),Rr)}else{let r=s.slice(0,i.length+1);t(r),r===s?n.current=setTimeout(()=>e(r,!0,o),zr):n.current=setTimeout(()=>e(r,!1,o),Lr)}},r=(i,a)=>{if(a){let a=i.slice(0,i.length-1);t(a),a===``?n.current=setTimeout(()=>e(``,!1,0),Br):n.current=setTimeout(()=>r(a,!0),Rr)}else{let e=Fr.slice(0,i.length+1);t(e),e===Fr?n.current=setTimeout(()=>r(e,!0),Vr):n.current=setTimeout(()=>r(e,!1),Lr)}};return n.current=setTimeout(()=>r(``,!1),Lr),()=>{n.current&&clearTimeout(n.current)}},[]),(0,P.jsxs)(Hr,{id:`home`,children:[Pr.map(e=>(0,P.jsx)(Ur,{$top:e.top,$left:e.left,$size:e.size,$delay:e.delay,$offset:e.offset},e.id)),(0,P.jsxs)(Wr,{children:[(0,P.jsx)(Gr,{children:`Hi, i'm`}),(0,P.jsxs)(Kr,{children:[`ALEX`,(0,P.jsx)(`span`,{children:`ON`})]}),(0,P.jsxs)(qr,{children:[(0,P.jsx)(Jr,{children:e}),(0,P.jsx)(Yr,{})]}),(0,P.jsx)(Xr,{children:`Computer Science student passionate about building intuitive and functional web experiences.`}),(0,P.jsxs)(Zr,{children:[(0,P.jsx)(Qr,{href:`#projects`,children:`See my work`}),(0,P.jsx)($r,{href:`#contact`,children:`Get in touch`})]})]}),(0,P.jsxs)(ei,{href:`#about`,children:[(0,P.jsx)(ti,{children:`scroll`}),(0,P.jsxs)(ni,{children:[(0,P.jsx)(ri,{$delay:0}),(0,P.jsx)(ri,{$delay:.2}),(0,P.jsx)(ri,{$delay:.4})]})]})]})}function ai(){let[e,t]=(0,_.useState)(!1),n=(0,_.useRef)(null);return(0,P.jsxs)(P.Fragment,{children:[!e&&(0,P.jsx)(ur,{onCarregado:()=>t(!0),logoRef:n}),(0,P.jsx)(Dr,{visivel:e,logoRef:n}),(0,P.jsx)(`main`,{children:(0,P.jsx)(ii,{})})]})}(0,v.createRoot)(document.getElementById(`root`)).render((0,P.jsx)(_.StrictMode,{children:(0,P.jsx)(ai,{})}));
