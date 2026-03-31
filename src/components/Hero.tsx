@@ -49,8 +49,14 @@ const STARS_HERO = Array.from({ length: 60 }, (_, i) => ({
     offset: Math.random() * 5,
 }))
 
-// Texto que será digitado
-const TEXTO_DIGITADO = "Front-End Developer"
+// Textos que serão digitados em rotação
+const TEXTOS = [
+    "Front-End Developer",
+    "Nerd 🤓",
+    "Future Fullstack Developer",
+    "Computer Science Student",
+    "Hardworking Programmer 🤓",
+]
 
 // Velocidades e pausas
 const VELOCIDADE_DIGITAR  = 120
@@ -238,61 +244,62 @@ const BotaoSecundario = styled.a`
 
 export default function Hero() {
     const [textoAtual, setTextoAtual] = useState<string>("")
-    const [apagando, setApagando] = useState<boolean>(false)
+    const [indiceTexto, setIndiceTexto] = useState<number>(0)
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
     /*
-       Correção do bug do commit 4:
-       Trocamos setInterval por setTimeout recursivo.
-       Cada chamada agenda o próximo tick com os valores
-       mais recentes de textoAtual e apagando — sem closure
-       congelado, sem array de dependências problemático.
-       O useRef garante o cleanup correto ao desmontar.
+       setTimeout recursivo — sem closure congelado.
+       Ao terminar de apagar avança para o próximo texto
+       da lista TEXTOS em rotação circular.
     */
     useEffect(() => {
-        const tick = (textoCorrente: string, estaApagando: boolean) => {
+        const tick = (textoCorrente: string, estaApagando: boolean, indice: number) => {
+            const textoAlvo = TEXTOS[indice]
+
             if (estaApagando) {
                 const proximo = textoCorrente.slice(0, textoCorrente.length - 1)
                 setTextoAtual(proximo)
 
                 if (proximo === "") {
-                    // Terminou de apagar — pausa e volta a digitar
+                    // Terminou de apagar — avança para o próximo texto
+                    const proximoIndice = (indice + 1) % TEXTOS.length
+                    setIndiceTexto(proximoIndice)
+
                     timeoutRef.current = setTimeout(
-                        () => tick("", false),
+                        () => tick("", false, proximoIndice),
                         PAUSA_ANTES_DIGITAR
                     )
                 } else {
                     timeoutRef.current = setTimeout(
-                        () => tick(proximo, true),
+                        () => tick(proximo, true, indice),
                         VELOCIDADE_APAGAR
                     )
                 }
             } else {
-                const proximo = TEXTO_DIGITADO.slice(0, textoCorrente.length + 1)
+                const proximo = textoAlvo.slice(0, textoCorrente.length + 1)
                 setTextoAtual(proximo)
 
-                if (proximo === TEXTO_DIGITADO) {
+                if (proximo === textoAlvo) {
                     // Terminou de digitar — pausa e começa a apagar
                     timeoutRef.current = setTimeout(
-                        () => tick(proximo, true),
+                        () => tick(proximo, true, indice),
                         PAUSA_ANTES_APAGAR
                     )
                 } else {
                     timeoutRef.current = setTimeout(
-                        () => tick(proximo, false),
+                        () => tick(proximo, false, indice),
                         VELOCIDADE_DIGITAR
                     )
                 }
             }
         }
 
-        // Inicia o primeiro tick
+        // Inicia pelo primeiro texto
         timeoutRef.current = setTimeout(
-            () => tick("", false),
+            () => tick("", false, 0),
             VELOCIDADE_DIGITAR
         )
 
-        // Cleanup — cancela o timeout pendente ao desmontar o componente
         return () => {
             if (timeoutRef.current) clearTimeout(timeoutRef.current)
         }
@@ -321,7 +328,7 @@ export default function Hero() {
                     ALEX<span>ON</span>
                 </Nome>
 
-                {/* Título com animação de digitação final */}
+                {/* Título com rotação de textos digitados */}
                 <TituloContainer>
                     <TituloTexto>{textoAtual}</TituloTexto>
                     <Cursor />
