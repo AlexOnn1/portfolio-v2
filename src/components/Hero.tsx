@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import styled, { keyframes } from "styled-components"
 
 /* ================================
@@ -53,9 +53,9 @@ const STARS_HERO = Array.from({ length: 60 }, (_, i) => ({
 const TEXTO_DIGITADO = "Front-End Developer"
 
 // Velocidades e pausas
-const VELOCIDADE_DIGITAR = 120
-const VELOCIDADE_APAGAR  = 60
-const PAUSA_ANTES_APAGAR = 1500
+const VELOCIDADE_DIGITAR  = 120
+const VELOCIDADE_APAGAR   = 60
+const PAUSA_ANTES_APAGAR  = 1500
 const PAUSA_ANTES_DIGITAR = 400
 
 /* ================================
@@ -239,56 +239,64 @@ const BotaoSecundario = styled.a`
 export default function Hero() {
     const [textoAtual, setTextoAtual] = useState<string>("")
     const [apagando, setApagando] = useState<boolean>(false)
-    const [pausando, setPausando] = useState<boolean>(false)
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
     /*
-       Bug proposital: o useEffect usa "apagando" e "pausando" dentro
-       mas o array de dependências está vazio [].
-       Isso faz com que o closure capture os valores iniciais (false, false)
-       e nunca veja as atualizações de estado — as condições de troca de fase
-       nunca disparam corretamente após o primeiro ciclo.
+       Correção do bug do commit 4:
+       Trocamos setInterval por setTimeout recursivo.
+       Cada chamada agenda o próximo tick com os valores
+       mais recentes de textoAtual e apagando — sem closure
+       congelado, sem array de dependências problemático.
+       O useRef garante o cleanup correto ao desmontar.
     */
     useEffect(() => {
-        if (pausando) return
+        const tick = (textoCorrente: string, estaApagando: boolean) => {
+            if (estaApagando) {
+                const proximo = textoCorrente.slice(0, textoCorrente.length - 1)
+                setTextoAtual(proximo)
 
-        const velocidade = apagando ? VELOCIDADE_APAGAR : VELOCIDADE_DIGITAR
-
-        const intervalo = setInterval(() => {
-            if (apagando) {
-                setTextoAtual((prev) => {
-                    const proximo = prev.slice(0, prev.length - 1)
-
-                    if (proximo === "") {
-                        // Pausa antes de redigitar
-                        setPausando(true)
-                        setTimeout(() => {
-                            setApagando(false)
-                            setPausando(false)
-                        }, PAUSA_ANTES_DIGITAR)
-                    }
-
-                    return proximo
-                })
+                if (proximo === "") {
+                    // Terminou de apagar — pausa e volta a digitar
+                    timeoutRef.current = setTimeout(
+                        () => tick("", false),
+                        PAUSA_ANTES_DIGITAR
+                    )
+                } else {
+                    timeoutRef.current = setTimeout(
+                        () => tick(proximo, true),
+                        VELOCIDADE_APAGAR
+                    )
+                }
             } else {
-                setTextoAtual((prev) => {
-                    const proximo = TEXTO_DIGITADO.slice(0, prev.length + 1)
+                const proximo = TEXTO_DIGITADO.slice(0, textoCorrente.length + 1)
+                setTextoAtual(proximo)
 
-                    if (proximo === TEXTO_DIGITADO) {
-                        // Pausa antes de apagar
-                        setPausando(true)
-                        setTimeout(() => {
-                            setApagando(true)
-                            setPausando(false)
-                        }, PAUSA_ANTES_APAGAR)
-                    }
-
-                    return proximo
-                })
+                if (proximo === TEXTO_DIGITADO) {
+                    // Terminou de digitar — pausa e começa a apagar
+                    timeoutRef.current = setTimeout(
+                        () => tick(proximo, true),
+                        PAUSA_ANTES_APAGAR
+                    )
+                } else {
+                    timeoutRef.current = setTimeout(
+                        () => tick(proximo, false),
+                        VELOCIDADE_DIGITAR
+                    )
+                }
             }
-        }, velocidade)
+        }
 
-        return () => clearInterval(intervalo)
-    }, []) // <- bug: deveria ter [apagando, pausando] aqui
+        // Inicia o primeiro tick
+        timeoutRef.current = setTimeout(
+            () => tick("", false),
+            VELOCIDADE_DIGITAR
+        )
+
+        // Cleanup — cancela o timeout pendente ao desmontar o componente
+        return () => {
+            if (timeoutRef.current) clearTimeout(timeoutRef.current)
+        }
+    }, [])
 
     return (
         <Secao id="home">
@@ -313,7 +321,7 @@ export default function Hero() {
                     ALEX<span>ON</span>
                 </Nome>
 
-                {/* Título com animação de digitação */}
+                {/* Título com animação de digitação final */}
                 <TituloContainer>
                     <TituloTexto>{textoAtual}</TituloTexto>
                     <Cursor />
