@@ -36,6 +36,12 @@ const starTwinkle = keyframes`
     50%       { opacity: 0.8;  }
 `
 
+const descerSeta = keyframes`
+    0%   { opacity: 0; transform: rotate(45deg) translate(-3px, -3px) translateY(-6px); }
+    50%  { opacity: 1; transform: rotate(45deg) translate(-3px, -3px) translateY(0);    }
+    100% { opacity: 0; transform: rotate(45deg) translate(-3px, -3px) translateY(6px);  }
+`
+
 /* ================================
    Estrelas de fundo
    ================================ */
@@ -62,13 +68,11 @@ const TEXTOS_SECUNDARIOS = [
     "A awesome person! (i try...)",
 ]
 
-// Velocidades
-const VELOCIDADE_DIGITAR  = 120
-const VELOCIDADE_APAGAR   = 60
-const PAUSA_ANTES_APAGAR  = 1500
-const PAUSA_ANTES_DIGITAR = 400
-
-// Pausa longa no texto principal antes de começar a rodar os secundários
+// Velocidades e pausas
+const VELOCIDADE_DIGITAR    = 120
+const VELOCIDADE_APAGAR     = 60
+const PAUSA_ANTES_APAGAR    = 1500
+const PAUSA_ANTES_DIGITAR   = 400
 const PAUSA_TEXTO_PRINCIPAL = 15000
 
 /* ================================
@@ -245,6 +249,50 @@ const BotaoSecundario = styled.a`
     }
 `
 
+/* Scroll indicator — fixo no rodapé da seção */
+const ScrollIndicator = styled.a`
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    opacity: 0;
+    animation: ${fadeSlideUp} 0.6s ease 1.4s forwards;
+    z-index: 1;
+`
+
+const ScrollTexto = styled.span`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.65rem;
+    color: rgba(44, 194, 149, 0.5);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+`
+
+/* Três chevrons empilhados com delays diferentes — efeito cascata */
+const ChevronWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    overflow: visible;
+    padding: 4px;
+`
+
+const Chevron = styled.span<{ $delay: number }>`
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid ${colors.mountainMeadow};
+    border-bottom: 2px solid ${colors.mountainMeadow};
+    animation: ${descerSeta} 1.4s ease-in-out infinite;
+    animation-delay: ${({ $delay }) => $delay}s;
+`
+
 /* ================================
    Componente principal
    ================================ */
@@ -254,17 +302,6 @@ export default function Hero() {
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
     useEffect(() => {
-        /*
-           Fluxo:
-           1. Digita TEXTO_PRINCIPAL
-           2. Pausa 15s (PAUSA_TEXTO_PRINCIPAL)
-           3. Apaga e roda todos os TEXTOS_SECUNDARIOS em sequência
-           4. Volta ao TEXTO_PRINCIPAL → pausa 15s → repete
-
-           tickSecundario: responsável por rodar os textos secundários
-           tickPrincipal:  responsável por digitar/apagar o texto principal
-        */
-
         const tickSecundario = (
             textoCorrente: string,
             estaApagando: boolean,
@@ -280,13 +317,11 @@ export default function Hero() {
                     const proximoIndice = indice + 1
 
                     if (proximoIndice < TEXTOS_SECUNDARIOS.length) {
-                        // Ainda tem secundários — avança para o próximo
                         timeoutRef.current = setTimeout(
                             () => tickSecundario("", false, proximoIndice),
                             PAUSA_ANTES_DIGITAR
                         )
                     } else {
-                        // Acabou todos os secundários — volta ao principal
                         timeoutRef.current = setTimeout(
                             () => tickPrincipal("", false),
                             PAUSA_ANTES_DIGITAR
@@ -303,7 +338,6 @@ export default function Hero() {
                 setTextoAtual(proximo)
 
                 if (proximo === textoAlvo) {
-                    // Terminou de digitar o secundário — pausa curta e apaga
                     timeoutRef.current = setTimeout(
                         () => tickSecundario(proximo, true, indice),
                         PAUSA_ANTES_APAGAR
@@ -323,7 +357,6 @@ export default function Hero() {
                 setTextoAtual(proximo)
 
                 if (proximo === "") {
-                    // Apagou o principal — começa o primeiro secundário
                     timeoutRef.current = setTimeout(
                         () => tickSecundario("", false, 0),
                         PAUSA_ANTES_DIGITAR
@@ -339,7 +372,6 @@ export default function Hero() {
                 setTextoAtual(proximo)
 
                 if (proximo === TEXTO_PRINCIPAL) {
-                    // Terminou de digitar o principal — pausa longa de 15s
                     timeoutRef.current = setTimeout(
                         () => tickPrincipal(proximo, true),
                         PAUSA_TEXTO_PRINCIPAL
@@ -353,7 +385,6 @@ export default function Hero() {
             }
         }
 
-        // Inicia pelo texto principal
         timeoutRef.current = setTimeout(
             () => tickPrincipal("", false),
             VELOCIDADE_DIGITAR
@@ -387,7 +418,6 @@ export default function Hero() {
                     ALEX<span>ON</span>
                 </Nome>
 
-                {/* Título com rotação de textos */}
                 <TituloContainer>
                     <TituloTexto>{textoAtual}</TituloTexto>
                     <Cursor />
@@ -408,6 +438,16 @@ export default function Hero() {
                 </BotoesContainer>
 
             </Conteudo>
+
+            {/* Scroll indicator — aparece após tudo carregar */}
+            <ScrollIndicator href="#about">
+                <ScrollTexto>scroll</ScrollTexto>
+                <ChevronWrapper>
+                    <Chevron $delay={0}   />
+                    <Chevron $delay={0.2} />
+                    <Chevron $delay={0.4} />
+                </ChevronWrapper>
+            </ScrollIndicator>
 
         </Secao>
     )
