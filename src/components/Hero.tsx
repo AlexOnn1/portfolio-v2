@@ -49,20 +49,27 @@ const STARS_HERO = Array.from({ length: 60 }, (_, i) => ({
     offset: Math.random() * 5,
 }))
 
-// Textos que serão digitados em rotação
-const TEXTOS = [
+// Texto principal — fica parado por mais tempo
+const TEXTO_PRINCIPAL = "Front-End Developer"
+
+// Textos secundários — rodam em sequência após a pausa longa
+const TEXTOS_SECUNDARIOS = [
     "Front-End Developer",
     "Nerd 🤓",
     "Future Fullstack Developer",
-    "Computer Science Student",
-    "Hardworking Programmer 🤓",
+    "DungeonMaster",
+    "Hardworking Programmer! 🚀",
+    "A awesome person! (i try...)",
 ]
 
-// Velocidades e pausas
+// Velocidades
 const VELOCIDADE_DIGITAR  = 120
 const VELOCIDADE_APAGAR   = 60
 const PAUSA_ANTES_APAGAR  = 1500
 const PAUSA_ANTES_DIGITAR = 400
+
+// Pausa longa no texto principal antes de começar a rodar os secundários
+const PAUSA_TEXTO_PRINCIPAL = 15000
 
 /* ================================
    Styled Components
@@ -244,34 +251,50 @@ const BotaoSecundario = styled.a`
 
 export default function Hero() {
     const [textoAtual, setTextoAtual] = useState<string>("")
-    const [indiceTexto, setIndiceTexto] = useState<number>(0)
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-    /*
-       setTimeout recursivo — sem closure congelado.
-       Ao terminar de apagar avança para o próximo texto
-       da lista TEXTOS em rotação circular.
-    */
     useEffect(() => {
-        const tick = (textoCorrente: string, estaApagando: boolean, indice: number) => {
-            const textoAlvo = TEXTOS[indice]
+        /*
+           Fluxo:
+           1. Digita TEXTO_PRINCIPAL
+           2. Pausa 15s (PAUSA_TEXTO_PRINCIPAL)
+           3. Apaga e roda todos os TEXTOS_SECUNDARIOS em sequência
+           4. Volta ao TEXTO_PRINCIPAL → pausa 15s → repete
+
+           tickSecundario: responsável por rodar os textos secundários
+           tickPrincipal:  responsável por digitar/apagar o texto principal
+        */
+
+        const tickSecundario = (
+            textoCorrente: string,
+            estaApagando: boolean,
+            indice: number
+        ) => {
+            const textoAlvo = TEXTOS_SECUNDARIOS[indice]
 
             if (estaApagando) {
                 const proximo = textoCorrente.slice(0, textoCorrente.length - 1)
                 setTextoAtual(proximo)
 
                 if (proximo === "") {
-                    // Terminou de apagar — avança para o próximo texto
-                    const proximoIndice = (indice + 1) % TEXTOS.length
-                    setIndiceTexto(proximoIndice)
+                    const proximoIndice = indice + 1
 
-                    timeoutRef.current = setTimeout(
-                        () => tick("", false, proximoIndice),
-                        PAUSA_ANTES_DIGITAR
-                    )
+                    if (proximoIndice < TEXTOS_SECUNDARIOS.length) {
+                        // Ainda tem secundários — avança para o próximo
+                        timeoutRef.current = setTimeout(
+                            () => tickSecundario("", false, proximoIndice),
+                            PAUSA_ANTES_DIGITAR
+                        )
+                    } else {
+                        // Acabou todos os secundários — volta ao principal
+                        timeoutRef.current = setTimeout(
+                            () => tickPrincipal("", false),
+                            PAUSA_ANTES_DIGITAR
+                        )
+                    }
                 } else {
                     timeoutRef.current = setTimeout(
-                        () => tick(proximo, true, indice),
+                        () => tickSecundario(proximo, true, indice),
                         VELOCIDADE_APAGAR
                     )
                 }
@@ -280,23 +303,59 @@ export default function Hero() {
                 setTextoAtual(proximo)
 
                 if (proximo === textoAlvo) {
-                    // Terminou de digitar — pausa e começa a apagar
+                    // Terminou de digitar o secundário — pausa curta e apaga
                     timeoutRef.current = setTimeout(
-                        () => tick(proximo, true, indice),
+                        () => tickSecundario(proximo, true, indice),
                         PAUSA_ANTES_APAGAR
                     )
                 } else {
                     timeoutRef.current = setTimeout(
-                        () => tick(proximo, false, indice),
+                        () => tickSecundario(proximo, false, indice),
                         VELOCIDADE_DIGITAR
                     )
                 }
             }
         }
 
-        // Inicia pelo primeiro texto
+        const tickPrincipal = (textoCorrente: string, estaApagando: boolean) => {
+            if (estaApagando) {
+                const proximo = textoCorrente.slice(0, textoCorrente.length - 1)
+                setTextoAtual(proximo)
+
+                if (proximo === "") {
+                    // Apagou o principal — começa o primeiro secundário
+                    timeoutRef.current = setTimeout(
+                        () => tickSecundario("", false, 0),
+                        PAUSA_ANTES_DIGITAR
+                    )
+                } else {
+                    timeoutRef.current = setTimeout(
+                        () => tickPrincipal(proximo, true),
+                        VELOCIDADE_APAGAR
+                    )
+                }
+            } else {
+                const proximo = TEXTO_PRINCIPAL.slice(0, textoCorrente.length + 1)
+                setTextoAtual(proximo)
+
+                if (proximo === TEXTO_PRINCIPAL) {
+                    // Terminou de digitar o principal — pausa longa de 15s
+                    timeoutRef.current = setTimeout(
+                        () => tickPrincipal(proximo, true),
+                        PAUSA_TEXTO_PRINCIPAL
+                    )
+                } else {
+                    timeoutRef.current = setTimeout(
+                        () => tickPrincipal(proximo, false),
+                        VELOCIDADE_DIGITAR
+                    )
+                }
+            }
+        }
+
+        // Inicia pelo texto principal
         timeoutRef.current = setTimeout(
-            () => tick("", false, 0),
+            () => tickPrincipal("", false),
             VELOCIDADE_DIGITAR
         )
 
@@ -328,7 +387,7 @@ export default function Hero() {
                     ALEX<span>ON</span>
                 </Nome>
 
-                {/* Título com rotação de textos digitados */}
+                {/* Título com rotação de textos */}
                 <TituloContainer>
                     <TituloTexto>{textoAtual}</TituloTexto>
                     <Cursor />
