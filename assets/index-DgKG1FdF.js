@@ -334,7 +334,7 @@ Error generating stack: `+e.message+`
 `,Mr=Un`
     0%, 100% { opacity: 0.15; }
     50%       { opacity: 0.8;  }
-`,Nr=Array.from({length:60},(e,t)=>({id:t,top:Math.random()*100,left:Math.random()*100,size:Math.random()<.7?1:2,delay:2+Math.random()*4,offset:Math.random()*5})),Pr=`Front-End Developer`,Fr=[`Front-End Developer`,`Nerd 🤓`,`Future Fullstack Developer`,`DungeonMaster`,`Hardworking Programmer! 🚀`,`A awesome person! (i try...)`],Ir=120,Lr=60,Rr=1500,zr=400,Br=15e3,Vr=M.section`
+`,Nr=Array.from({length:60},(e,t)=>({id:t,top:Math.random()*100,left:Math.random()*100,size:Math.random()<.7?1:2,delay:2+Math.random()*4,offset:Math.random()*5})),Pr=`Front-End Developer`,Fr=[`A good Front-End Developer`,`Nerd 🤓`,`Future Fullstack Developer`,`DungeonMaster 🎲🐲`,`Hardworking Programmer! 🚀`,`A awesome person! (i try...)`],Ir=120,Lr=60,Rr=1500,zr=400,Br=15e3,Vr=M.section`
     position: relative;
     min-height: 100dvh;
     display: flex;
