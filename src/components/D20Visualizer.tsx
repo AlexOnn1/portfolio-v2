@@ -1,4 +1,4 @@
-import { useRef } from "react"
+import { useRef, useEffect, memo } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
 import { Edges, OrbitControls } from "@react-three/drei"
 import styled, { keyframes } from "styled-components"
@@ -7,13 +7,6 @@ import * as THREE from "three"
 import { FaReact, FaPython, FaJs, FaPhp, FaHtml5, FaCss3Alt, FaGithub, FaGitAlt } from "react-icons/fa"
 import { SiMysql } from "react-icons/si"
 
-/* ================================
-   D20Visualizer — Elemento visual
-   D20 3D + órbita de tecnologias
-   Visível apenas em telas >= 992px
-   ================================ */
-
-// Paleta de cores
 const colors = {
     richBlack: "#000F08",
     darkGreen: "#032221",
@@ -23,34 +16,30 @@ const colors = {
     white: "#F1F7F6",
 }
 
-/* ================================
-   Tecnologias na órbita
-   ================================ */
-
 const TECHS = [
-    { icon: FaReact, label: "React", color: "#61DAFB" },
-    { icon: FaPython, label: "Python", color: "#3776AB" },
-    { icon: FaJs, label: "JavaScript", color: "#F7DF1E" },
-    { icon: FaPhp, label: "PHP", color: "#777BB4" },
-    { icon: SiMysql, label: "MySQL", color: "#4479A1" },
-    { icon: FaHtml5, label: "HTML5", color: "#E34F26" },
-    { icon: FaCss3Alt, label: "CSS3", color: "#1572B6" },
-    { icon: FaGithub, label: "GitHub", color: colors.white },
-    { icon: FaGitAlt, label: "Git", color: "#F05032" },
+    { icon: FaReact,   label: "React",      color: "#61DAFB" },
+    { icon: FaPython,  label: "Python",     color: "#3776AB" },
+    { icon: FaJs,      label: "JavaScript", color: "#F7DF1E" },
+    { icon: FaPhp,     label: "PHP",        color: "#777BB4" },
+    { icon: SiMysql,   label: "MySQL",      color: "#4479A1" },
+    { icon: FaHtml5,   label: "HTML5",      color: "#E34F26" },
+    { icon: FaCss3Alt, label: "CSS3",       color: "#1572B6" },
+    { icon: FaGithub,  label: "GitHub",     color: colors.white },
+    { icon: FaGitAlt,  label: "Git",        color: "#F05032" },
 ]
 
 /* ================================
-   Componente 3D — D20
+   D20 Mesh
    ================================ */
 
-function D20() {
+function D20Mesh() {
     const meshRef = useRef<THREE.Mesh>(null)
 
-    // Rotação automática lenta
-    useFrame((_, delta) => {
+    useFrame((state, delta) => {
         if (!meshRef.current) return
         meshRef.current.rotation.x += delta * 0.18
         meshRef.current.rotation.y += delta * 0.28
+        state.invalidate()
     })
 
     return (
@@ -71,12 +60,70 @@ function D20() {
 }
 
 /* ================================
+   Canvas em memo — não re-monta com o pai
+   ================================ */
+
+const D20Canvas = memo(function D20Canvas() {
+    const wrapperRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        /*
+         * O R3F calcula o tamanho do canvas no momento do mount.
+         * Se o componente montar enquanto a animação CSS "entradaVisual"
+         * ainda está rodando (scale: 0.85 → 1, delay 1s, duração 0.9s),
+         * as dimensões ficam erradas e o D20 aparece deslocado.
+         *
+         * Solução dupla:
+         * 1. Três timeouts em momentos diferentes garantem que pelo menos
+         *    um dispare após a animação terminar completamente.
+         * 2. ResizeObserver no wrapper detecta qualquer mudança de tamanho
+         *    causada pela animação CSS e força o R3F a recalcular.
+         */
+        const timers = [
+            setTimeout(() => window.dispatchEvent(new Event("resize")), 100),
+            setTimeout(() => window.dispatchEvent(new Event("resize")), 500),
+            setTimeout(() => window.dispatchEvent(new Event("resize")), 2000),
+        ]
+
+        const observer = new ResizeObserver(() => {
+            window.dispatchEvent(new Event("resize"))
+        })
+
+        if (wrapperRef.current) {
+            observer.observe(wrapperRef.current)
+        }
+
+        return () => {
+            timers.forEach(clearTimeout)
+            observer.disconnect()
+        }
+    }, [])
+
+    return (
+        <CanvasWrapper ref={wrapperRef}>
+            <Canvas
+                camera={{ position: [0, 0, 3.5], fov: 45 }}
+                gl={{ antialias: true, alpha: true }}
+                frameloop="demand"
+                performance={{ min: 0.5 }}
+            >
+                <ambientLight intensity={0.4} />
+                <pointLight position={[5, 5, 5]}   intensity={1.2} color="#ffffff" />
+                <pointLight position={[-5, -3, 2]}  intensity={0.6} color={colors.caribbeanGreen} />
+                <D20Mesh />
+                <OrbitControls enableZoom={false} enablePan={false} />
+            </Canvas>
+        </CanvasWrapper>
+    )
+})
+
+/* ================================
    Animações CSS
    ================================ */
 
 const orbitar = keyframes`
-    from { transform: rotate(0deg);   }
-    to   { transform: rotate(360deg); }
+    from { transform: translate(-50%, -50%) rotate(0deg);   }
+    to   { transform: translate(-50%, -50%) rotate(360deg); }
 `
 
 const antiSpin = keyframes`
@@ -109,33 +156,44 @@ const Container = styled.div`
     animation: ${entradaVisual} 0.9s ease 1s both;
 `
 
-/* Canvas Three.js — centralizado */
 const CanvasWrapper = styled.div`
     position: absolute;
-    width: 300px;  /* Aumentado de 200px para 300px */
-    height: 300px; /* Aumentado de 200px para 300px */
-    z-index: 2;
+    width: 220px;
+    height: 220px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
     cursor: grab;
 
     &:active {
         cursor: grabbing;
     }
+
+    canvas {
+        border-radius: 50%;
+    }
 `
 
-/* Anel que orbita com os ícones */
 const Anel = styled.div`
     position: absolute;
     width: 360px;
     height: 360px;
     border-radius: 50%;
     border: 1.5px dashed rgba(44, 194, 149, 0.35);
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    z-index: 2;
+    pointer-events: none;
+
     animation:
         ${orbitar}  25s linear infinite,
         ${pulsoAnel} 4s ease-in-out infinite;
-    z-index: 1;
 `
 
-/* Cada ícone posicionado no anel */
 interface IconWrapperProps {
     $angulo: number
     $corHover: string
@@ -149,23 +207,17 @@ const IconWrapper = styled.div<IconWrapperProps>`
     align-items: center;
     justify-content: center;
     border-radius: 50%;
+    pointer-events: auto;
     background: rgba(3, 34, 33, 0.85);
     border: 1px solid rgba(44, 194, 149, 0.2);
     cursor: default;
-    transition: transform 0.3s ease, color 0.3s ease, border-color 0.3s ease,
-                box-shadow 0.3s ease;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 
-    /*
-       Posiciona o ícone na borda do anel usando trigonometria:
-       - raio de 180px (metade dos 360px do anel)
-       - offset de -20px para centralizar o ícone (metade de 40px)
-    */
     left: ${({ $angulo }) =>
         `calc(50% + ${Math.cos(($angulo * Math.PI) / 180) * 180}px - 20px)`};
     top: ${({ $angulo }) =>
         `calc(50% + ${Math.sin(($angulo * Math.PI) / 180) * 180}px - 20px)`};
 
-    /* Anti-spin: cancela a rotação do anel pai para o ícone ficar sempre "em pé" */
     & > span {
         animation: ${antiSpin} 25s linear infinite;
         display: flex;
@@ -187,7 +239,6 @@ const IconWrapper = styled.div<IconWrapperProps>`
     }
 `
 
-/* Brilho central atrás do canvas */
 const Brilho = styled.div`
     position: absolute;
     width: 180px;
@@ -200,6 +251,9 @@ const Brilho = styled.div`
     );
     z-index: 0;
     pointer-events: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 `
 
 /* ================================
@@ -209,29 +263,10 @@ const Brilho = styled.div`
 export default function D20Visualizer() {
     return (
         <Container>
-
-            {/* Brilho verde atrás do D20 */}
             <Brilho />
-
-            {/* D20 3D */}
-            <CanvasWrapper>
-                <Canvas
-                    camera={{ position: [0, 0, 5.5], fov: 45 }} /* Eixo Z alterado de 4 para 5.5 */
-                    gl={{ antialias: true, alpha: true }}
-                >
-                    {/* O resto continua igual... */}
-                    <ambientLight intensity={0.4} />
-                    <pointLight position={[5, 5, 5]} intensity={1.2} color="#ffffff" />
-                    <pointLight position={[-5, -3, 2]} intensity={0.6} color={colors.caribbeanGreen} />
-                    <D20 />
-                    <OrbitControls enableZoom={false} enablePan={false} />
-                </Canvas>
-            </CanvasWrapper>
-
-            {/* Anel com ícones de tecnologias */}
+            <D20Canvas />
             <Anel>
                 {TECHS.map((tech, index) => {
-                    // Distribui os ícones igualmente ao longo do círculo
                     const angulo = (index / TECHS.length) * 360 - 90
 
                     return (
@@ -248,7 +283,6 @@ export default function D20Visualizer() {
                     )
                 })}
             </Anel>
-
         </Container>
     )
 }
