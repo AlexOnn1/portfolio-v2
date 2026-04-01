@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 import styled, { keyframes } from "styled-components"
+import D20Visualizer from "./D20Visualizer"
 
 /* ================================
    Hero — Seção principal
@@ -25,10 +26,6 @@ const fadeSlideUp = keyframes`
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0);    }
 `
-const fadeSlideUpCentered = keyframes`
-    from { opacity: 0; transform: translate(-50%, 24px); }
-    to   { opacity: 1; transform: translate(-50%, 0);    }
-`
 
 const piscarCursor = keyframes`
     0%, 100% { opacity: 1; }
@@ -41,9 +38,9 @@ const starTwinkle = keyframes`
 `
 
 const descerSeta = keyframes`
-    0%   { opacity: 0; transform: translateY(-5px) rotate(45deg); }
-    50%  { opacity: 1; transform: translateY(0) rotate(45deg);    }
-    100% { opacity: 0; transform: translateY(5px) rotate(45deg);  }
+    0%   { opacity: 0; transform: translateY(-6px) rotate(45deg) translate(-2px, -2px); }
+    50%  { opacity: 1; transform: translateY(0) rotate(45deg) translate(-2px, -2px);    }
+    100% { opacity: 0; transform: translateY(6px) rotate(45deg) translate(-2px, -2px);  }
 `
 
 /* ================================
@@ -104,6 +101,24 @@ const Secao = styled.section`
         padding: 8rem 3rem 4rem;
         text-align: left;
         align-items: flex-start;
+    }
+
+    @media (min-width: 992px) {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+`
+
+/* Wrapper do lado direito — esconde no mobile */
+const LadoDireito = styled.div`
+    display: none;
+
+    @media (min-width: 992px) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
     }
 `
 
@@ -257,16 +272,15 @@ const BotaoSecundario = styled.a`
 const ScrollIndicator = styled.a`
     position: absolute;
     bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%); /* Mantém aqui para o estado inicial antes da animação */
+    left: 0;           
+    width: 100%;      
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.4rem;
     text-decoration: none;
     opacity: 0;
-    animation: ${fadeSlideUpCentered} 0.6s ease 1.4s forwards;
-    
+    animation: ${fadeSlideUp} 0.6s ease 1.4s forwards;
     z-index: 1;
 `
 
@@ -283,18 +297,18 @@ const ChevronWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
+    overflow: visible;
     padding: 4px;
 `
 
-/* ChevronItem: só segura o rotate, não anima */
-const ChevronItem = styled.span<{ $delay: number }>`
+const Chevron = styled.span<{ $delay: number }>`
     display: block;
     width: 10px;
     height: 10px;
     border-right: 2px solid ${colors.mountainMeadow};
     border-bottom: 2px solid ${colors.mountainMeadow};
-    transform: rotate(45deg);
+    transform: rotate(45deg) translate(-2px, -2px);
     animation: ${descerSeta} 1.4s ease-in-out infinite;
     animation-delay: ${({ $delay }) => $delay}s;
 `
@@ -416,6 +430,7 @@ export default function Hero() {
                 />
             ))}
 
+            {/* Lado esquerdo — conteúdo textual */}
             <Conteudo>
 
                 <Saudacao>Hi, i'm</Saudacao>
@@ -445,13 +460,18 @@ export default function Hero() {
 
             </Conteudo>
 
+            {/* Lado direito — D20 + órbita de tecnologias (desktop only) */}
+            <LadoDireito>
+                <D20Visualizer />
+            </LadoDireito>
+
             {/* Scroll indicator — aparece após tudo carregar */}
             <ScrollIndicator href="#about">
                 <ScrollTexto>scroll</ScrollTexto>
                 <ChevronWrapper>
-                    <ChevronItem $delay={0}   />
-                    <ChevronItem $delay={0.2} />
-                    <ChevronItem $delay={0.4} />
+                    <Chevron $delay={0}   />
+                    <Chevron $delay={0.2} />
+                    <Chevron $delay={0.4} />
                 </ChevronWrapper>
             </ScrollIndicator>
 
