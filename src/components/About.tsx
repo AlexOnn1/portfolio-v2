@@ -171,6 +171,68 @@ const Paragrafo = styled.p`
     line-height: 1.9;
 `
 
+/* Cards de resumo — "Too long? Didn't read?" */
+const CardsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    animation: ${fadeSlideUp} 0.6s ease 0.4s both;
+`
+
+const CardsTitulo = styled.p`
+    font-family: "Press Start 2P", "Courier New", monospace;
+    font-size: 0.6rem;
+    color: ${colors.caribbeanGreen};
+    letter-spacing: 0.05em;
+    opacity: 0.8;
+`
+
+const CardsGrid = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+
+    @media (min-width: 480px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+`
+
+const Card = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    background: rgba(3, 98, 76, 0.2);
+    border: 1px solid rgba(44, 194, 149, 0.15);
+    border-radius: 8px;
+    transition: background 0.3s ease, border-color 0.3s ease;
+
+    &:hover {
+        background: rgba(3, 98, 76, 0.35);
+        border-color: rgba(44, 194, 149, 0.4);
+    }
+`
+
+const CardIcone = styled.span`
+    font-size: 1.3rem;
+    flex-shrink: 0;
+`
+
+const CardTexto = styled.span`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.8rem;
+    color: ${colors.white};
+    letter-spacing: 0.02em;
+`
+
+/* Dados dos cards */
+const CARDS = [
+    { icone: "⌨️", texto: "Web Developer"       },
+    { icone: "📖", texto: "Front-End Enthusiast" },
+    { icone: "🎲", texto: "Nerd"                 },
+]
+
 /* ================================
    Componente principal
    ================================ */
@@ -218,6 +280,20 @@ export default function About() {
                             exploring new design concepts, or planning my next steps in the
                             world of technology.
                         </Paragrafo>
+
+                        {/* Cards de resumo — "Too long? Didn't read?" */}
+                        <CardsContainer>
+                            <CardsTitulo>Too long? Didn't read? A summary for you:</CardsTitulo>
+                            <CardsGrid>
+                                {CARDS.map((card) => (
+                                    <Card key={card.texto}>
+                                        <CardIcone>{card.icone}</CardIcone>
+                                        <CardTexto>{card.texto}</CardTexto>
+                                    </Card>
+                                ))}
+                            </CardsGrid>
+                        </CardsContainer>
+
                     </TextoContainer>
 
                 </Grid>

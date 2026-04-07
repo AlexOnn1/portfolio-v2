@@ -239,6 +239,28 @@ const MenuMobile = styled.div<MenuMobileProps>`
     }
 `
 
+/* Botão de fechar — canto superior direito do drawer */
+const BtnFechar = styled.button`
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid rgba(44, 194, 149, 0.3);
+    color: ${colors.caribbeanGreen};
+    font-size: 1.1rem;
+    transition: background 0.2s ease, border-color 0.2s ease;
+
+    &:hover {
+        background: rgba(0, 223, 145, 0.1);
+        border-color: ${colors.caribbeanGreen};
+    }
+`
+
 const MenuMobileItem = styled.a`
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: 1rem;
@@ -344,6 +366,12 @@ export default function Navbar({ visivel, logoRef }: NavbarProps) {
             <Backdrop $aberto={menuAberto} onClick={fecharMenu} />
 
             <MenuMobile $aberto={menuAberto}>
+
+                {/* Botão de fechar — canto superior direito do drawer */}
+                <BtnFechar onClick={fecharMenu} aria-label="Fechar menu">
+                    ✕
+                </BtnFechar>
+
                 {LINKS.map((link) => (
                     <MenuMobileItem
                         key={link.href}
