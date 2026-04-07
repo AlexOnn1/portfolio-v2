@@ -1,8 +1,11 @@
-import styled, { keyframes } from "styled-components"
+import { useRef, useEffect } from "react"
+import styled, { keyframes, css } from "styled-components"
+import { FaReact, FaPython, FaJs, FaPhp, FaHtml5, FaCss3Alt, FaGithub, FaGitAlt, FaWordpress } from "react-icons/fa"
+import { SiMysql, SiTailwindcss, SiDjango } from "react-icons/si"
 
 /* ================================
    About — Seção sobre mim
-   Mobile-first | Estrutura base
+   Mobile-first | Animações com IntersectionObserver
    ================================ */
 
 // Paleta de cores
@@ -16,12 +19,28 @@ const colors = {
 }
 
 /* ================================
-   Animações
+   Animações — disparadas pelo IntersectionObserver
    ================================ */
 
 const fadeSlideUp = keyframes`
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0);    }
+`
+
+/*
+   Elementos iniciam invisíveis.
+   Quando o IntersectionObserver detecta que entraram na viewport,
+   adiciona a classe "visivel" que dispara o fadeSlideUp.
+   Cada bloco tem um delay diferente para efeito escalonado.
+*/
+const animacaoBase = css`
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.01s; /* fallback sem JS */
+
+    &.visivel {
+        animation: ${fadeSlideUp} 0.7s ease forwards;
+    }
 `
 
 /* ================================
@@ -51,7 +70,11 @@ const TituloContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    animation: ${fadeSlideUp} 0.6s ease forwards;
+    ${animacaoBase}
+
+    &.visivel {
+        animation-delay: 0s;
+    }
 `
 
 const Rotulo = styled.span`
@@ -89,7 +112,11 @@ const Grid = styled.div`
     display: grid;
     grid-template-columns: 1fr;
     gap: 2.5rem;
-    animation: ${fadeSlideUp} 0.6s ease 0.2s both;
+    ${animacaoBase}
+
+    &.visivel {
+        animation-delay: 0.15s;
+    }
 
     @media (min-width: 768px) {
         grid-template-columns: 280px 1fr;
@@ -177,7 +204,11 @@ const CardsContainer = styled.div`
     flex-direction: column;
     gap: 1rem;
     margin-top: 0.5rem;
-    animation: ${fadeSlideUp} 0.6s ease 0.4s both;
+    ${animacaoBase}
+
+    &.visivel {
+        animation-delay: 0.3s;
+    }
 `
 
 const CardsTitulo = styled.p`
@@ -234,16 +265,161 @@ const CARDS = [
 ]
 
 /* ================================
+   Skills — tecnologias conhecidas
+   ================================ */
+
+const SKILLS = [
+    { icone: FaHtml5,      label: "HTML5",      cor: "#E34F26" },
+    { icone: FaCss3Alt,    label: "CSS3",        cor: "#1572B6" },
+    { icone: FaJs,         label: "JavaScript",  cor: "#F7DF1E" },
+    { icone: FaReact,      label: "React",       cor: "#61DAFB" },
+    { icone: SiTailwindcss,label: "Tailwind",    cor: "#38BDF8" },
+    { icone: FaPython,     label: "Python",      cor: "#3776AB" },
+    { icone: SiDjango,     label: "Django",      cor: "#092E20" },
+    { icone: FaPhp,        label: "PHP",         cor: "#777BB4" },
+    { icone: SiMysql,      label: "MySQL",       cor: "#4479A1" },
+    { icone: FaWordpress,  label: "WordPress",   cor: "#21759B" },
+    { icone: FaGithub,     label: "GitHub",      cor: "#F1F7F6" },
+    { icone: FaGitAlt,     label: "Git",         cor: "#F05032" },
+]
+
+/* Seção de skills */
+const SkillsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    ${animacaoBase}
+
+    &.visivel {
+        animation-delay: 0.1s;
+    }
+`
+
+const SkillsRotulo = styled.span`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.75rem;
+    color: ${colors.caribbeanGreen};
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+`
+
+const SkillsTitulo = styled.h3`
+    font-family: "Press Start 2P", "Courier New", monospace;
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    color: ${colors.white};
+    line-height: 1.4;
+    margin-top: 0.25rem;
+`
+
+const SkillsGrid = styled.div`
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+
+    @media (min-width: 480px) {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+    @media (min-width: 768px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (min-width: 992px) {
+        grid-template-columns: repeat(6, 1fr);
+    }
+`
+
+interface SkillCardProps {
+    $cor: string
+}
+
+const SkillCard = styled.div<SkillCardProps>`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.85rem 0.5rem;
+    background: rgba(3, 98, 76, 0.15);
+    border: 1px solid rgba(44, 194, 149, 0.12);
+    border-radius: 10px;
+    cursor: default;
+    transition: background 0.3s ease, border-color 0.3s ease,
+                transform 0.2s ease, box-shadow 0.3s ease;
+
+    /* Ícone */
+    svg {
+        font-size: 1.6rem;
+        color: rgba(241, 247, 246, 0.5);
+        transition: color 0.3s ease;
+    }
+
+    &:hover {
+        background: rgba(3, 98, 76, 0.3);
+        border-color: ${({ $cor }) => $cor}55;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px ${({ $cor }) => $cor}22;
+
+        svg {
+            color: ${({ $cor }) => $cor};
+        }
+    }
+`
+
+const SkillLabel = styled.span`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.6rem;
+    color: rgba(241, 247, 246, 0.5);
+    text-align: center;
+    letter-spacing: 0.03em;
+    transition: color 0.3s ease;
+
+    ${SkillCard}:hover & {
+        color: rgba(241, 247, 246, 0.9);
+    }
+`
+
+/* ================================
    Componente principal
    ================================ */
 
 export default function About() {
+    const tituloRef  = useRef<HTMLDivElement>(null)
+    const gridRef    = useRef<HTMLDivElement>(null)
+    const cardsRef   = useRef<HTMLDivElement>(null)
+    const skillsRef  = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        const elementos = [
+            tituloRef.current,
+            gridRef.current,
+            cardsRef.current,
+            skillsRef.current,
+        ].filter(Boolean) as HTMLElement[]
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visivel")
+                        observer.unobserve(entry.target)
+                    }
+                })
+            },
+            { threshold: 0.15 }
+        )
+
+        elementos.forEach((el) => observer.observe(el))
+
+        return () => observer.disconnect()
+    }, [])
+
     return (
         <Secao id="about">
             <Container>
 
                 {/* Título da seção */}
-                <TituloContainer>
+                <TituloContainer ref={tituloRef}>
                     <Rotulo>// about me</Rotulo>
                     <Titulo>
                         A little <span>about</span> me
@@ -252,7 +428,7 @@ export default function About() {
                 </TituloContainer>
 
                 {/* Grid foto + texto */}
-                <Grid>
+                <Grid ref={gridRef}>
 
                     {/* Foto */}
                     <FotoContainer>
@@ -282,7 +458,7 @@ export default function About() {
                         </Paragrafo>
 
                         {/* Cards de resumo — "Too long? Didn't read?" */}
-                        <CardsContainer>
+                        <CardsContainer ref={cardsRef}>
                             <CardsTitulo>Too long? Didn't read? A summary for you:</CardsTitulo>
                             <CardsGrid>
                                 {CARDS.map((card) => (
@@ -297,6 +473,22 @@ export default function About() {
                     </TextoContainer>
 
                 </Grid>
+
+                {/* Skills — tecnologias conhecidas */}
+                <SkillsContainer ref={skillsRef}>
+                    <div>
+                        <SkillsRotulo>// known technologies</SkillsRotulo>
+                        <SkillsTitulo>What I work with</SkillsTitulo>
+                    </div>
+                    <SkillsGrid>
+                        {SKILLS.map((skill) => (
+                            <SkillCard key={skill.label} $cor={skill.cor} title={skill.label}>
+                                <skill.icone />
+                                <SkillLabel>{skill.label}</SkillLabel>
+                            </SkillCard>
+                        ))}
+                    </SkillsGrid>
+                </SkillsContainer>
 
             </Container>
         </Secao>
