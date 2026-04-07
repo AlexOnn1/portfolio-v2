@@ -2,9 +2,9 @@ import { useState, useRef } from "react"
 import LoadingScreen from "./components/LoadingScreen"
 import Navbar from "./components/Navbar"
 import Hero from "./components/Hero"
+import About from "./components/About"
 
 // Seções do portfólio (serão importadas conforme formos construindo)
-// import About from "./components/About"
 // import Experience from "./components/Experience"
 // import Projects from "./components/Projects"
 // import Contact from "./components/Contact"
@@ -38,7 +38,7 @@ export default function App() {
             {/* Portfólio principal */}
             <main>
                 <Hero />
-                {/* <About /> */}
+                <About />
                 {/* <Experience /> */}
                 {/* <Projects /> */}
             </main>
