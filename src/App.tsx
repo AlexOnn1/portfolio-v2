@@ -3,9 +3,9 @@ import LoadingScreen from "./components/LoadingScreen"
 import Navbar from "./components/Navbar"
 import Hero from "./components/Hero"
 import About from "./components/About"
+import Experience from "./components/Experience"
 
 // Seções do portfólio (serão importadas conforme formos construindo)
-// import Experience from "./components/Experience"
 // import Projects from "./components/Projects"
 // import Contact from "./components/Contact"
 
@@ -39,7 +39,7 @@ export default function App() {
             <main>
                 <Hero />
                 <About />
-                {/* <Experience /> */}
+                <Experience />
                 {/* <Projects /> */}
             </main>
 
