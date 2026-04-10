@@ -5376,4 +5376,146 @@ No matching component was found for:
     ${pT}:hover & {
         color: rgba(241, 247, 246, 0.9);
     }
-`;function hT(){let e=(0,v.useRef)(null),t=(0,v.useRef)(null),n=(0,v.useRef)(null),r=(0,v.useRef)(null);return(0,v.useEffect)(()=>{let i=[e.current,t.current,n.current,r.current].filter(Boolean),a=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&(e.target.classList.add(`visivel`),a.unobserve(e.target))})},{threshold:.15});return i.forEach(e=>a.observe(e)),()=>a.disconnect()},[]),(0,B.jsx)(Uw,{id:`about`,children:(0,B.jsxs)(Ww,{children:[(0,B.jsxs)(Gw,{ref:e,children:[(0,B.jsx)(Kw,{children:`// about me`}),(0,B.jsxs)(qw,{children:[`A little `,(0,B.jsx)(`span`,{children:`about`}),` me`]}),(0,B.jsx)(Jw,{})]}),(0,B.jsxs)(Yw,{ref:t,children:[(0,B.jsx)(Xw,{children:(0,B.jsx)(Zw,{children:(0,B.jsx)(Qw,{children:`A`})})}),(0,B.jsxs)($w,{children:[(0,B.jsx)(eT,{children:`Hi, I'm Alex, a developer constantly involved and passionate about creating intuitive and functional web experiences. I focus on HTML, CSS, and responsive design, always striving to combine aesthetics and efficiency in every project I work on.`}),(0,B.jsx)(eT,{children:`My journey in programming is fueled by curiosity and a desire to turn ideas into reality. I love tackling technical challenges, seeing every line of code as an opportunity to learn and grow.`}),(0,B.jsx)(eT,{children:`When I'm not coding, you'll probably find me enjoying D&D, exploring new design concepts, or planning my next steps in the world of technology.`}),(0,B.jsxs)(tT,{ref:n,children:[(0,B.jsx)(nT,{children:`Too long? Didn't read? A summary for you:`}),(0,B.jsx)(rT,{children:sT.map(e=>(0,B.jsxs)(iT,{children:[(0,B.jsx)(aT,{children:e.icone}),(0,B.jsx)(oT,{children:e.texto})]},e.texto))})]})]})]}),(0,B.jsxs)(lT,{ref:r,children:[(0,B.jsxs)(`div`,{children:[(0,B.jsx)(uT,{children:`// known technologies`}),(0,B.jsx)(dT,{children:`What I work with`})]}),(0,B.jsx)(fT,{children:cT.map(e=>(0,B.jsxs)(pT,{$cor:e.cor,title:e.label,children:[(0,B.jsx)(e.icone,{}),(0,B.jsx)(mT,{children:e.label})]},e.label))})]})]})})}function gT(){let[e,t]=(0,v.useState)(!1),n=(0,v.useRef)(null);return(0,B.jsxs)(B.Fragment,{children:[!e&&(0,B.jsx)(ar,{onCarregado:()=>t(!0),logoRef:n}),(0,B.jsx)(Cr,{visivel:e,logoRef:n}),(0,B.jsxs)(`main`,{children:[(0,B.jsx)(Bw,{}),(0,B.jsx)(hT,{})]})]})}(0,y.createRoot)(document.getElementById(`root`)).render((0,B.jsx)(v.StrictMode,{children:(0,B.jsx)(gT,{})}));
+`;function hT(){let e=(0,v.useRef)(null),t=(0,v.useRef)(null),n=(0,v.useRef)(null),r=(0,v.useRef)(null);return(0,v.useEffect)(()=>{let i=[e.current,t.current,n.current,r.current].filter(Boolean),a=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&(e.target.classList.add(`visivel`),a.unobserve(e.target))})},{threshold:.15});return i.forEach(e=>a.observe(e)),()=>a.disconnect()},[]),(0,B.jsx)(Uw,{id:`about`,children:(0,B.jsxs)(Ww,{children:[(0,B.jsxs)(Gw,{ref:e,children:[(0,B.jsx)(Kw,{children:`// about me`}),(0,B.jsxs)(qw,{children:[`A little `,(0,B.jsx)(`span`,{children:`about`}),` me`]}),(0,B.jsx)(Jw,{})]}),(0,B.jsxs)(Yw,{ref:t,children:[(0,B.jsx)(Xw,{children:(0,B.jsx)(Zw,{children:(0,B.jsx)(Qw,{children:`A`})})}),(0,B.jsxs)($w,{children:[(0,B.jsx)(eT,{children:`Hi, I'm Alex, a developer constantly involved and passionate about creating intuitive and functional web experiences. I focus on HTML, CSS, and responsive design, always striving to combine aesthetics and efficiency in every project I work on.`}),(0,B.jsx)(eT,{children:`My journey in programming is fueled by curiosity and a desire to turn ideas into reality. I love tackling technical challenges, seeing every line of code as an opportunity to learn and grow.`}),(0,B.jsx)(eT,{children:`When I'm not coding, you'll probably find me enjoying D&D, exploring new design concepts, or planning my next steps in the world of technology.`}),(0,B.jsxs)(tT,{ref:n,children:[(0,B.jsx)(nT,{children:`Too long? Didn't read? A summary for you:`}),(0,B.jsx)(rT,{children:sT.map(e=>(0,B.jsxs)(iT,{children:[(0,B.jsx)(aT,{children:e.icone}),(0,B.jsx)(oT,{children:e.texto})]},e.texto))})]})]})]}),(0,B.jsxs)(lT,{ref:r,children:[(0,B.jsxs)(`div`,{children:[(0,B.jsx)(uT,{children:`// known technologies`}),(0,B.jsx)(dT,{children:`What I work with`})]}),(0,B.jsx)(fT,{children:cT.map(e=>(0,B.jsxs)(pT,{$cor:e.cor,title:e.label,children:[(0,B.jsx)(e.icone,{}),(0,B.jsx)(mT,{children:e.label})]},e.label))})]})]})})}var gT={richBlack:`#000F08`,darkGreen:`#032221`,bangladeshGreen:`#03624C`,mountainMeadow:`#2CC295`,caribbeanGreen:`#00DF91`,white:`#F1F7F6`},_T=[{cargo:`Programming Instructor Intern`,empresa:`Microlins`,periodo:`Jun/2025 — Present`,tipo:`work`,descricao:[`Support for theoretical and practical classes, ensuring alignment with the teaching plan.`,`Individual student assistance, resolving doubts and monitoring academic progress.`,`Application of exercises and practical activities to reinforce content.`,`Collaboration in preparation and organization of teaching materials.`,`Development of communication, teaching and interpersonal relationship skills.`]},{cargo:`Front-End Developer`,empresa:`Freelancer — siegvfx.com`,periodo:`Aug/2024 — Sep/2024`,tipo:`work`,descricao:[`Development of siegvfx.com with focus on responsive design and user experience.`,`Application of coding best practices, ensuring performance and maintainability.`,`Implementation of adaptive layouts and cross-browser compatibility.`,`Versioning with Git and GitHub, demonstrating code control and best practices.`]},{cargo:`Customer Service Representative`,empresa:`AlmaViva do Brasil`,periodo:`Jun/2023 — Apr/2024`,tipo:`work`,descricao:[`Receptive customer service focused on problem resolution and satisfaction.`,`Strategic customer retention using argumentation and negotiation techniques.`,`Service sales, contributing to revenue growth and goal achievement.`,`Recording and tracking calls, ensuring quality and assertiveness in service.`]}],vT=[{curso:`Bachelor's in Computer Science`,instituicao:`Uninassau`,periodo:`2025 — Present`,tipo:`education`},{curso:`Technical Degree in Internet IT`,instituicao:`SENAI`,periodo:`2019 — 2021`,tipo:`education`}],yT=Ln`
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0);    }
+`,bT=z.section`
+    position: relative;
+    background-color: ${gT.richBlack};
+    padding: 5rem 1.5rem;
+
+    @media (min-width: 768px) {
+        padding: 7rem 3rem;
+    }
+`,xT=z.div`
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+`,ST=z.div`
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    animation: ${yT} 0.6s ease forwards;
+`,CT=z.span`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.75rem;
+    color: ${gT.caribbeanGreen};
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+`,wT=z.h2`
+    font-family: "Press Start 2P", "Courier New", monospace;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    color: ${gT.white};
+    line-height: 1.4;
+
+    span {
+        color: ${gT.caribbeanGreen};
+    }
+`,TT=z.div`
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, ${gT.caribbeanGreen}, transparent);
+    margin-top: 0.5rem;
+`,ET=z.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+
+    @media (min-width: 768px) {
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+    }
+`,DT=z.div`
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+`,OT=z.h3`
+    font-family: "Press Start 2P", "Courier New", monospace;
+    font-size: 0.75rem;
+    color: ${gT.mountainMeadow};
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+`,kT=z.div`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+
+    /* Linha vertical */
+    &::before {
+        content: "";
+        position: absolute;
+        left: 7px;
+        top: 8px;
+        bottom: 0;
+        width: 1px;
+        background: linear-gradient(
+            to bottom,
+            ${gT.caribbeanGreen},
+            transparent
+        );
+    }
+`,AT=z.div`
+    position: relative;
+    padding-left: 2.5rem;
+    padding-bottom: 2.5rem;
+
+    /* Ponto na timeline */
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 8px;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background: ${gT.bangladeshGreen};
+        border: 2px solid ${gT.caribbeanGreen};
+        z-index: 1;
+    }
+
+    &:last-child {
+        padding-bottom: 0;
+    }
+`,jT=z.span`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.7rem;
+    color: ${gT.caribbeanGreen};
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 0.4rem;
+`,MT=z.h4`
+    font-family: "Press Start 2P", "Courier New", monospace;
+    font-size: 0.65rem;
+    color: ${gT.white};
+    line-height: 1.6;
+    margin-bottom: 0.25rem;
+`,NT=z.span`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.8rem;
+    color: ${gT.mountainMeadow};
+    display: block;
+    margin-bottom: 0.75rem;
+`,PT=z.ul`
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    list-style: none;
+`,FT=z.li`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.78rem;
+    color: rgba(241, 247, 246, 0.6);
+    line-height: 1.7;
+    padding-left: 1rem;
+    position: relative;
+
+    &::before {
+        content: "›";
+        position: absolute;
+        left: 0;
+        color: ${gT.caribbeanGreen};
+    }
+`;function IT(){return(0,B.jsx)(bT,{id:`experience`,children:(0,B.jsxs)(xT,{children:[(0,B.jsxs)(ST,{children:[(0,B.jsx)(CT,{children:`// my journey`}),(0,B.jsxs)(wT,{children:[`Experience & `,(0,B.jsx)(`span`,{children:`Education`})]}),(0,B.jsx)(TT,{})]}),(0,B.jsxs)(ET,{children:[(0,B.jsxs)(DT,{children:[(0,B.jsx)(OT,{children:`Work Experience`}),(0,B.jsx)(kT,{children:_T.map(e=>(0,B.jsxs)(AT,{children:[(0,B.jsx)(jT,{children:e.periodo}),(0,B.jsx)(MT,{children:e.cargo}),(0,B.jsx)(NT,{children:e.empresa}),(0,B.jsx)(PT,{children:e.descricao.map((e,t)=>(0,B.jsx)(FT,{children:e},t))})]},e.empresa))})]}),(0,B.jsxs)(DT,{children:[(0,B.jsx)(OT,{children:`Education`}),(0,B.jsx)(kT,{children:vT.map(e=>(0,B.jsxs)(AT,{children:[(0,B.jsx)(jT,{children:e.periodo}),(0,B.jsx)(MT,{children:e.curso}),(0,B.jsx)(NT,{children:e.instituicao})]},e.instituicao))})]})]})]})})}function LT(){let[e,t]=(0,v.useState)(!1),n=(0,v.useRef)(null);return(0,B.jsxs)(B.Fragment,{children:[!e&&(0,B.jsx)(ar,{onCarregado:()=>t(!0),logoRef:n}),(0,B.jsx)(Cr,{visivel:e,logoRef:n}),(0,B.jsxs)(`main`,{children:[(0,B.jsx)(Bw,{}),(0,B.jsx)(hT,{}),(0,B.jsx)(IT,{})]})]})}(0,y.createRoot)(document.getElementById(`root`)).render((0,B.jsx)(v.StrictMode,{children:(0,B.jsx)(LT,{})}));
