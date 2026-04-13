@@ -1,10 +1,10 @@
-import styled, { keyframes } from "styled-components"
+import { useRef, useEffect } from "react"
+import styled, { keyframes, css } from "styled-components"
 import { FaBriefcase, FaGraduationCap, FaMapMarkerAlt } from "react-icons/fa"
-import { MdWork } from "react-icons/md"
 
 /* ================================
    Experience — Seção de experiências
-   Mobile-first | Estrutura base com timeline
+   Mobile-first | Animações com IntersectionObserver
    ================================ */
 
 // Paleta de cores
@@ -82,12 +82,25 @@ const FORMACAO = [
 ]
 
 /* ================================
-   Animações
+   Animações — disparadas pelo IntersectionObserver
    ================================ */
 
 const fadeSlideUp = keyframes`
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0);    }
+`
+
+/*
+   Mesmo padrão do About:
+   elementos iniciam invisíveis e animam ao entrar na viewport.
+*/
+const animacaoBase = css`
+    opacity: 0;
+    transform: translateY(24px);
+
+    &.visivel {
+        animation: ${fadeSlideUp} 0.7s ease forwards;
+    }
 `
 
 /* ================================
@@ -117,7 +130,11 @@ const TituloContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    animation: ${fadeSlideUp} 0.6s ease forwards;
+    ${animacaoBase}
+
+    &.visivel {
+        animation-delay: 0s;
+    }
 `
 
 const Rotulo = styled.span`
@@ -151,6 +168,11 @@ const ColunasGrid = styled.div`
     display: grid;
     grid-template-columns: 1fr;
     gap: 3rem;
+    ${animacaoBase}
+
+    &.visivel {
+        animation-delay: 0.2s;
+    }
 
     @media (min-width: 768px) {
         grid-template-columns: 1fr 1fr;
@@ -314,13 +336,43 @@ const ItemDescricaoItem = styled.li`
    Componente principal
    ================================ */
 
+/* ================================
+   Componente principal
+   ================================ */
+
 export default function Experience() {
+    const tituloRef   = useRef<HTMLDivElement>(null)
+    const colunasRef  = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        const elementos = [
+            tituloRef.current,
+            colunasRef.current,
+        ].filter(Boolean) as HTMLElement[]
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visivel")
+                        observer.unobserve(entry.target)
+                    }
+                })
+            },
+            { threshold: 0.1 }
+        )
+
+        elementos.forEach((el) => observer.observe(el))
+
+        return () => observer.disconnect()
+    }, [])
+
     return (
         <Secao id="experience">
             <Container>
 
                 {/* Título da seção */}
-                <TituloContainer>
+                <TituloContainer ref={tituloRef}>
                     <Rotulo>// my journey</Rotulo>
                     <Titulo>
                         Experience &amp; <span>Education</span>
@@ -329,7 +381,7 @@ export default function Experience() {
                 </TituloContainer>
 
                 {/* Duas colunas: experiências + formação */}
-                <ColunasGrid>
+                <ColunasGrid ref={colunasRef}>
 
                     {/* Coluna de experiências */}
                     <Coluna>
