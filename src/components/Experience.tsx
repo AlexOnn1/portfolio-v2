@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react"
 import styled, { keyframes, css } from "styled-components"
-import { FaBriefcase, FaGraduationCap, FaMapMarkerAlt } from "react-icons/fa"
+import { FaBriefcase, FaGraduationCap, FaMapMarkerAlt, FaDownload } from "react-icons/fa"
 
 /* ================================
    Experience — Seção de experiências
@@ -333,8 +333,77 @@ const ItemDescricaoItem = styled.li`
 `
 
 /* ================================
-   Componente principal
+   Bloco de download do currículo
    ================================ */
+
+const DownloadContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 2.5rem;
+    border: 1px solid rgba(44, 194, 149, 0.15);
+    border-radius: 12px;
+    background: rgba(3, 98, 76, 0.08);
+    text-align: center;
+    ${animacaoBase}
+
+    &.visivel {
+        animation-delay: 0.3s;
+    }
+
+    @media (min-width: 768px) {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+`
+
+const DownloadTexto = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+`
+
+const DownloadTitulo = styled.p`
+    font-family: "Press Start 2P", "Courier New", monospace;
+    font-size: 0.7rem;
+    color: ${colors.white};
+    line-height: 1.6;
+`
+
+const DownloadSubtitulo = styled.p`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.8rem;
+    color: rgba(241, 247, 246, 0.5);
+`
+
+const BotaoDownload = styled.a`
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: ${colors.richBlack};
+    background: ${colors.caribbeanGreen};
+    padding: 0.85rem 1.75rem;
+    border-radius: 4px;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background 0.3s ease, transform 0.2s ease;
+
+    svg {
+        font-size: 0.9rem;
+    }
+
+    &:hover {
+        background: ${colors.mountainMeadow};
+        transform: translateY(-2px);
+    }
+`
 
 /* ================================
    Componente principal
@@ -343,11 +412,13 @@ const ItemDescricaoItem = styled.li`
 export default function Experience() {
     const tituloRef   = useRef<HTMLDivElement>(null)
     const colunasRef  = useRef<HTMLDivElement>(null)
+    const downloadRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         const elementos = [
             tituloRef.current,
             colunasRef.current,
+            downloadRef.current,
         ].filter(Boolean) as HTMLElement[]
 
         const observer = new IntersectionObserver(
@@ -439,6 +510,25 @@ export default function Experience() {
                     </Coluna>
 
                 </ColunasGrid>
+
+                {/* Bloco de download do currículo */}
+                <DownloadContainer ref={downloadRef}>
+                    <DownloadTexto>
+                        <DownloadTitulo>Want to know more?</DownloadTitulo>
+                        <DownloadSubtitulo>
+                            Download my full resume for more details.
+                        </DownloadSubtitulo>
+                    </DownloadTexto>
+                    <BotaoDownload
+                        href={`${import.meta.env.BASE_URL}resume.pdf`}
+                        download="Alexsander_Albino_Resume.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <FaDownload />
+                        Grab a copy
+                    </BotaoDownload>
+                </DownloadContainer>
 
             </Container>
         </Secao>
