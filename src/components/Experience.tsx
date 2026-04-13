@@ -1,4 +1,6 @@
 import styled, { keyframes } from "styled-components"
+import { FaBriefcase, FaGraduationCap, FaMapMarkerAlt } from "react-icons/fa"
+import { MdWork } from "react-icons/md"
 
 /* ================================
    Experience — Seção de experiências
@@ -23,8 +25,9 @@ const EXPERIENCIAS = [
     {
         cargo: "Programming Instructor Intern",
         empresa: "Microlins",
+        local: "Maceió, AL",
         periodo: "Jun/2025 — Present",
-        tipo: "work",
+        atual: true,
         descricao: [
             "Support for theoretical and practical classes, ensuring alignment with the teaching plan.",
             "Individual student assistance, resolving doubts and monitoring academic progress.",
@@ -36,8 +39,9 @@ const EXPERIENCIAS = [
     {
         cargo: "Front-End Developer",
         empresa: "Freelancer — siegvfx.com",
+        local: "Remote",
         periodo: "Aug/2024 — Sep/2024",
-        tipo: "work",
+        atual: false,
         descricao: [
             "Development of siegvfx.com with focus on responsive design and user experience.",
             "Application of coding best practices, ensuring performance and maintainability.",
@@ -48,8 +52,9 @@ const EXPERIENCIAS = [
     {
         cargo: "Customer Service Representative",
         empresa: "AlmaViva do Brasil",
+        local: "Maceió, AL",
         periodo: "Jun/2023 — Apr/2024",
-        tipo: "work",
+        atual: false,
         descricao: [
             "Receptive customer service focused on problem resolution and satisfaction.",
             "Strategic customer retention using argumentation and negotiation techniques.",
@@ -63,14 +68,16 @@ const FORMACAO = [
     {
         curso: "Bachelor's in Computer Science",
         instituicao: "Uninassau",
+        local: "Maceió, AL",
         periodo: "2025 — Present",
-        tipo: "education",
+        atual: true,
     },
     {
         curso: "Technical Degree in Internet IT",
         instituicao: "SENAI",
+        local: "Maceió, AL",
         periodo: "2019 — 2021",
-        tipo: "education",
+        atual: false,
     },
 ]
 
@@ -159,12 +166,52 @@ const Coluna = styled.div`
 `
 
 const ColunaTitulo = styled.h3`
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: 0.75rem;
     color: ${colors.mountainMeadow};
     letter-spacing: 0.1em;
     text-transform: uppercase;
     margin-bottom: 1.5rem;
+
+    /* Ícone da coluna */
+    svg {
+        font-size: 1rem;
+        color: ${colors.caribbeanGreen};
+        flex-shrink: 0;
+    }
+`
+
+/* Badge "Current" para posições ativas */
+const BadgeAtual = styled.span`
+    display: inline-block;
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    color: ${colors.richBlack};
+    background: ${colors.caribbeanGreen};
+    padding: 0.2rem 0.55rem;
+    border-radius: 20px;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    text-transform: uppercase;
+`
+
+/* Localização com ícone */
+const ItemLocal = styled.span`
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.7rem;
+    color: rgba(241, 247, 246, 0.4);
+    margin-bottom: 0.75rem;
+
+    svg {
+        font-size: 0.65rem;
+    }
 `
 
 /* Timeline vertical */
@@ -286,13 +333,23 @@ export default function Experience() {
 
                     {/* Coluna de experiências */}
                     <Coluna>
-                        <ColunaTitulo>Work Experience</ColunaTitulo>
+                        <ColunaTitulo>
+                            <FaBriefcase />
+                            Work Experience
+                        </ColunaTitulo>
                         <Timeline>
                             {EXPERIENCIAS.map((exp) => (
                                 <TimelineItem key={exp.empresa}>
-                                    <ItemPeriodo>{exp.periodo}</ItemPeriodo>
+                                    <ItemPeriodo>
+                                        {exp.periodo}
+                                        {exp.atual && <BadgeAtual>Current</BadgeAtual>}
+                                    </ItemPeriodo>
                                     <ItemCargo>{exp.cargo}</ItemCargo>
                                     <ItemEmpresa>{exp.empresa}</ItemEmpresa>
+                                    <ItemLocal>
+                                        <FaMapMarkerAlt />
+                                        {exp.local}
+                                    </ItemLocal>
                                     <ItemDescricao>
                                         {exp.descricao.map((item, i) => (
                                             <ItemDescricaoItem key={i}>
@@ -307,13 +364,23 @@ export default function Experience() {
 
                     {/* Coluna de formação */}
                     <Coluna>
-                        <ColunaTitulo>Education</ColunaTitulo>
+                        <ColunaTitulo>
+                            <FaGraduationCap />
+                            Education
+                        </ColunaTitulo>
                         <Timeline>
                             {FORMACAO.map((form) => (
                                 <TimelineItem key={form.instituicao}>
-                                    <ItemPeriodo>{form.periodo}</ItemPeriodo>
+                                    <ItemPeriodo>
+                                        {form.periodo}
+                                        {form.atual && <BadgeAtual>Current</BadgeAtual>}
+                                    </ItemPeriodo>
                                     <ItemCargo>{form.curso}</ItemCargo>
                                     <ItemEmpresa>{form.instituicao}</ItemEmpresa>
+                                    <ItemLocal>
+                                        <FaMapMarkerAlt />
+                                        {form.local}
+                                    </ItemLocal>
                                 </TimelineItem>
                             ))}
                         </Timeline>
