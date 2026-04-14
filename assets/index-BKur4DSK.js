@@ -4811,19 +4811,19 @@ No matching component was found for:
 					#include <premultiplied_alpha_fragment>
 
 				}
-			`,clipping:!0}),this.isLineMaterial=!0,this.onBeforeCompile=function(){this.transparent?this.defines.USE_LINE_COLOR_ALPHA=`1`:delete this.defines.USE_LINE_COLOR_ALPHA},Object.defineProperties(this,{color:{enumerable:!0,get:function(){return this.uniforms.diffuse.value},set:function(e){this.uniforms.diffuse.value=e}},worldUnits:{enumerable:!0,get:function(){return`WORLD_UNITS`in this.defines},set:function(e){e===!0?this.defines.WORLD_UNITS=``:delete this.defines.WORLD_UNITS}},linewidth:{enumerable:!0,get:function(){return this.uniforms.linewidth.value},set:function(e){this.uniforms.linewidth.value=e}},dashed:{enumerable:!0,get:function(){return`USE_DASH`in this.defines},set(e){!!e!=`USE_DASH`in this.defines&&(this.needsUpdate=!0),e===!0?this.defines.USE_DASH=``:delete this.defines.USE_DASH}},dashScale:{enumerable:!0,get:function(){return this.uniforms.dashScale.value},set:function(e){this.uniforms.dashScale.value=e}},dashSize:{enumerable:!0,get:function(){return this.uniforms.dashSize.value},set:function(e){this.uniforms.dashSize.value=e}},dashOffset:{enumerable:!0,get:function(){return this.uniforms.dashOffset.value},set:function(e){this.uniforms.dashOffset.value=e}},gapSize:{enumerable:!0,get:function(){return this.uniforms.gapSize.value},set:function(e){this.uniforms.gapSize.value=e}},opacity:{enumerable:!0,get:function(){return this.uniforms.opacity.value},set:function(e){this.uniforms.opacity.value=e}},resolution:{enumerable:!0,get:function(){return this.uniforms.resolution.value},set:function(e){this.uniforms.resolution.value.copy(e)}},alphaToCoverage:{enumerable:!0,get:function(){return`USE_ALPHA_TO_COVERAGE`in this.defines},set:function(e){!!e!=`USE_ALPHA_TO_COVERAGE`in this.defines&&(this.needsUpdate=!0),e===!0?(this.defines.USE_ALPHA_TO_COVERAGE=``,this.extensions.derivatives=!0):(delete this.defines.USE_ALPHA_TO_COVERAGE,this.extensions.derivatives=!1)}}}),this.setValues(e)}},$S=new Ho,eC=new K,tC=new K,nC=new Ho,rC=new Ho,iC=new Ho,aC=new K,oC=new Yo,sC=new qh,cC=new K,lC=new Js,uC=new kc,dC=new Ho,fC,pC;function mC(e,t,n){return dC.set(0,0,-t,1).applyMatrix4(e.projectionMatrix),dC.multiplyScalar(1/dC.w),dC.x=pC/n.width,dC.y=pC/n.height,dC.applyMatrix4(e.projectionMatrixInverse),dC.multiplyScalar(1/dC.w),Math.abs(Math.max(dC.x,dC.y))}function hC(e,t){let n=e.matrixWorld,r=e.geometry,i=r.attributes.instanceStart,a=r.attributes.instanceEnd,o=Math.min(r.instanceCount,i.count);for(let r=0,s=o;r<s;r++){sC.start.fromBufferAttribute(i,r),sC.end.fromBufferAttribute(a,r),sC.applyMatrix4(n);let o=new K,s=new K;fC.distanceSqToSegment(sC.start,sC.end,s,o),s.distanceTo(o)<pC*.5&&t.push({point:s,pointOnLine:o,distance:fC.origin.distanceTo(s),object:e,face:null,faceIndex:r,uv:null,[FS]:null})}}function gC(e,t,n){let r=t.projectionMatrix,i=e.material.resolution,a=e.matrixWorld,o=e.geometry,s=o.attributes.instanceStart,c=o.attributes.instanceEnd,l=Math.min(o.instanceCount,s.count),u=-t.near;fC.at(1,iC),iC.w=1,iC.applyMatrix4(t.matrixWorldInverse),iC.applyMatrix4(r),iC.multiplyScalar(1/iC.w),iC.x*=i.x/2,iC.y*=i.y/2,iC.z=0,aC.copy(iC),oC.multiplyMatrices(t.matrixWorldInverse,a);for(let t=0,o=l;t<o;t++){if(nC.fromBufferAttribute(s,t),rC.fromBufferAttribute(c,t),nC.w=1,rC.w=1,nC.applyMatrix4(oC),rC.applyMatrix4(oC),nC.z>u&&rC.z>u)continue;if(nC.z>u){let e=nC.z-rC.z,t=(nC.z-u)/e;nC.lerp(rC,t)}else if(rC.z>u){let e=rC.z-nC.z,t=(rC.z-u)/e;rC.lerp(nC,t)}nC.applyMatrix4(r),rC.applyMatrix4(r),nC.multiplyScalar(1/nC.w),rC.multiplyScalar(1/rC.w),nC.x*=i.x/2,nC.y*=i.y/2,rC.x*=i.x/2,rC.y*=i.y/2,sC.start.copy(nC),sC.start.z=0,sC.end.copy(rC),sC.end.z=0;let o=sC.closestPointToPointParameter(aC,!0);sC.at(o,cC);let l=Co.lerp(nC.z,rC.z,o),d=l>=-1&&l<=1,f=aC.distanceTo(cC)<pC*.5;if(d&&f){sC.start.fromBufferAttribute(s,t),sC.end.fromBufferAttribute(c,t),sC.start.applyMatrix4(a),sC.end.applyMatrix4(a);let r=new K,i=new K;fC.distanceSqToSegment(sC.start,sC.end,i,r),n.push({point:i,pointOnLine:r,distance:fC.origin.distanceTo(i),object:e,face:null,faceIndex:t,uv:null,[FS]:null})}}}var _C=class extends Dl{constructor(e=new XS,t=new QS({color:Math.random()*16777215})){super(e,t),this.isLineSegments2=!0,this.type=`LineSegments2`}computeLineDistances(){let e=this.geometry,t=e.attributes.instanceStart,n=e.attributes.instanceEnd,r=new Float32Array(2*t.count);for(let e=0,i=0,a=t.count;e<a;e++,i+=2)eC.fromBufferAttribute(t,e),tC.fromBufferAttribute(n,e),r[i]=i===0?0:r[i-1],r[i+1]=r[i]+eC.distanceTo(tC);let i=new Oh(r,2,1);return e.setAttribute(`instanceDistanceStart`,new zc(i,1,0)),e.setAttribute(`instanceDistanceEnd`,new zc(i,1,1)),this}raycast(e,t){let n=this.material.worldUnits,r=e.camera;r===null&&!n&&console.error(`LineSegments2: "Raycaster.camera" needs to be set in order to raycast against LineSegments2 while worldUnits is set to false.`);let i=e.params.Line2===void 0?0:e.params.Line2.threshold||0;fC=e.ray;let a=this.matrixWorld,o=this.geometry,s=this.material;pC=s.linewidth+i,o.boundingSphere===null&&o.computeBoundingSphere(),uC.copy(o.boundingSphere).applyMatrix4(a);let c;if(c=n?pC*.5:mC(r,Math.max(r.near,uC.distanceToPoint(fC.origin)),s.resolution),uC.radius+=c,fC.intersectsSphere(uC)===!1)return;o.boundingBox===null&&o.computeBoundingBox(),lC.copy(o.boundingBox).applyMatrix4(a);let l;l=n?pC*.5:mC(r,Math.max(r.near,lC.distanceToPoint(fC.origin)),s.resolution),lC.expandByScalar(l),fC.intersectsBox(lC)!==!1&&(n?hC(this,t):gC(this,r,t))}onBeforeRender(e){let t=this.material.uniforms;t&&t.resolution&&(e.getViewport($S),this.material.uniforms.resolution.value.set($S.z,$S.w))}},vC=class extends _C{constructor(e=new ZS,t=new QS({color:Math.random()*16777215})){super(e,t),this.isLine2=!0,this.type=`Line2`}},yC=v.forwardRef(function({points:e,color:t=16777215,vertexColors:n,linewidth:r,lineWidth:i,segments:a,dashed:o,...s},c){var l;let u=lx(e=>e.size),d=v.useMemo(()=>a?new _C:new vC,[a]),[f]=v.useState(()=>new QS),p=(n==null||(l=n[0])==null?void 0:l.length)===4?4:3,m=v.useMemo(()=>{let r=a?new XS:new ZS,i=e.map(e=>{let t=Array.isArray(e);return e instanceof K||e instanceof Ho?[e.x,e.y,e.z]:e instanceof G?[e.x,e.y,0]:t&&e.length===3?[e[0],e[1],e[2]]:t&&e.length===2?[e[0],e[1],0]:e});if(r.setPositions(i.flat()),n){t=16777215;let e=n.map(e=>e instanceof J?e.toArray():e);r.setColors(e.flat(),p)}return r},[e,a,n,p]);return v.useLayoutEffect(()=>{d.computeLineDistances()},[e,d]),v.useLayoutEffect(()=>{o?f.defines.USE_DASH=``:delete f.defines.USE_DASH,f.needsUpdate=!0},[o,f]),v.useEffect(()=>()=>{m.dispose(),f.dispose()},[m]),v.createElement(`primitive`,NS({object:d,ref:c},s),v.createElement(`primitive`,{object:m,attach:`geometry`}),v.createElement(`primitive`,NS({object:f,attach:`material`,color:t,vertexColors:!!n,resolution:[u.width,u.height],linewidth:r??i??1,dashed:o,transparent:p===4},s)))}),bC=v.forwardRef(({threshold:e=15,geometry:t,...n},r)=>{let i=v.useRef(null);v.useImperativeHandle(r,()=>i.current,[]);let a=v.useMemo(()=>[0,0,0,1,0,0],[]),o=v.useRef(null),s=v.useRef(null);return v.useLayoutEffect(()=>{let n=i.current.parent,r=t??n?.geometry;if(!r||o.current===r&&s.current===e)return;o.current=r,s.current=e;let a=new _d(r,e).attributes.position.array;i.current.geometry.setPositions(a),i.current.geometry.attributes.instanceStart.needsUpdate=!0,i.current.geometry.attributes.instanceEnd.needsUpdate=!0,i.current.computeLineDistances()}),v.createElement(yC,NS({segments:!0,points:a,ref:i,raycast:()=>null},n))}),xC=v.forwardRef(({makeDefault:e,camera:t,regress:n,domElement:r,enableDamping:i=!0,keyEvents:a=!1,onChange:o,onStart:s,onEnd:c,...l},u)=>{let d=lx(e=>e.invalidate),f=lx(e=>e.camera),p=lx(e=>e.gl),m=lx(e=>e.events),h=lx(e=>e.setEvents),g=lx(e=>e.set),_=lx(e=>e.get),y=lx(e=>e.performance),b=t||f,x=r||m.connected||p.domElement,S=v.useMemo(()=>new qS(b),[b]);return ux(()=>{S.enabled&&S.update()},-1),v.useEffect(()=>(a&&S.connect(a===!0?x:a),S.connect(x),()=>void S.dispose()),[a,x,n,S,d]),v.useEffect(()=>{let e=e=>{d(),n&&y.regress(),o&&o(e)},t=e=>{s&&s(e)},r=e=>{c&&c(e)};return S.addEventListener(`change`,e),S.addEventListener(`start`,t),S.addEventListener(`end`,r),()=>{S.removeEventListener(`start`,t),S.removeEventListener(`end`,r),S.removeEventListener(`change`,e)}},[o,s,c,S,d,h]),v.useEffect(()=>{if(e){let e=_().controls;return g({controls:S}),()=>g({controls:e})}},[e,S]),v.createElement(`primitive`,NS({ref:u,object:S,enableDamping:i},l))}),SC={color:void 0,size:void 0,className:void 0,style:void 0,attr:void 0},CC=v.createContext&&v.createContext(SC),wC=[`attr`,`size`,`title`];function TC(e,t){if(e==null)return{};var n,r,i=EC(e,t);if(Object.getOwnPropertySymbols){var a=Object.getOwnPropertySymbols(e);for(r=0;r<a.length;r++)n=a[r],t.indexOf(n)===-1&&{}.propertyIsEnumerable.call(e,n)&&(i[n]=e[n])}return i}function EC(e,t){if(e==null)return{};var n={};for(var r in e)if({}.hasOwnProperty.call(e,r)){if(t.indexOf(r)!==-1)continue;n[r]=e[r]}return n}function DC(){return DC=Object.assign?Object.assign.bind():function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)({}).hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e},DC.apply(null,arguments)}function OC(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter(function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable})),n.push.apply(n,r)}return n}function kC(e){for(var t=1;t<arguments.length;t++){var n=arguments[t]==null?{}:arguments[t];t%2?OC(Object(n),!0).forEach(function(t){AC(e,t,n[t])}):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):OC(Object(n)).forEach(function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))})}return e}function AC(e,t,n){return(t=jC(t))in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function jC(e){var t=MC(e,`string`);return typeof t==`symbol`?t:t+``}function MC(e,t){if(typeof e!=`object`||!e)return e;var n=e[Symbol.toPrimitive];if(n!==void 0){var r=n.call(e,t||`default`);if(typeof r!=`object`)return r;throw TypeError(`@@toPrimitive must return a primitive value.`)}return(t===`string`?String:Number)(e)}function NC(e){return e&&e.map((e,t)=>v.createElement(e.tag,kC({key:t},e.attr),NC(e.child)))}function PC(e){return t=>v.createElement(FC,DC({attr:kC({},e.attr)},t),NC(e.child))}function FC(e){var t=t=>{var{attr:n,size:r,title:i}=e,a=TC(e,wC),o=r||t.size||`1em`,s;return t.className&&(s=t.className),e.className&&(s=(s?s+` `:``)+e.className),v.createElement(`svg`,DC({stroke:`currentColor`,fill:`currentColor`,strokeWidth:`0`},t.attr,n,a,{className:s,style:kC(kC({color:e.color||t.color},t.style),e.style),height:o,width:o,xmlns:`http://www.w3.org/2000/svg`}),i&&v.createElement(`title`,null,i),e.children)};return CC===void 0?t(SC):v.createElement(CC.Consumer,null,e=>t(e))}function IC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 512 512`},child:[{tag:`path`,attr:{d:`M61.7 169.4l101.5 278C92.2 413 43.3 340.2 43.3 256c0-30.9 6.6-60.1 18.4-86.6zm337.9 75.9c0-26.3-9.4-44.5-17.5-58.7-10.8-17.5-20.9-32.4-20.9-49.9 0-19.6 14.8-37.8 35.7-37.8.9 0 1.8.1 2.8.2-37.9-34.7-88.3-55.9-143.7-55.9-74.3 0-139.7 38.1-177.8 95.9 5 .2 9.7.3 13.7.3 22.2 0 56.7-2.7 56.7-2.7 11.5-.7 12.8 16.2 1.4 17.5 0 0-11.5 1.3-24.3 2l77.5 230.4L249.8 247l-33.1-90.8c-11.5-.7-22.3-2-22.3-2-11.5-.7-10.1-18.2 1.3-17.5 0 0 35.1 2.7 56 2.7 22.2 0 56.7-2.7 56.7-2.7 11.5-.7 12.8 16.2 1.4 17.5 0 0-11.5 1.3-24.3 2l76.9 228.7 21.2-70.9c9-29.4 16-50.5 16-68.7zm-139.9 29.3l-63.8 185.5c19.1 5.6 39.2 8.7 60.1 8.7 24.8 0 48.5-4.3 70.6-12.1-.6-.9-1.1-1.9-1.5-2.9l-65.4-179.2zm183-120.7c.9 6.8 1.4 14 1.4 21.9 0 21.6-4 45.8-16.2 76.2l-65 187.9C426.2 403 468.7 334.5 468.7 256c0-37-9.4-71.8-26-102.1zM504 256c0 136.8-111.3 248-248 248C119.2 504 8 392.7 8 256 8 119.2 119.2 8 256 8c136.7 0 248 111.2 248 248zm-11.4 0c0-130.5-106.2-236.6-236.6-236.6C125.5 19.4 19.4 125.5 19.4 256S125.6 492.6 256 492.6c130.5 0 236.6-106.1 236.6-236.6z`},child:[]}]})(e)}function LC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 512 512`},child:[{tag:`path`,attr:{d:`M418.2 177.2c-5.4-1.8-10.8-3.5-16.2-5.1.9-3.7 1.7-7.4 2.5-11.1 12.3-59.6 4.2-107.5-23.1-123.3-26.3-15.1-69.2.6-112.6 38.4-4.3 3.7-8.5 7.6-12.5 11.5-2.7-2.6-5.5-5.2-8.3-7.7-45.5-40.4-91.1-57.4-118.4-41.5-26.2 15.2-34 60.3-23 116.7 1.1 5.6 2.3 11.1 3.7 16.7-6.4 1.8-12.7 3.8-18.6 5.9C38.3 196.2 0 225.4 0 255.6c0 31.2 40.8 62.5 96.3 81.5 4.5 1.5 9 3 13.6 4.3-1.5 6-2.8 11.9-4 18-10.5 55.5-2.3 99.5 23.9 114.6 27 15.6 72.4-.4 116.6-39.1 3.5-3.1 7-6.3 10.5-9.7 4.4 4.3 9 8.4 13.6 12.4 42.8 36.8 85.1 51.7 111.2 36.6 27-15.6 35.8-62.9 24.4-120.5-.9-4.4-1.9-8.9-3-13.5 3.2-.9 6.3-1.9 9.4-2.9 57.7-19.1 99.5-50 99.5-81.7 0-30.3-39.4-59.7-93.8-78.4zM282.9 92.3c37.2-32.4 71.9-45.1 87.7-36 16.9 9.7 23.4 48.9 12.8 100.4-.7 3.4-1.4 6.7-2.3 10-22.2-5-44.7-8.6-67.3-10.6-13-18.6-27.2-36.4-42.6-53.1 3.9-3.7 7.7-7.2 11.7-10.7zM167.2 307.5c5.1 8.7 10.3 17.4 15.8 25.9-15.6-1.7-31.1-4.2-46.4-7.5 4.4-14.4 9.9-29.3 16.3-44.5 4.6 8.8 9.3 17.5 14.3 26.1zm-30.3-120.3c14.4-3.2 29.7-5.8 45.6-7.8-5.3 8.3-10.5 16.8-15.4 25.4-4.9 8.5-9.7 17.2-14.2 26-6.3-14.9-11.6-29.5-16-43.6zm27.4 68.9c6.6-13.8 13.8-27.3 21.4-40.6s15.8-26.2 24.4-38.9c15-1.1 30.3-1.7 45.9-1.7s31 .6 45.9 1.7c8.5 12.6 16.6 25.5 24.3 38.7s14.9 26.7 21.7 40.4c-6.7 13.8-13.9 27.4-21.6 40.8-7.6 13.3-15.7 26.2-24.2 39-14.9 1.1-30.4 1.6-46.1 1.6s-30.9-.5-45.6-1.4c-8.7-12.7-16.9-25.7-24.6-39s-14.8-26.8-21.5-40.6zm180.6 51.2c5.1-8.8 9.9-17.7 14.6-26.7 6.4 14.5 12 29.2 16.9 44.3-15.5 3.5-31.2 6.2-47 8 5.4-8.4 10.5-17 15.5-25.6zm14.4-76.5c-4.7-8.8-9.5-17.6-14.5-26.2-4.9-8.5-10-16.9-15.3-25.2 16.1 2 31.5 4.7 45.9 8-4.6 14.8-10 29.2-16.1 43.4zM256.2 118.3c10.5 11.4 20.4 23.4 29.6 35.8-19.8-.9-39.7-.9-59.5 0 9.8-12.9 19.9-24.9 29.9-35.8zM140.2 57c16.8-9.8 54.1 4.2 93.4 39 2.5 2.2 5 4.6 7.6 7-15.5 16.7-29.8 34.5-42.9 53.1-22.6 2-45 5.5-67.2 10.4-1.3-5.1-2.4-10.3-3.5-15.5-9.4-48.4-3.2-84.9 12.6-94zm-24.5 263.6c-4.2-1.2-8.3-2.5-12.4-3.9-21.3-6.7-45.5-17.3-63-31.2-10.1-7-16.9-17.8-18.8-29.9 0-18.3 31.6-41.7 77.2-57.6 5.7-2 11.5-3.8 17.3-5.5 6.8 21.7 15 43 24.5 63.6-9.6 20.9-17.9 42.5-24.8 64.5zm116.6 98c-16.5 15.1-35.6 27.1-56.4 35.3-11.1 5.3-23.9 5.8-35.3 1.3-15.9-9.2-22.5-44.5-13.5-92 1.1-5.6 2.3-11.2 3.7-16.7 22.4 4.8 45 8.1 67.9 9.8 13.2 18.7 27.7 36.6 43.2 53.4-3.2 3.1-6.4 6.1-9.6 8.9zm24.5-24.3c-10.2-11-20.4-23.2-30.3-36.3 9.6.4 19.5.6 29.5.6 10.3 0 20.4-.2 30.4-.7-9.2 12.7-19.1 24.8-29.6 36.4zm130.7 30c-.9 12.2-6.9 23.6-16.5 31.3-15.9 9.2-49.8-2.8-86.4-34.2-4.2-3.6-8.4-7.5-12.7-11.5 15.3-16.9 29.4-34.8 42.2-53.6 22.9-1.9 45.7-5.4 68.2-10.5 1 4.1 1.9 8.2 2.7 12.2 4.9 21.6 5.7 44.1 2.5 66.3zm18.2-107.5c-2.8.9-5.6 1.8-8.5 2.6-7-21.8-15.6-43.1-25.5-63.8 9.6-20.4 17.7-41.4 24.5-62.9 5.2 1.5 10.2 3.1 15 4.7 46.6 16 79.3 39.8 79.3 58 0 19.6-34.9 44.9-84.8 61.4zm-149.7-15c25.3 0 45.8-20.5 45.8-45.8s-20.5-45.8-45.8-45.8c-25.3 0-45.8 20.5-45.8 45.8s20.5 45.8 45.8 45.8z`},child:[]}]})(e)}function RC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 448 512`},child:[{tag:`path`,attr:{d:`M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4.1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3.1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z`},child:[]}]})(e)}function zC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 640 512`},child:[{tag:`path`,attr:{d:`M320 104.5c171.4 0 303.2 72.2 303.2 151.5S491.3 407.5 320 407.5c-171.4 0-303.2-72.2-303.2-151.5S148.7 104.5 320 104.5m0-16.8C143.3 87.7 0 163 0 256s143.3 168.3 320 168.3S640 349 640 256 496.7 87.7 320 87.7zM218.2 242.5c-7.9 40.5-35.8 36.3-70.1 36.3l13.7-70.6c38 0 63.8-4.1 56.4 34.3zM97.4 350.3h36.7l8.7-44.8c41.1 0 66.6 3 90.2-19.1 26.1-24 32.9-66.7 14.3-88.1-9.7-11.2-25.3-16.7-46.5-16.7h-70.7L97.4 350.3zm185.7-213.6h36.5l-8.7 44.8c31.5 0 60.7-2.3 74.8 10.7 14.8 13.6 7.7 31-8.3 113.1h-37c15.4-79.4 18.3-86 12.7-92-5.4-5.8-17.7-4.6-47.4-4.6l-18.8 96.6h-36.5l32.7-168.6zM505 242.5c-8 41.1-36.7 36.3-70.1 36.3l13.7-70.6c38.2 0 63.8-4.1 56.4 34.3zM384.2 350.3H421l8.7-44.8c43.2 0 67.1 2.5 90.2-19.1 26.1-24 32.9-66.7 14.3-88.1-9.7-11.2-25.3-16.7-46.5-16.7H417l-32.8 168.7z`},child:[]}]})(e)}function BC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 448 512`},child:[{tag:`path`,attr:{d:`M0 32v448h448V32H0zm243.8 349.4c0 43.6-25.6 63.5-62.9 63.5-33.7 0-53.2-17.4-63.2-38.5l34.3-20.7c6.6 11.7 12.6 21.6 27.1 21.6 13.8 0 22.6-5.4 22.6-26.5V237.7h42.1v143.7zm99.6 63.5c-39.1 0-64.4-18.6-76.7-43l34.3-19.8c9 14.7 20.8 25.6 41.5 25.6 17.4 0 28.6-8.7 28.6-20.8 0-14.4-11.4-19.5-30.7-28l-10.5-4.5c-30.4-12.9-50.5-29.2-50.5-63.5 0-31.6 24.1-55.6 61.6-55.6 26.8 0 46 9.3 59.8 33.7L368 290c-7.2-12.9-15-18-27.1-18-12.3 0-20.1 7.8-20.1 18 0 12.6 7.8 17.7 25.9 25.6l10.5 4.5c35.8 15.3 55.9 31 55.9 66.2 0 37.8-29.8 58.6-69.7 58.6z`},child:[]}]})(e)}function VC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 384 512`},child:[{tag:`path`,attr:{d:`M0 32l34.9 395.8L191.5 480l157.6-52.2L384 32H0zm308.2 127.9H124.4l4.1 49.4h175.6l-13.6 148.4-97.9 27v.3h-1.1l-98.7-27.3-6-75.8h47.7L138 320l53.5 14.5 53.7-14.5 6-62.2H84.3L71.5 112.2h241.1l-4.4 47.7z`},child:[]}]})(e)}function HC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 496 512`},child:[{tag:`path`,attr:{d:`M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z`},child:[]}]})(e)}function UC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 448 512`},child:[{tag:`path`,attr:{d:`M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z`},child:[]}]})(e)}function WC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 384 512`},child:[{tag:`path`,attr:{d:`M0 32l34.9 395.8L192 480l157.1-52.2L384 32H0zm313.1 80l-4.8 47.3L193 208.6l-.3.1h111.5l-12.8 146.6-98.2 28.7-98.8-29.2-6.4-73.9h48.9l3.2 38.3 52.6 13.3 54.7-15.4 3.7-61.6-166.3-.5v-.1l-.2.1-3.6-46.3L193.1 162l6.5-2.7H76.7L70.9 112h242.2z`},child:[]}]})(e)}function GC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 352 512`},child:[{tag:`path`,attr:{d:`M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z`},child:[]}]})(e)}function KC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 512 512`},child:[{tag:`path`,attr:{d:`M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z`},child:[]}]})(e)}function qC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 384 512`},child:[{tag:`path`,attr:{d:`M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z`},child:[]}]})(e)}function JC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 640 512`},child:[{tag:`path`,attr:{d:`M622.34 153.2L343.4 67.5c-15.2-4.67-31.6-4.67-46.79 0L17.66 153.2c-23.54 7.23-23.54 38.36 0 45.59l48.63 14.94c-10.67 13.19-17.23 29.28-17.88 46.9C38.78 266.15 32 276.11 32 288c0 10.78 5.68 19.85 13.86 25.65L20.33 428.53C18.11 438.52 25.71 448 35.94 448h56.11c10.24 0 17.84-9.48 15.62-19.47L82.14 313.65C90.32 307.85 96 298.78 96 288c0-11.57-6.47-21.25-15.66-26.87.76-15.02 8.44-28.3 20.69-36.72L296.6 284.5c9.06 2.78 26.44 6.25 46.79 0l278.95-85.7c23.55-7.24 23.55-38.36 0-45.6zM352.79 315.09c-28.53 8.76-52.84 3.92-65.59 0l-145.02-44.55L128 384c0 35.35 85.96 64 192 64s192-28.65 192-64l-14.18-113.47-145.03 44.56z`},child:[]}]})(e)}function YC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 512 512`},child:[{tag:`path`,attr:{d:`M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z`},child:[]}]})(e)}function XC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 512 512`},child:[{tag:`path`,attr:{d:`M216 0h80c13.3 0 24 10.7 24 24v168h87.7c17.8 0 26.7 21.5 14.1 34.1L269.7 378.3c-7.5 7.5-19.8 7.5-27.3 0L90.1 226.1c-12.6-12.6-3.7-34.1 14.1-34.1H192V24c0-13.3 10.7-24 24-24zm296 376v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h146.7l49 49c20.1 20.1 52.5 20.1 72.6 0l49-49H488c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z`},child:[]}]})(e)}function ZC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 512 512`},child:[{tag:`path`,attr:{d:`M320 336c0 8.84-7.16 16-16 16h-96c-8.84 0-16-7.16-16-16v-48H0v144c0 25.6 22.4 48 48 48h416c25.6 0 48-22.4 48-48V288H320v48zm144-208h-80V80c0-25.6-22.4-48-48-48H176c-25.6 0-48 22.4-48 48v48H48c-25.6 0-48 22.4-48 48v80h512v-80c0-25.6-22.4-48-48-48zm-144 0H192V96h128v32z`},child:[]}]})(e)}function QC(e){return PC({tag:`svg`,attr:{role:`img`,viewBox:`0 0 24 24`},child:[{tag:`path`,attr:{d:`M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z`},child:[]}]})(e)}function $C(e){return PC({tag:`svg`,attr:{role:`img`,viewBox:`0 0 24 24`},child:[{tag:`path`,attr:{d:`M16.405 5.501c-.115 0-.193.014-.274.033v.013h.014c.054.104.146.18.214.273.054.107.1.214.154.32l.014-.015c.094-.066.14-.172.14-.333-.04-.047-.046-.094-.08-.14-.04-.067-.126-.1-.18-.153zM5.77 18.695h-.927a50.854 50.854 0 00-.27-4.41h-.008l-1.41 4.41H2.45l-1.4-4.41h-.01a72.892 72.892 0 00-.195 4.41H0c.055-1.966.192-3.81.41-5.53h1.15l1.335 4.064h.008l1.347-4.064h1.095c.242 2.015.384 3.86.428 5.53zm4.017-4.08c-.378 2.045-.876 3.533-1.492 4.46-.482.716-1.01 1.073-1.583 1.073-.153 0-.34-.046-.566-.138v-.494c.11.017.24.026.386.026.268 0 .483-.075.647-.222.197-.18.295-.382.295-.605 0-.155-.077-.47-.23-.944L6.23 14.615h.91l.727 2.36c.164.536.233.91.205 1.123.4-1.064.678-2.227.835-3.483zm12.325 4.08h-2.63v-5.53h.885v4.85h1.745zm-3.32.135l-1.016-.5c.09-.076.177-.158.255-.25.433-.506.648-1.258.648-2.253 0-1.83-.718-2.746-2.155-2.746-.704 0-1.254.232-1.65.697-.43.508-.646 1.256-.646 2.245 0 .972.19 1.686.574 2.14.35.41.877.615 1.583.615.264 0 .506-.033.725-.098l1.325.772.36-.622zM15.5 17.588c-.225-.36-.337-.94-.337-1.736 0-1.393.424-2.09 1.27-2.09.443 0 .77.167.977.5.224.362.336.936.336 1.723 0 1.404-.424 2.108-1.27 2.108-.445 0-.77-.167-.978-.5zm-1.658-.425c0 .47-.172.856-.516 1.156-.344.3-.803.45-1.384.45-.543 0-1.064-.172-1.573-.515l.237-.476c.438.22.833.328 1.19.328.332 0 .593-.073.783-.22a.754.754 0 00.3-.615c0-.33-.23-.61-.648-.845-.388-.213-1.163-.657-1.163-.657-.422-.307-.632-.636-.632-1.177 0-.45.157-.81.47-1.085.315-.278.72-.415 1.22-.415.512 0 .98.136 1.4.41l-.213.476a2.726 2.726 0 00-1.064-.23c-.283 0-.502.068-.654.206a.685.685 0 00-.248.524c0 .328.234.61.666.85.393.215 1.187.67 1.187.67.433.305.648.63.648 1.168zm9.382-5.852c-.535-.014-.95.04-1.297.188-.1.04-.26.04-.274.167.055.053.063.14.11.214.08.134.218.313.346.407.14.11.28.216.427.31.26.16.555.255.81.416.145.094.293.213.44.313.073.05.12.14.214.172v-.02c-.046-.06-.06-.147-.105-.214-.067-.067-.134-.127-.2-.193a3.223 3.223 0 00-.695-.675c-.214-.146-.682-.35-.77-.595l-.013-.014c.146-.013.32-.066.46-.106.227-.06.435-.047.67-.106.106-.027.213-.06.32-.094v-.06c-.12-.12-.21-.283-.334-.395a8.867 8.867 0 00-1.104-.823c-.21-.134-.476-.22-.697-.334-.08-.04-.214-.06-.26-.127-.12-.146-.19-.34-.275-.514a17.69 17.69 0 01-.547-1.163c-.12-.262-.193-.523-.34-.763-.69-1.137-1.437-1.826-2.586-2.5-.247-.14-.543-.2-.856-.274-.167-.008-.334-.02-.5-.027-.11-.047-.216-.174-.31-.235-.38-.24-1.364-.76-1.644-.072-.18.434.267.862.422 1.082.115.153.26.328.34.5.047.116.06.235.107.356.106.294.207.622.347.897.073.14.153.287.247.413.054.073.146.107.167.227-.094.136-.1.334-.154.5-.24.757-.146 1.693.194 2.25.107.166.362.534.703.393.3-.12.234-.5.32-.835.02-.08.007-.133.048-.187v.015c.094.188.188.367.274.555.206.328.566.668.867.895.16.12.287.328.487.402v-.02h-.015c-.043-.058-.1-.086-.154-.133a3.445 3.445 0 01-.35-.4 8.76 8.76 0 01-.747-1.218c-.11-.21-.202-.436-.29-.643-.04-.08-.04-.2-.107-.24-.1.146-.247.273-.32.453-.127.288-.14.642-.188 1.01-.027.007-.014 0-.027.014-.214-.052-.287-.274-.367-.46-.2-.475-.233-1.238-.06-1.785.047-.14.247-.582.167-.716-.042-.127-.174-.2-.247-.303a2.478 2.478 0 01-.24-.427c-.16-.374-.24-.788-.414-1.162-.08-.173-.22-.354-.334-.513-.127-.18-.267-.307-.368-.52-.033-.073-.08-.194-.027-.274.014-.054.042-.075.094-.09.088-.072.335.022.422.062.247.1.455.194.662.334.094.066.195.193.315.226h.14c.214.047.455.014.655.073.355.114.675.28.962.46a5.953 5.953 0 012.085 2.286c.08.154.115.295.188.455.14.33.313.663.455.982.14.315.275.636.476.897.1.14.502.213.682.286.133.06.34.115.46.188.23.14.454.3.67.454.11.076.443.243.463.378z`},child:[]}]})(e)}function ew(e){return PC({tag:`svg`,attr:{role:`img`,viewBox:`0 0 24 24`},child:[{tag:`path`,attr:{d:`M11.146 0h3.924v18.166c-2.013.382-3.491.535-5.096.535-4.791 0-7.288-2.166-7.288-6.32 0-4.002 2.65-6.6 6.753-6.6.637 0 1.121.05 1.707.203zm0 9.143a3.894 3.894 0 00-1.325-.204c-1.988 0-3.134 1.223-3.134 3.365 0 2.09 1.096 3.236 3.109 3.236.433 0 .79-.025 1.35-.102V9.142zM21.314 6.06v9.098c0 3.134-.229 4.638-.917 5.937-.637 1.249-1.478 2.039-3.211 2.905l-3.644-1.733c1.733-.815 2.574-1.53 3.109-2.625.561-1.121.739-2.421.739-5.835V6.059h3.924zM17.39.021h3.924v4.026H17.39z`},child:[]}]})(e)}var tw={richBlack:`#000F08`,darkGreen:`#032221`,bangladeshGreen:`#03624C`,mountainMeadow:`#2CC295`,caribbeanGreen:`#00DF91`,white:`#F1F7F6`},nw=[{icon:LC,label:`React`,color:`#61DAFB`},{icon:RC,label:`Python`,color:`#3776AB`},{icon:BC,label:`JavaScript`,color:`#F7DF1E`},{icon:zC,label:`PHP`,color:`#777BB4`},{icon:$C,label:`MySQL`,color:`#4479A1`},{icon:VC,label:`HTML5`,color:`#E34F26`},{icon:WC,label:`CSS3`,color:`#1572B6`},{icon:HC,label:`GitHub`,color:tw.white},{icon:UC,label:`Git`,color:`#F05032`}];function rw(){let e=(0,v.useRef)(null);return ux((t,n)=>{e.current&&(e.current.rotation.x+=n*.18,e.current.rotation.y+=n*.28,t.invalidate())}),(0,B.jsxs)(`mesh`,{ref:e,children:[(0,B.jsx)(`icosahedronGeometry`,{args:[1.2,0]}),(0,B.jsx)(`meshStandardMaterial`,{color:`#0a2e28`,roughness:.85,metalness:.4}),(0,B.jsx)(bC,{threshold:5,color:tw.caribbeanGreen,lineWidth:1.2})]})}var iw=(0,v.memo)(function(){let e=(0,v.useRef)(null);return(0,v.useEffect)(()=>{let t=[setTimeout(()=>window.dispatchEvent(new Event(`resize`)),100),setTimeout(()=>window.dispatchEvent(new Event(`resize`)),500),setTimeout(()=>window.dispatchEvent(new Event(`resize`)),2e3)],n=new ResizeObserver(()=>{window.dispatchEvent(new Event(`resize`))});return e.current&&n.observe(e.current),()=>{t.forEach(clearTimeout),n.disconnect()}},[]),(0,B.jsx)(uw,{ref:e,children:(0,B.jsxs)(MS,{camera:{position:[0,0,3.5],fov:45},gl:{antialias:!0,alpha:!0},frameloop:`demand`,performance:{min:.5},children:[(0,B.jsx)(`ambientLight`,{intensity:.4}),(0,B.jsx)(`pointLight`,{position:[5,5,5],intensity:1.2,color:`#ffffff`}),(0,B.jsx)(`pointLight`,{position:[-5,-3,2],intensity:.6,color:tw.caribbeanGreen}),(0,B.jsx)(rw,{}),(0,B.jsx)(xC,{enableZoom:!1,enablePan:!1})]})})}),aw=Ln`
+			`,clipping:!0}),this.isLineMaterial=!0,this.onBeforeCompile=function(){this.transparent?this.defines.USE_LINE_COLOR_ALPHA=`1`:delete this.defines.USE_LINE_COLOR_ALPHA},Object.defineProperties(this,{color:{enumerable:!0,get:function(){return this.uniforms.diffuse.value},set:function(e){this.uniforms.diffuse.value=e}},worldUnits:{enumerable:!0,get:function(){return`WORLD_UNITS`in this.defines},set:function(e){e===!0?this.defines.WORLD_UNITS=``:delete this.defines.WORLD_UNITS}},linewidth:{enumerable:!0,get:function(){return this.uniforms.linewidth.value},set:function(e){this.uniforms.linewidth.value=e}},dashed:{enumerable:!0,get:function(){return`USE_DASH`in this.defines},set(e){!!e!=`USE_DASH`in this.defines&&(this.needsUpdate=!0),e===!0?this.defines.USE_DASH=``:delete this.defines.USE_DASH}},dashScale:{enumerable:!0,get:function(){return this.uniforms.dashScale.value},set:function(e){this.uniforms.dashScale.value=e}},dashSize:{enumerable:!0,get:function(){return this.uniforms.dashSize.value},set:function(e){this.uniforms.dashSize.value=e}},dashOffset:{enumerable:!0,get:function(){return this.uniforms.dashOffset.value},set:function(e){this.uniforms.dashOffset.value=e}},gapSize:{enumerable:!0,get:function(){return this.uniforms.gapSize.value},set:function(e){this.uniforms.gapSize.value=e}},opacity:{enumerable:!0,get:function(){return this.uniforms.opacity.value},set:function(e){this.uniforms.opacity.value=e}},resolution:{enumerable:!0,get:function(){return this.uniforms.resolution.value},set:function(e){this.uniforms.resolution.value.copy(e)}},alphaToCoverage:{enumerable:!0,get:function(){return`USE_ALPHA_TO_COVERAGE`in this.defines},set:function(e){!!e!=`USE_ALPHA_TO_COVERAGE`in this.defines&&(this.needsUpdate=!0),e===!0?(this.defines.USE_ALPHA_TO_COVERAGE=``,this.extensions.derivatives=!0):(delete this.defines.USE_ALPHA_TO_COVERAGE,this.extensions.derivatives=!1)}}}),this.setValues(e)}},$S=new Ho,eC=new K,tC=new K,nC=new Ho,rC=new Ho,iC=new Ho,aC=new K,oC=new Yo,sC=new qh,cC=new K,lC=new Js,uC=new kc,dC=new Ho,fC,pC;function mC(e,t,n){return dC.set(0,0,-t,1).applyMatrix4(e.projectionMatrix),dC.multiplyScalar(1/dC.w),dC.x=pC/n.width,dC.y=pC/n.height,dC.applyMatrix4(e.projectionMatrixInverse),dC.multiplyScalar(1/dC.w),Math.abs(Math.max(dC.x,dC.y))}function hC(e,t){let n=e.matrixWorld,r=e.geometry,i=r.attributes.instanceStart,a=r.attributes.instanceEnd,o=Math.min(r.instanceCount,i.count);for(let r=0,s=o;r<s;r++){sC.start.fromBufferAttribute(i,r),sC.end.fromBufferAttribute(a,r),sC.applyMatrix4(n);let o=new K,s=new K;fC.distanceSqToSegment(sC.start,sC.end,s,o),s.distanceTo(o)<pC*.5&&t.push({point:s,pointOnLine:o,distance:fC.origin.distanceTo(s),object:e,face:null,faceIndex:r,uv:null,[FS]:null})}}function gC(e,t,n){let r=t.projectionMatrix,i=e.material.resolution,a=e.matrixWorld,o=e.geometry,s=o.attributes.instanceStart,c=o.attributes.instanceEnd,l=Math.min(o.instanceCount,s.count),u=-t.near;fC.at(1,iC),iC.w=1,iC.applyMatrix4(t.matrixWorldInverse),iC.applyMatrix4(r),iC.multiplyScalar(1/iC.w),iC.x*=i.x/2,iC.y*=i.y/2,iC.z=0,aC.copy(iC),oC.multiplyMatrices(t.matrixWorldInverse,a);for(let t=0,o=l;t<o;t++){if(nC.fromBufferAttribute(s,t),rC.fromBufferAttribute(c,t),nC.w=1,rC.w=1,nC.applyMatrix4(oC),rC.applyMatrix4(oC),nC.z>u&&rC.z>u)continue;if(nC.z>u){let e=nC.z-rC.z,t=(nC.z-u)/e;nC.lerp(rC,t)}else if(rC.z>u){let e=rC.z-nC.z,t=(rC.z-u)/e;rC.lerp(nC,t)}nC.applyMatrix4(r),rC.applyMatrix4(r),nC.multiplyScalar(1/nC.w),rC.multiplyScalar(1/rC.w),nC.x*=i.x/2,nC.y*=i.y/2,rC.x*=i.x/2,rC.y*=i.y/2,sC.start.copy(nC),sC.start.z=0,sC.end.copy(rC),sC.end.z=0;let o=sC.closestPointToPointParameter(aC,!0);sC.at(o,cC);let l=Co.lerp(nC.z,rC.z,o),d=l>=-1&&l<=1,f=aC.distanceTo(cC)<pC*.5;if(d&&f){sC.start.fromBufferAttribute(s,t),sC.end.fromBufferAttribute(c,t),sC.start.applyMatrix4(a),sC.end.applyMatrix4(a);let r=new K,i=new K;fC.distanceSqToSegment(sC.start,sC.end,i,r),n.push({point:i,pointOnLine:r,distance:fC.origin.distanceTo(i),object:e,face:null,faceIndex:t,uv:null,[FS]:null})}}}var _C=class extends Dl{constructor(e=new XS,t=new QS({color:Math.random()*16777215})){super(e,t),this.isLineSegments2=!0,this.type=`LineSegments2`}computeLineDistances(){let e=this.geometry,t=e.attributes.instanceStart,n=e.attributes.instanceEnd,r=new Float32Array(2*t.count);for(let e=0,i=0,a=t.count;e<a;e++,i+=2)eC.fromBufferAttribute(t,e),tC.fromBufferAttribute(n,e),r[i]=i===0?0:r[i-1],r[i+1]=r[i]+eC.distanceTo(tC);let i=new Oh(r,2,1);return e.setAttribute(`instanceDistanceStart`,new zc(i,1,0)),e.setAttribute(`instanceDistanceEnd`,new zc(i,1,1)),this}raycast(e,t){let n=this.material.worldUnits,r=e.camera;r===null&&!n&&console.error(`LineSegments2: "Raycaster.camera" needs to be set in order to raycast against LineSegments2 while worldUnits is set to false.`);let i=e.params.Line2===void 0?0:e.params.Line2.threshold||0;fC=e.ray;let a=this.matrixWorld,o=this.geometry,s=this.material;pC=s.linewidth+i,o.boundingSphere===null&&o.computeBoundingSphere(),uC.copy(o.boundingSphere).applyMatrix4(a);let c;if(c=n?pC*.5:mC(r,Math.max(r.near,uC.distanceToPoint(fC.origin)),s.resolution),uC.radius+=c,fC.intersectsSphere(uC)===!1)return;o.boundingBox===null&&o.computeBoundingBox(),lC.copy(o.boundingBox).applyMatrix4(a);let l;l=n?pC*.5:mC(r,Math.max(r.near,lC.distanceToPoint(fC.origin)),s.resolution),lC.expandByScalar(l),fC.intersectsBox(lC)!==!1&&(n?hC(this,t):gC(this,r,t))}onBeforeRender(e){let t=this.material.uniforms;t&&t.resolution&&(e.getViewport($S),this.material.uniforms.resolution.value.set($S.z,$S.w))}},vC=class extends _C{constructor(e=new ZS,t=new QS({color:Math.random()*16777215})){super(e,t),this.isLine2=!0,this.type=`Line2`}},yC=v.forwardRef(function({points:e,color:t=16777215,vertexColors:n,linewidth:r,lineWidth:i,segments:a,dashed:o,...s},c){var l;let u=lx(e=>e.size),d=v.useMemo(()=>a?new _C:new vC,[a]),[f]=v.useState(()=>new QS),p=(n==null||(l=n[0])==null?void 0:l.length)===4?4:3,m=v.useMemo(()=>{let r=a?new XS:new ZS,i=e.map(e=>{let t=Array.isArray(e);return e instanceof K||e instanceof Ho?[e.x,e.y,e.z]:e instanceof G?[e.x,e.y,0]:t&&e.length===3?[e[0],e[1],e[2]]:t&&e.length===2?[e[0],e[1],0]:e});if(r.setPositions(i.flat()),n){t=16777215;let e=n.map(e=>e instanceof J?e.toArray():e);r.setColors(e.flat(),p)}return r},[e,a,n,p]);return v.useLayoutEffect(()=>{d.computeLineDistances()},[e,d]),v.useLayoutEffect(()=>{o?f.defines.USE_DASH=``:delete f.defines.USE_DASH,f.needsUpdate=!0},[o,f]),v.useEffect(()=>()=>{m.dispose(),f.dispose()},[m]),v.createElement(`primitive`,NS({object:d,ref:c},s),v.createElement(`primitive`,{object:m,attach:`geometry`}),v.createElement(`primitive`,NS({object:f,attach:`material`,color:t,vertexColors:!!n,resolution:[u.width,u.height],linewidth:r??i??1,dashed:o,transparent:p===4},s)))}),bC=v.forwardRef(({threshold:e=15,geometry:t,...n},r)=>{let i=v.useRef(null);v.useImperativeHandle(r,()=>i.current,[]);let a=v.useMemo(()=>[0,0,0,1,0,0],[]),o=v.useRef(null),s=v.useRef(null);return v.useLayoutEffect(()=>{let n=i.current.parent,r=t??n?.geometry;if(!r||o.current===r&&s.current===e)return;o.current=r,s.current=e;let a=new _d(r,e).attributes.position.array;i.current.geometry.setPositions(a),i.current.geometry.attributes.instanceStart.needsUpdate=!0,i.current.geometry.attributes.instanceEnd.needsUpdate=!0,i.current.computeLineDistances()}),v.createElement(yC,NS({segments:!0,points:a,ref:i,raycast:()=>null},n))}),xC=v.forwardRef(({makeDefault:e,camera:t,regress:n,domElement:r,enableDamping:i=!0,keyEvents:a=!1,onChange:o,onStart:s,onEnd:c,...l},u)=>{let d=lx(e=>e.invalidate),f=lx(e=>e.camera),p=lx(e=>e.gl),m=lx(e=>e.events),h=lx(e=>e.setEvents),g=lx(e=>e.set),_=lx(e=>e.get),y=lx(e=>e.performance),b=t||f,x=r||m.connected||p.domElement,S=v.useMemo(()=>new qS(b),[b]);return ux(()=>{S.enabled&&S.update()},-1),v.useEffect(()=>(a&&S.connect(a===!0?x:a),S.connect(x),()=>void S.dispose()),[a,x,n,S,d]),v.useEffect(()=>{let e=e=>{d(),n&&y.regress(),o&&o(e)},t=e=>{s&&s(e)},r=e=>{c&&c(e)};return S.addEventListener(`change`,e),S.addEventListener(`start`,t),S.addEventListener(`end`,r),()=>{S.removeEventListener(`start`,t),S.removeEventListener(`end`,r),S.removeEventListener(`change`,e)}},[o,s,c,S,d,h]),v.useEffect(()=>{if(e){let e=_().controls;return g({controls:S}),()=>g({controls:e})}},[e,S]),v.createElement(`primitive`,NS({ref:u,object:S,enableDamping:i},l))}),SC={color:void 0,size:void 0,className:void 0,style:void 0,attr:void 0},CC=v.createContext&&v.createContext(SC),wC=[`attr`,`size`,`title`];function TC(e,t){if(e==null)return{};var n,r,i=EC(e,t);if(Object.getOwnPropertySymbols){var a=Object.getOwnPropertySymbols(e);for(r=0;r<a.length;r++)n=a[r],t.indexOf(n)===-1&&{}.propertyIsEnumerable.call(e,n)&&(i[n]=e[n])}return i}function EC(e,t){if(e==null)return{};var n={};for(var r in e)if({}.hasOwnProperty.call(e,r)){if(t.indexOf(r)!==-1)continue;n[r]=e[r]}return n}function DC(){return DC=Object.assign?Object.assign.bind():function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)({}).hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e},DC.apply(null,arguments)}function OC(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter(function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable})),n.push.apply(n,r)}return n}function kC(e){for(var t=1;t<arguments.length;t++){var n=arguments[t]==null?{}:arguments[t];t%2?OC(Object(n),!0).forEach(function(t){AC(e,t,n[t])}):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):OC(Object(n)).forEach(function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))})}return e}function AC(e,t,n){return(t=jC(t))in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function jC(e){var t=MC(e,`string`);return typeof t==`symbol`?t:t+``}function MC(e,t){if(typeof e!=`object`||!e)return e;var n=e[Symbol.toPrimitive];if(n!==void 0){var r=n.call(e,t||`default`);if(typeof r!=`object`)return r;throw TypeError(`@@toPrimitive must return a primitive value.`)}return(t===`string`?String:Number)(e)}function NC(e){return e&&e.map((e,t)=>v.createElement(e.tag,kC({key:t},e.attr),NC(e.child)))}function PC(e){return t=>v.createElement(FC,DC({attr:kC({},e.attr)},t),NC(e.child))}function FC(e){var t=t=>{var{attr:n,size:r,title:i}=e,a=TC(e,wC),o=r||t.size||`1em`,s;return t.className&&(s=t.className),e.className&&(s=(s?s+` `:``)+e.className),v.createElement(`svg`,DC({stroke:`currentColor`,fill:`currentColor`,strokeWidth:`0`},t.attr,n,a,{className:s,style:kC(kC({color:e.color||t.color},t.style),e.style),height:o,width:o,xmlns:`http://www.w3.org/2000/svg`}),i&&v.createElement(`title`,null,i),e.children)};return CC===void 0?t(SC):v.createElement(CC.Consumer,null,e=>t(e))}function IC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 512 512`},child:[{tag:`path`,attr:{d:`M61.7 169.4l101.5 278C92.2 413 43.3 340.2 43.3 256c0-30.9 6.6-60.1 18.4-86.6zm337.9 75.9c0-26.3-9.4-44.5-17.5-58.7-10.8-17.5-20.9-32.4-20.9-49.9 0-19.6 14.8-37.8 35.7-37.8.9 0 1.8.1 2.8.2-37.9-34.7-88.3-55.9-143.7-55.9-74.3 0-139.7 38.1-177.8 95.9 5 .2 9.7.3 13.7.3 22.2 0 56.7-2.7 56.7-2.7 11.5-.7 12.8 16.2 1.4 17.5 0 0-11.5 1.3-24.3 2l77.5 230.4L249.8 247l-33.1-90.8c-11.5-.7-22.3-2-22.3-2-11.5-.7-10.1-18.2 1.3-17.5 0 0 35.1 2.7 56 2.7 22.2 0 56.7-2.7 56.7-2.7 11.5-.7 12.8 16.2 1.4 17.5 0 0-11.5 1.3-24.3 2l76.9 228.7 21.2-70.9c9-29.4 16-50.5 16-68.7zm-139.9 29.3l-63.8 185.5c19.1 5.6 39.2 8.7 60.1 8.7 24.8 0 48.5-4.3 70.6-12.1-.6-.9-1.1-1.9-1.5-2.9l-65.4-179.2zm183-120.7c.9 6.8 1.4 14 1.4 21.9 0 21.6-4 45.8-16.2 76.2l-65 187.9C426.2 403 468.7 334.5 468.7 256c0-37-9.4-71.8-26-102.1zM504 256c0 136.8-111.3 248-248 248C119.2 504 8 392.7 8 256 8 119.2 119.2 8 256 8c136.7 0 248 111.2 248 248zm-11.4 0c0-130.5-106.2-236.6-236.6-236.6C125.5 19.4 19.4 125.5 19.4 256S125.6 492.6 256 492.6c130.5 0 236.6-106.1 236.6-236.6z`},child:[]}]})(e)}function LC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 512 512`},child:[{tag:`path`,attr:{d:`M418.2 177.2c-5.4-1.8-10.8-3.5-16.2-5.1.9-3.7 1.7-7.4 2.5-11.1 12.3-59.6 4.2-107.5-23.1-123.3-26.3-15.1-69.2.6-112.6 38.4-4.3 3.7-8.5 7.6-12.5 11.5-2.7-2.6-5.5-5.2-8.3-7.7-45.5-40.4-91.1-57.4-118.4-41.5-26.2 15.2-34 60.3-23 116.7 1.1 5.6 2.3 11.1 3.7 16.7-6.4 1.8-12.7 3.8-18.6 5.9C38.3 196.2 0 225.4 0 255.6c0 31.2 40.8 62.5 96.3 81.5 4.5 1.5 9 3 13.6 4.3-1.5 6-2.8 11.9-4 18-10.5 55.5-2.3 99.5 23.9 114.6 27 15.6 72.4-.4 116.6-39.1 3.5-3.1 7-6.3 10.5-9.7 4.4 4.3 9 8.4 13.6 12.4 42.8 36.8 85.1 51.7 111.2 36.6 27-15.6 35.8-62.9 24.4-120.5-.9-4.4-1.9-8.9-3-13.5 3.2-.9 6.3-1.9 9.4-2.9 57.7-19.1 99.5-50 99.5-81.7 0-30.3-39.4-59.7-93.8-78.4zM282.9 92.3c37.2-32.4 71.9-45.1 87.7-36 16.9 9.7 23.4 48.9 12.8 100.4-.7 3.4-1.4 6.7-2.3 10-22.2-5-44.7-8.6-67.3-10.6-13-18.6-27.2-36.4-42.6-53.1 3.9-3.7 7.7-7.2 11.7-10.7zM167.2 307.5c5.1 8.7 10.3 17.4 15.8 25.9-15.6-1.7-31.1-4.2-46.4-7.5 4.4-14.4 9.9-29.3 16.3-44.5 4.6 8.8 9.3 17.5 14.3 26.1zm-30.3-120.3c14.4-3.2 29.7-5.8 45.6-7.8-5.3 8.3-10.5 16.8-15.4 25.4-4.9 8.5-9.7 17.2-14.2 26-6.3-14.9-11.6-29.5-16-43.6zm27.4 68.9c6.6-13.8 13.8-27.3 21.4-40.6s15.8-26.2 24.4-38.9c15-1.1 30.3-1.7 45.9-1.7s31 .6 45.9 1.7c8.5 12.6 16.6 25.5 24.3 38.7s14.9 26.7 21.7 40.4c-6.7 13.8-13.9 27.4-21.6 40.8-7.6 13.3-15.7 26.2-24.2 39-14.9 1.1-30.4 1.6-46.1 1.6s-30.9-.5-45.6-1.4c-8.7-12.7-16.9-25.7-24.6-39s-14.8-26.8-21.5-40.6zm180.6 51.2c5.1-8.8 9.9-17.7 14.6-26.7 6.4 14.5 12 29.2 16.9 44.3-15.5 3.5-31.2 6.2-47 8 5.4-8.4 10.5-17 15.5-25.6zm14.4-76.5c-4.7-8.8-9.5-17.6-14.5-26.2-4.9-8.5-10-16.9-15.3-25.2 16.1 2 31.5 4.7 45.9 8-4.6 14.8-10 29.2-16.1 43.4zM256.2 118.3c10.5 11.4 20.4 23.4 29.6 35.8-19.8-.9-39.7-.9-59.5 0 9.8-12.9 19.9-24.9 29.9-35.8zM140.2 57c16.8-9.8 54.1 4.2 93.4 39 2.5 2.2 5 4.6 7.6 7-15.5 16.7-29.8 34.5-42.9 53.1-22.6 2-45 5.5-67.2 10.4-1.3-5.1-2.4-10.3-3.5-15.5-9.4-48.4-3.2-84.9 12.6-94zm-24.5 263.6c-4.2-1.2-8.3-2.5-12.4-3.9-21.3-6.7-45.5-17.3-63-31.2-10.1-7-16.9-17.8-18.8-29.9 0-18.3 31.6-41.7 77.2-57.6 5.7-2 11.5-3.8 17.3-5.5 6.8 21.7 15 43 24.5 63.6-9.6 20.9-17.9 42.5-24.8 64.5zm116.6 98c-16.5 15.1-35.6 27.1-56.4 35.3-11.1 5.3-23.9 5.8-35.3 1.3-15.9-9.2-22.5-44.5-13.5-92 1.1-5.6 2.3-11.2 3.7-16.7 22.4 4.8 45 8.1 67.9 9.8 13.2 18.7 27.7 36.6 43.2 53.4-3.2 3.1-6.4 6.1-9.6 8.9zm24.5-24.3c-10.2-11-20.4-23.2-30.3-36.3 9.6.4 19.5.6 29.5.6 10.3 0 20.4-.2 30.4-.7-9.2 12.7-19.1 24.8-29.6 36.4zm130.7 30c-.9 12.2-6.9 23.6-16.5 31.3-15.9 9.2-49.8-2.8-86.4-34.2-4.2-3.6-8.4-7.5-12.7-11.5 15.3-16.9 29.4-34.8 42.2-53.6 22.9-1.9 45.7-5.4 68.2-10.5 1 4.1 1.9 8.2 2.7 12.2 4.9 21.6 5.7 44.1 2.5 66.3zm18.2-107.5c-2.8.9-5.6 1.8-8.5 2.6-7-21.8-15.6-43.1-25.5-63.8 9.6-20.4 17.7-41.4 24.5-62.9 5.2 1.5 10.2 3.1 15 4.7 46.6 16 79.3 39.8 79.3 58 0 19.6-34.9 44.9-84.8 61.4zm-149.7-15c25.3 0 45.8-20.5 45.8-45.8s-20.5-45.8-45.8-45.8c-25.3 0-45.8 20.5-45.8 45.8s20.5 45.8 45.8 45.8z`},child:[]}]})(e)}function RC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 448 512`},child:[{tag:`path`,attr:{d:`M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4.1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3.1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z`},child:[]}]})(e)}function zC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 640 512`},child:[{tag:`path`,attr:{d:`M320 104.5c171.4 0 303.2 72.2 303.2 151.5S491.3 407.5 320 407.5c-171.4 0-303.2-72.2-303.2-151.5S148.7 104.5 320 104.5m0-16.8C143.3 87.7 0 163 0 256s143.3 168.3 320 168.3S640 349 640 256 496.7 87.7 320 87.7zM218.2 242.5c-7.9 40.5-35.8 36.3-70.1 36.3l13.7-70.6c38 0 63.8-4.1 56.4 34.3zM97.4 350.3h36.7l8.7-44.8c41.1 0 66.6 3 90.2-19.1 26.1-24 32.9-66.7 14.3-88.1-9.7-11.2-25.3-16.7-46.5-16.7h-70.7L97.4 350.3zm185.7-213.6h36.5l-8.7 44.8c31.5 0 60.7-2.3 74.8 10.7 14.8 13.6 7.7 31-8.3 113.1h-37c15.4-79.4 18.3-86 12.7-92-5.4-5.8-17.7-4.6-47.4-4.6l-18.8 96.6h-36.5l32.7-168.6zM505 242.5c-8 41.1-36.7 36.3-70.1 36.3l13.7-70.6c38.2 0 63.8-4.1 56.4 34.3zM384.2 350.3H421l8.7-44.8c43.2 0 67.1 2.5 90.2-19.1 26.1-24 32.9-66.7 14.3-88.1-9.7-11.2-25.3-16.7-46.5-16.7H417l-32.8 168.7z`},child:[]}]})(e)}function BC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 448 512`},child:[{tag:`path`,attr:{d:`M0 32v448h448V32H0zm243.8 349.4c0 43.6-25.6 63.5-62.9 63.5-33.7 0-53.2-17.4-63.2-38.5l34.3-20.7c6.6 11.7 12.6 21.6 27.1 21.6 13.8 0 22.6-5.4 22.6-26.5V237.7h42.1v143.7zm99.6 63.5c-39.1 0-64.4-18.6-76.7-43l34.3-19.8c9 14.7 20.8 25.6 41.5 25.6 17.4 0 28.6-8.7 28.6-20.8 0-14.4-11.4-19.5-30.7-28l-10.5-4.5c-30.4-12.9-50.5-29.2-50.5-63.5 0-31.6 24.1-55.6 61.6-55.6 26.8 0 46 9.3 59.8 33.7L368 290c-7.2-12.9-15-18-27.1-18-12.3 0-20.1 7.8-20.1 18 0 12.6 7.8 17.7 25.9 25.6l10.5 4.5c35.8 15.3 55.9 31 55.9 66.2 0 37.8-29.8 58.6-69.7 58.6z`},child:[]}]})(e)}function VC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 384 512`},child:[{tag:`path`,attr:{d:`M0 32l34.9 395.8L191.5 480l157.6-52.2L384 32H0zm308.2 127.9H124.4l4.1 49.4h175.6l-13.6 148.4-97.9 27v.3h-1.1l-98.7-27.3-6-75.8h47.7L138 320l53.5 14.5 53.7-14.5 6-62.2H84.3L71.5 112.2h241.1l-4.4 47.7z`},child:[]}]})(e)}function HC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 496 512`},child:[{tag:`path`,attr:{d:`M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z`},child:[]}]})(e)}function UC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 448 512`},child:[{tag:`path`,attr:{d:`M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z`},child:[]}]})(e)}function WC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 384 512`},child:[{tag:`path`,attr:{d:`M0 32l34.9 395.8L192 480l157.1-52.2L384 32H0zm313.1 80l-4.8 47.3L193 208.6l-.3.1h111.5l-12.8 146.6-98.2 28.7-98.8-29.2-6.4-73.9h48.9l3.2 38.3 52.6 13.3 54.7-15.4 3.7-61.6-166.3-.5v-.1l-.2.1-3.6-46.3L193.1 162l6.5-2.7H76.7L70.9 112h242.2z`},child:[]}]})(e)}function GC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 352 512`},child:[{tag:`path`,attr:{d:`M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z`},child:[]}]})(e)}function KC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 512 512`},child:[{tag:`path`,attr:{d:`M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z`},child:[]}]})(e)}function qC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 384 512`},child:[{tag:`path`,attr:{d:`M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z`},child:[]}]})(e)}function JC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 640 512`},child:[{tag:`path`,attr:{d:`M622.34 153.2L343.4 67.5c-15.2-4.67-31.6-4.67-46.79 0L17.66 153.2c-23.54 7.23-23.54 38.36 0 45.59l48.63 14.94c-10.67 13.19-17.23 29.28-17.88 46.9C38.78 266.15 32 276.11 32 288c0 10.78 5.68 19.85 13.86 25.65L20.33 428.53C18.11 438.52 25.71 448 35.94 448h56.11c10.24 0 17.84-9.48 15.62-19.47L82.14 313.65C90.32 307.85 96 298.78 96 288c0-11.57-6.47-21.25-15.66-26.87.76-15.02 8.44-28.3 20.69-36.72L296.6 284.5c9.06 2.78 26.44 6.25 46.79 0l278.95-85.7c23.55-7.24 23.55-38.36 0-45.6zM352.79 315.09c-28.53 8.76-52.84 3.92-65.59 0l-145.02-44.55L128 384c0 35.35 85.96 64 192 64s192-28.65 192-64l-14.18-113.47-145.03 44.56z`},child:[]}]})(e)}function YC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 512 512`},child:[{tag:`path`,attr:{d:`M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z`},child:[]}]})(e)}function XC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 512 512`},child:[{tag:`path`,attr:{d:`M216 0h80c13.3 0 24 10.7 24 24v168h87.7c17.8 0 26.7 21.5 14.1 34.1L269.7 378.3c-7.5 7.5-19.8 7.5-27.3 0L90.1 226.1c-12.6-12.6-3.7-34.1 14.1-34.1H192V24c0-13.3 10.7-24 24-24zm296 376v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h146.7l49 49c20.1 20.1 52.5 20.1 72.6 0l49-49H488c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z`},child:[]}]})(e)}function ZC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 512 512`},child:[{tag:`path`,attr:{d:`M320 336c0 8.84-7.16 16-16 16h-96c-8.84 0-16-7.16-16-16v-48H0v144c0 25.6 22.4 48 48 48h416c25.6 0 48-22.4 48-48V288H320v48zm144-208h-80V80c0-25.6-22.4-48-48-48H176c-25.6 0-48 22.4-48 48v48H48c-25.6 0-48 22.4-48 48v80h512v-80c0-25.6-22.4-48-48-48zm-144 0H192V96h128v32z`},child:[]}]})(e)}function QC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 448 512`},child:[{tag:`path`,attr:{d:`M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z`},child:[]}]})(e)}function $C(e){return PC({tag:`svg`,attr:{role:`img`,viewBox:`0 0 24 24`},child:[{tag:`path`,attr:{d:`M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z`},child:[]}]})(e)}function ew(e){return PC({tag:`svg`,attr:{role:`img`,viewBox:`0 0 24 24`},child:[{tag:`path`,attr:{d:`M16.405 5.501c-.115 0-.193.014-.274.033v.013h.014c.054.104.146.18.214.273.054.107.1.214.154.32l.014-.015c.094-.066.14-.172.14-.333-.04-.047-.046-.094-.08-.14-.04-.067-.126-.1-.18-.153zM5.77 18.695h-.927a50.854 50.854 0 00-.27-4.41h-.008l-1.41 4.41H2.45l-1.4-4.41h-.01a72.892 72.892 0 00-.195 4.41H0c.055-1.966.192-3.81.41-5.53h1.15l1.335 4.064h.008l1.347-4.064h1.095c.242 2.015.384 3.86.428 5.53zm4.017-4.08c-.378 2.045-.876 3.533-1.492 4.46-.482.716-1.01 1.073-1.583 1.073-.153 0-.34-.046-.566-.138v-.494c.11.017.24.026.386.026.268 0 .483-.075.647-.222.197-.18.295-.382.295-.605 0-.155-.077-.47-.23-.944L6.23 14.615h.91l.727 2.36c.164.536.233.91.205 1.123.4-1.064.678-2.227.835-3.483zm12.325 4.08h-2.63v-5.53h.885v4.85h1.745zm-3.32.135l-1.016-.5c.09-.076.177-.158.255-.25.433-.506.648-1.258.648-2.253 0-1.83-.718-2.746-2.155-2.746-.704 0-1.254.232-1.65.697-.43.508-.646 1.256-.646 2.245 0 .972.19 1.686.574 2.14.35.41.877.615 1.583.615.264 0 .506-.033.725-.098l1.325.772.36-.622zM15.5 17.588c-.225-.36-.337-.94-.337-1.736 0-1.393.424-2.09 1.27-2.09.443 0 .77.167.977.5.224.362.336.936.336 1.723 0 1.404-.424 2.108-1.27 2.108-.445 0-.77-.167-.978-.5zm-1.658-.425c0 .47-.172.856-.516 1.156-.344.3-.803.45-1.384.45-.543 0-1.064-.172-1.573-.515l.237-.476c.438.22.833.328 1.19.328.332 0 .593-.073.783-.22a.754.754 0 00.3-.615c0-.33-.23-.61-.648-.845-.388-.213-1.163-.657-1.163-.657-.422-.307-.632-.636-.632-1.177 0-.45.157-.81.47-1.085.315-.278.72-.415 1.22-.415.512 0 .98.136 1.4.41l-.213.476a2.726 2.726 0 00-1.064-.23c-.283 0-.502.068-.654.206a.685.685 0 00-.248.524c0 .328.234.61.666.85.393.215 1.187.67 1.187.67.433.305.648.63.648 1.168zm9.382-5.852c-.535-.014-.95.04-1.297.188-.1.04-.26.04-.274.167.055.053.063.14.11.214.08.134.218.313.346.407.14.11.28.216.427.31.26.16.555.255.81.416.145.094.293.213.44.313.073.05.12.14.214.172v-.02c-.046-.06-.06-.147-.105-.214-.067-.067-.134-.127-.2-.193a3.223 3.223 0 00-.695-.675c-.214-.146-.682-.35-.77-.595l-.013-.014c.146-.013.32-.066.46-.106.227-.06.435-.047.67-.106.106-.027.213-.06.32-.094v-.06c-.12-.12-.21-.283-.334-.395a8.867 8.867 0 00-1.104-.823c-.21-.134-.476-.22-.697-.334-.08-.04-.214-.06-.26-.127-.12-.146-.19-.34-.275-.514a17.69 17.69 0 01-.547-1.163c-.12-.262-.193-.523-.34-.763-.69-1.137-1.437-1.826-2.586-2.5-.247-.14-.543-.2-.856-.274-.167-.008-.334-.02-.5-.027-.11-.047-.216-.174-.31-.235-.38-.24-1.364-.76-1.644-.072-.18.434.267.862.422 1.082.115.153.26.328.34.5.047.116.06.235.107.356.106.294.207.622.347.897.073.14.153.287.247.413.054.073.146.107.167.227-.094.136-.1.334-.154.5-.24.757-.146 1.693.194 2.25.107.166.362.534.703.393.3-.12.234-.5.32-.835.02-.08.007-.133.048-.187v.015c.094.188.188.367.274.555.206.328.566.668.867.895.16.12.287.328.487.402v-.02h-.015c-.043-.058-.1-.086-.154-.133a3.445 3.445 0 01-.35-.4 8.76 8.76 0 01-.747-1.218c-.11-.21-.202-.436-.29-.643-.04-.08-.04-.2-.107-.24-.1.146-.247.273-.32.453-.127.288-.14.642-.188 1.01-.027.007-.014 0-.027.014-.214-.052-.287-.274-.367-.46-.2-.475-.233-1.238-.06-1.785.047-.14.247-.582.167-.716-.042-.127-.174-.2-.247-.303a2.478 2.478 0 01-.24-.427c-.16-.374-.24-.788-.414-1.162-.08-.173-.22-.354-.334-.513-.127-.18-.267-.307-.368-.52-.033-.073-.08-.194-.027-.274.014-.054.042-.075.094-.09.088-.072.335.022.422.062.247.1.455.194.662.334.094.066.195.193.315.226h.14c.214.047.455.014.655.073.355.114.675.28.962.46a5.953 5.953 0 012.085 2.286c.08.154.115.295.188.455.14.33.313.663.455.982.14.315.275.636.476.897.1.14.502.213.682.286.133.06.34.115.46.188.23.14.454.3.67.454.11.076.443.243.463.378z`},child:[]}]})(e)}function tw(e){return PC({tag:`svg`,attr:{role:`img`,viewBox:`0 0 24 24`},child:[{tag:`path`,attr:{d:`M11.146 0h3.924v18.166c-2.013.382-3.491.535-5.096.535-4.791 0-7.288-2.166-7.288-6.32 0-4.002 2.65-6.6 6.753-6.6.637 0 1.121.05 1.707.203zm0 9.143a3.894 3.894 0 00-1.325-.204c-1.988 0-3.134 1.223-3.134 3.365 0 2.09 1.096 3.236 3.109 3.236.433 0 .79-.025 1.35-.102V9.142zM21.314 6.06v9.098c0 3.134-.229 4.638-.917 5.937-.637 1.249-1.478 2.039-3.211 2.905l-3.644-1.733c1.733-.815 2.574-1.53 3.109-2.625.561-1.121.739-2.421.739-5.835V6.059h3.924zM17.39.021h3.924v4.026H17.39z`},child:[]}]})(e)}var nw={richBlack:`#000F08`,darkGreen:`#032221`,bangladeshGreen:`#03624C`,mountainMeadow:`#2CC295`,caribbeanGreen:`#00DF91`,white:`#F1F7F6`},rw=[{icon:LC,label:`React`,color:`#61DAFB`},{icon:RC,label:`Python`,color:`#3776AB`},{icon:BC,label:`JavaScript`,color:`#F7DF1E`},{icon:zC,label:`PHP`,color:`#777BB4`},{icon:ew,label:`MySQL`,color:`#4479A1`},{icon:VC,label:`HTML5`,color:`#E34F26`},{icon:WC,label:`CSS3`,color:`#1572B6`},{icon:HC,label:`GitHub`,color:nw.white},{icon:UC,label:`Git`,color:`#F05032`}];function iw(){let e=(0,v.useRef)(null);return ux((t,n)=>{e.current&&(e.current.rotation.x+=n*.18,e.current.rotation.y+=n*.28,t.invalidate())}),(0,B.jsxs)(`mesh`,{ref:e,children:[(0,B.jsx)(`icosahedronGeometry`,{args:[1.2,0]}),(0,B.jsx)(`meshStandardMaterial`,{color:`#0a2e28`,roughness:.85,metalness:.4}),(0,B.jsx)(bC,{threshold:5,color:nw.caribbeanGreen,lineWidth:1.2})]})}var aw=(0,v.memo)(function(){let e=(0,v.useRef)(null);return(0,v.useEffect)(()=>{let t=[setTimeout(()=>window.dispatchEvent(new Event(`resize`)),100),setTimeout(()=>window.dispatchEvent(new Event(`resize`)),500),setTimeout(()=>window.dispatchEvent(new Event(`resize`)),2e3)],n=new ResizeObserver(()=>{window.dispatchEvent(new Event(`resize`))});return e.current&&n.observe(e.current),()=>{t.forEach(clearTimeout),n.disconnect()}},[]),(0,B.jsx)(dw,{ref:e,children:(0,B.jsxs)(MS,{camera:{position:[0,0,3.5],fov:45},gl:{antialias:!0,alpha:!0},frameloop:`demand`,performance:{min:.5},children:[(0,B.jsx)(`ambientLight`,{intensity:.4}),(0,B.jsx)(`pointLight`,{position:[5,5,5],intensity:1.2,color:`#ffffff`}),(0,B.jsx)(`pointLight`,{position:[-5,-3,2],intensity:.6,color:nw.caribbeanGreen}),(0,B.jsx)(iw,{}),(0,B.jsx)(xC,{enableZoom:!1,enablePan:!1})]})})}),ow=Ln`
     from { transform: translate(-50%, -50%) rotate(0deg);   }
     to   { transform: translate(-50%, -50%) rotate(360deg); }
-`,ow=Ln`
+`,sw=Ln`
     from { transform: rotate(0deg);    }
     to   { transform: rotate(-360deg); }
-`,sw=Ln`
+`,cw=Ln`
     0%, 100% { opacity: 0.35; }
     50%       { opacity: 0.65; }
-`,cw=Ln`
+`,lw=Ln`
     from { opacity: 0; transform: scale(0.85); }
     to   { opacity: 1; transform: scale(1);    }
-`,lw=z.div`
+`,uw=z.div`
     position: relative;
     width: 420px;
     height: 420px;
@@ -4831,8 +4831,8 @@ No matching component was found for:
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    animation: ${cw} 0.9s ease 1s both;
-`,uw=z.div`
+    animation: ${lw} 0.9s ease 1s both;
+`,dw=z.div`
     position: absolute;
     width: 220px;
     height: 220px;
@@ -4849,7 +4849,7 @@ No matching component was found for:
     canvas {
         border-radius: 50%;
     }
-`,dw=z.div`
+`,fw=z.div`
     position: absolute;
     width: 360px;
     height: 360px;
@@ -4864,9 +4864,9 @@ No matching component was found for:
     pointer-events: none;
 
     animation:
-        ${aw}  25s linear infinite,
-        ${sw} 4s ease-in-out infinite;
-`,fw=z.div`
+        ${ow}  25s linear infinite,
+        ${cw} 4s ease-in-out infinite;
+`,pw=z.div`
     position: absolute;
     width: 40px;
     height: 40px;
@@ -4884,7 +4884,7 @@ No matching component was found for:
     top: ${({$angulo:e})=>`calc(50% + ${Math.sin(e*Math.PI/180)*180}px - 20px)`};
 
     & > span {
-        animation: ${ow} 25s linear infinite;
+        animation: ${sw} 25s linear infinite;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -4902,7 +4902,7 @@ No matching component was found for:
     &:hover > span {
         color: ${({$corHover:e})=>e};
     }
-`,pw=z.div`
+`,mw=z.div`
     position: absolute;
     width: 180px;
     height: 180px;
@@ -4917,56 +4917,56 @@ No matching component was found for:
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-`;function mw(){return(0,B.jsxs)(lw,{children:[(0,B.jsx)(pw,{}),(0,B.jsx)(iw,{}),(0,B.jsx)(dw,{children:nw.map((e,t)=>(0,B.jsx)(fw,{$angulo:t/nw.length*360-90,$corHover:e.color,title:e.label,children:(0,B.jsx)(`span`,{children:(0,B.jsx)(e.icon,{})})},e.label))})]})}var hw={richBlack:`#000F08`,darkGreen:`#032221`,bangladeshGreen:`#03624C`,mountainMeadow:`#2CC295`,caribbeanGreen:`#00DF91`,white:`#F1F7F6`},gw=Ln`
+`;function hw(){return(0,B.jsxs)(uw,{children:[(0,B.jsx)(mw,{}),(0,B.jsx)(aw,{}),(0,B.jsx)(fw,{children:rw.map((e,t)=>(0,B.jsx)(pw,{$angulo:t/rw.length*360-90,$corHover:e.color,title:e.label,children:(0,B.jsx)(`span`,{children:(0,B.jsx)(e.icon,{})})},e.label))})]})}var gw={richBlack:`#000F08`,darkGreen:`#032221`,bangladeshGreen:`#03624C`,mountainMeadow:`#2CC295`,caribbeanGreen:`#00DF91`,white:`#F1F7F6`},_w=Ln`
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0);    }
-`,_w=Ln`
+`,vw=Ln`
     0%, 100% { opacity: 1; }
     50%       { opacity: 0; }
-`,vw=Ln`
+`,yw=Ln`
     0%, 100% { opacity: 0.15; }
     50%       { opacity: 0.8;  }
-`,yw=Ln`
+`,bw=Ln`
     0%   { opacity: 0; transform: translateY(-6px) rotate(45deg) translate(-2px, -2px); }
     50%  { opacity: 1; transform: translateY(0) rotate(45deg) translate(-2px, -2px);    }
     100% { opacity: 0; transform: translateY(6px) rotate(45deg) translate(-2px, -2px);  }
-`,bw=Array.from({length:60},(e,t)=>({id:t,top:Math.random()*100,left:Math.random()*100,size:Math.random()<.7?1:2,delay:2+Math.random()*4,offset:Math.random()*5})),xw=z.span`
+`,xw=Array.from({length:60},(e,t)=>({id:t,top:Math.random()*100,left:Math.random()*100,size:Math.random()<.7?1:2,delay:2+Math.random()*4,offset:Math.random()*5})),Sw=z.span`
     position: absolute;
     width: ${({$size:e})=>e}px;
     height: ${({$size:e})=>e}px;
     border-radius: 50%;
-    background: ${hw.white};
+    background: ${gw.white};
     top: ${({$top:e})=>e}%;
     left: ${({$left:e})=>e}%;
     pointer-events: none;
-    animation: ${vw} ${({$delay:e})=>e}s infinite ease-in-out;
+    animation: ${yw} ${({$delay:e})=>e}s infinite ease-in-out;
     animation-delay: ${({$offset:e})=>e}s;
-`,Sw=(0,v.memo)(function(){return(0,B.jsx)(B.Fragment,{children:bw.map(e=>(0,B.jsx)(xw,{$top:e.top,$left:e.left,$size:e.size,$delay:e.delay,$offset:e.offset},e.id))})}),Cw=`Front-End Developer`,ww=[`A good Front-End Developer`,`Nerd 🤓`,`Future Fullstack Developer`,`DungeonMaster 🎲🐲`,`Hardworking Programmer! 🚀`,`A awesome person! (i try...)`],Tw=120,Ew=60,Dw=1500,Ow=400,kw=15e3,Aw=z.div`
+`,Cw=(0,v.memo)(function(){return(0,B.jsx)(B.Fragment,{children:xw.map(e=>(0,B.jsx)(Sw,{$top:e.top,$left:e.left,$size:e.size,$delay:e.delay,$offset:e.offset},e.id))})}),ww=`Front-End Developer`,Tw=[`A good Front-End Developer`,`Nerd 🤓`,`Future Fullstack Developer`,`DungeonMaster 🎲🐲`,`Hardworking Programmer! 🚀`,`A awesome person! (i try...)`],Ew=120,Dw=60,Ow=1500,kw=400,Aw=15e3,jw=z.div`
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 2px;
     min-height: 2rem;
     opacity: 0;
-    animation: ${gw} 0.6s ease 0.6s forwards;
+    animation: ${_w} 0.6s ease 0.6s forwards;
 
     @media (min-width: 768px) {
         justify-content: flex-start;
     }
-`,jw=z.h2`
+`,Mw=z.h2`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: clamp(1rem, 3.5vw, 1.4rem);
-    color: ${hw.mountainMeadow};
+    color: ${gw.mountainMeadow};
     font-weight: 400;
     letter-spacing: 0.05em;
-`,Mw=z.span`
+`,Nw=z.span`
     display: inline-block;
     width: clamp(2px, 0.8vw, 3px);
     height: 1.2em;
-    background: ${hw.caribbeanGreen};
+    background: ${gw.caribbeanGreen};
     vertical-align: middle;
-    animation: ${_w} 1s step-end infinite;
-`;function Nw(){let[e,t]=(0,v.useState)(``),n=(0,v.useRef)(null);return(0,v.useEffect)(()=>{let e=(i,a,o)=>{let s=ww[o];if(a){let a=i.slice(0,i.length-1);if(t(a),a===``){let t=o+1;t<ww.length?n.current=setTimeout(()=>e(``,!1,t),Ow):n.current=setTimeout(()=>r(``,!1),Ow)}else n.current=setTimeout(()=>e(a,!0,o),Ew)}else{let r=s.slice(0,i.length+1);t(r),r===s?n.current=setTimeout(()=>e(r,!0,o),Dw):n.current=setTimeout(()=>e(r,!1,o),Tw)}},r=(i,a)=>{if(a){let a=i.slice(0,i.length-1);t(a),a===``?n.current=setTimeout(()=>e(``,!1,0),Ow):n.current=setTimeout(()=>r(a,!0),Ew)}else{let e=Cw.slice(0,i.length+1);t(e),e===Cw?n.current=setTimeout(()=>r(e,!0),kw):n.current=setTimeout(()=>r(e,!1),Tw)}};return n.current=setTimeout(()=>r(``,!1),Tw),()=>{n.current&&clearTimeout(n.current)}},[]),(0,B.jsxs)(Aw,{children:[(0,B.jsx)(jw,{children:e}),(0,B.jsx)(Mw,{})]})}var Pw=z.section`
+    animation: ${vw} 1s step-end infinite;
+`;function Pw(){let[e,t]=(0,v.useState)(``),n=(0,v.useRef)(null);return(0,v.useEffect)(()=>{let e=(i,a,o)=>{let s=Tw[o];if(a){let a=i.slice(0,i.length-1);if(t(a),a===``){let t=o+1;t<Tw.length?n.current=setTimeout(()=>e(``,!1,t),kw):n.current=setTimeout(()=>r(``,!1),kw)}else n.current=setTimeout(()=>e(a,!0,o),Dw)}else{let r=s.slice(0,i.length+1);t(r),r===s?n.current=setTimeout(()=>e(r,!0,o),Ow):n.current=setTimeout(()=>e(r,!1,o),Ew)}},r=(i,a)=>{if(a){let a=i.slice(0,i.length-1);t(a),a===``?n.current=setTimeout(()=>e(``,!1,0),kw):n.current=setTimeout(()=>r(a,!0),Dw)}else{let e=ww.slice(0,i.length+1);t(e),e===ww?n.current=setTimeout(()=>r(e,!0),Aw):n.current=setTimeout(()=>r(e,!1),Ew)}};return n.current=setTimeout(()=>r(``,!1),Ew),()=>{n.current&&clearTimeout(n.current)}},[]),(0,B.jsxs)(jw,{children:[(0,B.jsx)(Mw,{children:e}),(0,B.jsx)(Nw,{})]})}var Fw=z.section`
     position: relative;
     min-height: 100dvh;
     display: flex;
@@ -4978,8 +4978,8 @@ No matching component was found for:
     overflow: hidden;
     background: radial-gradient(
         ellipse at 50% 80%,
-        ${hw.darkGreen} 0%,
-        ${hw.richBlack} 55%,
+        ${gw.darkGreen} 0%,
+        ${gw.richBlack} 55%,
         #000 100%
     );
 
@@ -4994,7 +4994,7 @@ No matching component was found for:
         justify-content: space-between;
         align-items: center;
     }
-`,Fw=z.div`
+`,Iw=z.div`
     display: none;
 
     @media (min-width: 992px) {
@@ -5003,59 +5003,59 @@ No matching component was found for:
         justify-content: center;
         flex-shrink: 0;
     }
-`,Iw=z.div`
+`,Lw=z.div`
     position: relative;
     z-index: 1;
     max-width: 800px;
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
-`,Lw=z.p`
+`,Rw=z.p`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: clamp(0.85rem, 2.5vw, 1rem);
-    color: ${hw.mountainMeadow};
+    color: ${gw.mountainMeadow};
     letter-spacing: 0.2em;
     text-transform: uppercase;
     opacity: 0;
-    animation: ${gw} 0.6s ease 0.2s forwards;
-`,Rw=z.h1`
+    animation: ${_w} 0.6s ease 0.2s forwards;
+`,zw=z.h1`
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: clamp(2rem, 8vw, 4.5rem);
-    color: ${hw.white};
+    color: ${gw.white};
     line-height: 1.3;
     opacity: 0;
-    animation: ${gw} 0.6s ease 0.4s forwards;
+    animation: ${_w} 0.6s ease 0.4s forwards;
 
     span {
-        color: ${hw.caribbeanGreen};
+        color: ${gw.caribbeanGreen};
     }
-`,zw=z.p`
+`,Bw=z.p`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: clamp(0.85rem, 2vw, 1rem);
     color: rgba(241, 247, 246, 0.65);
     line-height: 1.8;
     max-width: 520px;
     opacity: 0;
-    animation: ${gw} 0.6s ease 0.8s forwards;
-`,Bw=z.div`
+    animation: ${_w} 0.6s ease 0.8s forwards;
+`,Vw=z.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
     margin-top: 0.5rem;
     opacity: 0;
-    animation: ${gw} 0.6s ease 1s forwards;
+    animation: ${_w} 0.6s ease 1s forwards;
 
     @media (min-width: 480px) {
         flex-direction: row;
         align-items: center;
     }
-`,Vw=z.a`
+`,Hw=z.a`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.9rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: ${hw.richBlack};
-    background: ${hw.caribbeanGreen};
+    color: ${gw.richBlack};
+    background: ${gw.caribbeanGreen};
     padding: 0.85rem 1.75rem;
     border-radius: 4px;
     text-decoration: none;
@@ -5063,16 +5063,16 @@ No matching component was found for:
     transition: background 0.3s ease, transform 0.2s ease;
 
     &:hover {
-        background: ${hw.mountainMeadow};
+        background: ${gw.mountainMeadow};
         transform: translateY(-2px);
     }
-`,Hw=z.a`
+`,Uw=z.a`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.9rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: ${hw.caribbeanGreen};
-    border: 1px solid ${hw.caribbeanGreen};
+    color: ${gw.caribbeanGreen};
+    border: 1px solid ${gw.caribbeanGreen};
     padding: 0.85rem 1.75rem;
     border-radius: 4px;
     text-decoration: none;
@@ -5083,7 +5083,7 @@ No matching component was found for:
         background: rgba(0, 223, 145, 0.08);
         transform: translateY(-2px);
     }
-`,Uw=z.a`
+`,Ww=z.a`
     position: absolute;
     bottom: 2rem;
     left: 0;
@@ -5094,31 +5094,31 @@ No matching component was found for:
     gap: 0.4rem;
     text-decoration: none;
     opacity: 0;
-    animation: ${gw} 0.6s ease 1.4s forwards;
+    animation: ${_w} 0.6s ease 1.4s forwards;
     z-index: 1;
-`,Ww=z.span`
+`,Gw=z.span`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.65rem;
     color: rgba(44, 194, 149, 0.5);
     letter-spacing: 0.2em;
     text-transform: uppercase;
-`,Gw=z.div`
+`,Kw=z.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 4px;
     overflow: visible;
     padding: 4px;
-`,Kw=z.span`
+`,qw=z.span`
     display: block;
     width: 10px;
     height: 10px;
-    border-right: 2px solid ${hw.mountainMeadow};
-    border-bottom: 2px solid ${hw.mountainMeadow};
+    border-right: 2px solid ${gw.mountainMeadow};
+    border-bottom: 2px solid ${gw.mountainMeadow};
     transform: rotate(45deg) translate(-2px, -2px);
-    animation: ${yw} 1.4s ease-in-out infinite;
+    animation: ${bw} 1.4s ease-in-out infinite;
     animation-delay: ${({$delay:e})=>e}s;
-`;function qw(){return(0,B.jsxs)(Pw,{id:`home`,children:[(0,B.jsx)(Sw,{}),(0,B.jsxs)(Iw,{children:[(0,B.jsx)(Lw,{children:`Hi, i'm`}),(0,B.jsxs)(Rw,{children:[`ALEX`,(0,B.jsx)(`span`,{children:`ON`})]}),(0,B.jsx)(Nw,{}),(0,B.jsx)(zw,{children:`Computer Science student passionate about building intuitive and functional web experiences.`}),(0,B.jsxs)(Bw,{children:[(0,B.jsx)(Vw,{href:`#projects`,children:`See my work`}),(0,B.jsx)(Hw,{href:`#contact`,children:`Get in touch`})]})]}),(0,B.jsx)(Fw,{children:(0,B.jsx)(mw,{})}),(0,B.jsxs)(Uw,{href:`#about`,children:[(0,B.jsx)(Ww,{children:`scroll`}),(0,B.jsxs)(Gw,{children:[(0,B.jsx)(Kw,{$delay:0}),(0,B.jsx)(Kw,{$delay:.2}),(0,B.jsx)(Kw,{$delay:.4})]})]})]})}var Jw={richBlack:`#000F08`,darkGreen:`#032221`,bangladeshGreen:`#03624C`,mountainMeadow:`#2CC295`,caribbeanGreen:`#00DF91`,white:`#F1F7F6`},Yw=Mn`
+`;function Jw(){return(0,B.jsxs)(Fw,{id:`home`,children:[(0,B.jsx)(Cw,{}),(0,B.jsxs)(Lw,{children:[(0,B.jsx)(Rw,{children:`Hi, i'm`}),(0,B.jsxs)(zw,{children:[`ALEX`,(0,B.jsx)(`span`,{children:`ON`})]}),(0,B.jsx)(Pw,{}),(0,B.jsx)(Bw,{children:`Computer Science student passionate about building intuitive and functional web experiences.`}),(0,B.jsxs)(Vw,{children:[(0,B.jsx)(Hw,{href:`#projects`,children:`See my work`}),(0,B.jsx)(Uw,{href:`#contact`,children:`Get in touch`})]})]}),(0,B.jsx)(Iw,{children:(0,B.jsx)(hw,{})}),(0,B.jsxs)(Ww,{href:`#about`,children:[(0,B.jsx)(Gw,{children:`scroll`}),(0,B.jsxs)(Kw,{children:[(0,B.jsx)(qw,{$delay:0}),(0,B.jsx)(qw,{$delay:.2}),(0,B.jsx)(qw,{$delay:.4})]})]})]})}var Yw={richBlack:`#000F08`,darkGreen:`#032221`,bangladeshGreen:`#03624C`,mountainMeadow:`#2CC295`,caribbeanGreen:`#00DF91`,white:`#F1F7F6`},Xw=Mn`
     opacity: 0;
     transform: translateY(24px);
     transition: opacity 0.01s; /* fallback sem JS */
@@ -5129,58 +5129,58 @@ No matching component was found for:
     to   { opacity: 1; transform: translateY(0);    }
 `} 0.7s ease forwards;
     }
-`,Xw=z.section`
+`,Zw=z.section`
     position: relative;
-    background-color: ${Jw.darkGreen};
+    background-color: ${Yw.darkGreen};
     padding: 5rem 1.5rem;
 
     @media (min-width: 768px) {
         padding: 7rem 3rem;
     }
-`,Zw=z.div`
+`,Qw=z.div`
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 3rem;
-`,Qw=z.div`
+`,$w=z.div`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    ${Yw}
+    ${Xw}
 
     &.visivel {
         animation-delay: 0s;
     }
-`,$w=z.span`
+`,eT=z.span`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.75rem;
-    color: ${Jw.caribbeanGreen};
+    color: ${Yw.caribbeanGreen};
     letter-spacing: 0.3em;
     text-transform: uppercase;
-`,eT=z.h2`
+`,tT=z.h2`
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: clamp(1.4rem, 4vw, 2rem);
-    color: ${Jw.white};
+    color: ${Yw.white};
     line-height: 1.4;
 
     span {
-        color: ${Jw.caribbeanGreen};
+        color: ${Yw.caribbeanGreen};
     }
-`,tT=z.div`
+`,nT=z.div`
     width: 60px;
     height: 2px;
     background: linear-gradient(
         90deg,
-        ${Jw.caribbeanGreen},
+        ${Yw.caribbeanGreen},
         transparent
     );
     margin-top: 0.5rem;
-`,nT=z.div`
+`,rT=z.div`
     display: grid;
     grid-template-columns: 1fr;
     gap: 2.5rem;
-    ${Yw}
+    ${Xw}
 
     &.visivel {
         animation-delay: 0.15s;
@@ -5191,7 +5191,7 @@ No matching component was found for:
         gap: 4rem;
         align-items: start;
     }
-`,rT=z.div`
+`,iT=z.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -5200,7 +5200,7 @@ No matching component was found for:
     @media (min-width: 768px) {
         align-items: flex-start;
     }
-`,iT=z.div`
+`,aT=z.div`
     position: relative;
     width: 200px;
     height: 200px;
@@ -5210,7 +5210,7 @@ No matching component was found for:
         content: "";
         position: absolute;
         inset: 0;
-        border: 2px solid ${Jw.caribbeanGreen};
+        border: 2px solid ${Yw.caribbeanGreen};
         border-radius: 50%;
         transform: translate(8px, 8px);
         opacity: 0.4;
@@ -5225,14 +5225,14 @@ No matching component was found for:
         width: 240px;
         height: 240px;
     }
-`,aT=z.div`
+`,oT=z.div`
     width: 100%;
     height: 100%;
     border-radius: 50%;
     background: linear-gradient(
         135deg,
-        ${Jw.bangladeshGreen} 0%,
-        ${Jw.darkGreen} 100%
+        ${Yw.bangladeshGreen} 0%,
+        ${Yw.darkGreen} 100%
     );
     border: 2px solid rgba(44, 194, 149, 0.3);
     display: flex;
@@ -5240,34 +5240,34 @@ No matching component was found for:
     justify-content: center;
     font-family: "Press Start 2P", monospace;
     font-size: 3rem;
-    color: ${Jw.caribbeanGreen};
+    color: ${Yw.caribbeanGreen};
     opacity: 0.6;
-`,oT=z.div`
+`,sT=z.div`
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-`,sT=z.p`
+`,cT=z.p`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: clamp(0.85rem, 1.5vw, 1rem);
     color: rgba(241, 247, 246, 0.75);
     line-height: 1.9;
-`,cT=z.div`
+`,lT=z.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
     margin-top: 0.5rem;
-    ${Yw}
+    ${Xw}
 
     &.visivel {
         animation-delay: 0.3s;
     }
-`,lT=z.p`
+`,uT=z.p`
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: 0.6rem;
-    color: ${Jw.caribbeanGreen};
+    color: ${Yw.caribbeanGreen};
     letter-spacing: 0.05em;
     opacity: 0.8;
-`,uT=z.div`
+`,dT=z.div`
     display: grid;
     grid-template-columns: 1fr;
     gap: 0.75rem;
@@ -5275,7 +5275,7 @@ No matching component was found for:
     @media (min-width: 480px) {
         grid-template-columns: repeat(3, 1fr);
     }
-`,dT=z.div`
+`,fT=z.div`
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -5289,36 +5289,36 @@ No matching component was found for:
         background: rgba(3, 98, 76, 0.35);
         border-color: rgba(44, 194, 149, 0.4);
     }
-`,fT=z.span`
+`,pT=z.span`
     font-size: 1.3rem;
     flex-shrink: 0;
-`,pT=z.span`
+`,mT=z.span`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.8rem;
-    color: ${Jw.white};
+    color: ${Yw.white};
     letter-spacing: 0.02em;
-`,mT=[{icone:`⌨️`,texto:`Web Developer`},{icone:`📖`,texto:`Front-End Enthusiast`},{icone:`🎲`,texto:`Nerd`}],hT=[{icone:VC,label:`HTML5`,cor:`#E34F26`},{icone:WC,label:`CSS3`,cor:`#1572B6`},{icone:BC,label:`JavaScript`,cor:`#F7DF1E`},{icone:LC,label:`React`,cor:`#61DAFB`},{icone:QC,label:`Tailwind`,cor:`#38BDF8`},{icone:RC,label:`Python`,cor:`#3776AB`},{icone:ew,label:`Django`,cor:`#092E20`},{icone:zC,label:`PHP`,cor:`#777BB4`},{icone:$C,label:`MySQL`,cor:`#4479A1`},{icone:IC,label:`WordPress`,cor:`#21759B`},{icone:HC,label:`GitHub`,cor:`#F1F7F6`},{icone:UC,label:`Git`,cor:`#F05032`}],gT=z.div`
+`,hT=[{icone:`⌨️`,texto:`Web Developer`},{icone:`📖`,texto:`Front-End Enthusiast`},{icone:`🎲`,texto:`Nerd`}],gT=[{icone:VC,label:`HTML5`,cor:`#E34F26`},{icone:WC,label:`CSS3`,cor:`#1572B6`},{icone:BC,label:`JavaScript`,cor:`#F7DF1E`},{icone:LC,label:`React`,cor:`#61DAFB`},{icone:$C,label:`Tailwind`,cor:`#38BDF8`},{icone:RC,label:`Python`,cor:`#3776AB`},{icone:tw,label:`Django`,cor:`#092E20`},{icone:zC,label:`PHP`,cor:`#777BB4`},{icone:ew,label:`MySQL`,cor:`#4479A1`},{icone:IC,label:`WordPress`,cor:`#21759B`},{icone:HC,label:`GitHub`,cor:`#F1F7F6`},{icone:UC,label:`Git`,cor:`#F05032`}],_T=z.div`
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    ${Yw}
+    ${Xw}
 
     &.visivel {
         animation-delay: 0.1s;
     }
-`,_T=z.span`
+`,vT=z.span`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.75rem;
-    color: ${Jw.caribbeanGreen};
+    color: ${Yw.caribbeanGreen};
     letter-spacing: 0.3em;
     text-transform: uppercase;
-`,vT=z.h3`
+`,yT=z.h3`
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-    color: ${Jw.white};
+    color: ${Yw.white};
     line-height: 1.4;
     margin-top: 0.25rem;
-`,yT=z.div`
+`,bT=z.div`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 0.75rem;
@@ -5334,7 +5334,7 @@ No matching component was found for:
     @media (min-width: 992px) {
         grid-template-columns: repeat(6, 1fr);
     }
-`,bT=z.div`
+`,xT=z.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -5365,7 +5365,7 @@ No matching component was found for:
             color: ${({$cor:e})=>e};
         }
     }
-`,xT=z.span`
+`,ST=z.span`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.6rem;
     color: rgba(241, 247, 246, 0.5);
@@ -5373,10 +5373,10 @@ No matching component was found for:
     letter-spacing: 0.03em;
     transition: color 0.3s ease;
 
-    ${bT}:hover & {
+    ${xT}:hover & {
         color: rgba(241, 247, 246, 0.9);
     }
-`;function ST(){let e=(0,v.useRef)(null),t=(0,v.useRef)(null),n=(0,v.useRef)(null),r=(0,v.useRef)(null);return(0,v.useEffect)(()=>{let i=[e.current,t.current,n.current,r.current].filter(Boolean),a=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&(e.target.classList.add(`visivel`),a.unobserve(e.target))})},{threshold:.15});return i.forEach(e=>a.observe(e)),()=>a.disconnect()},[]),(0,B.jsx)(Xw,{id:`about`,children:(0,B.jsxs)(Zw,{children:[(0,B.jsxs)(Qw,{ref:e,children:[(0,B.jsx)($w,{children:`// about me`}),(0,B.jsxs)(eT,{children:[`A little `,(0,B.jsx)(`span`,{children:`about`}),` me`]}),(0,B.jsx)(tT,{})]}),(0,B.jsxs)(nT,{ref:t,children:[(0,B.jsx)(rT,{children:(0,B.jsx)(iT,{children:(0,B.jsx)(aT,{children:`A`})})}),(0,B.jsxs)(oT,{children:[(0,B.jsx)(sT,{children:`Hi, I'm Alex, a developer constantly involved and passionate about creating intuitive and functional web experiences. I focus on HTML, CSS, and responsive design, always striving to combine aesthetics and efficiency in every project I work on.`}),(0,B.jsx)(sT,{children:`My journey in programming is fueled by curiosity and a desire to turn ideas into reality. I love tackling technical challenges, seeing every line of code as an opportunity to learn and grow.`}),(0,B.jsx)(sT,{children:`When I'm not coding, you'll probably find me enjoying D&D, exploring new design concepts, or planning my next steps in the world of technology.`}),(0,B.jsxs)(cT,{ref:n,children:[(0,B.jsx)(lT,{children:`Too long? Didn't read? A summary for you:`}),(0,B.jsx)(uT,{children:mT.map(e=>(0,B.jsxs)(dT,{children:[(0,B.jsx)(fT,{children:e.icone}),(0,B.jsx)(pT,{children:e.texto})]},e.texto))})]})]})]}),(0,B.jsxs)(gT,{ref:r,children:[(0,B.jsxs)(`div`,{children:[(0,B.jsx)(_T,{children:`// known technologies`}),(0,B.jsx)(vT,{children:`What I work with`})]}),(0,B.jsx)(yT,{children:hT.map(e=>(0,B.jsxs)(bT,{$cor:e.cor,title:e.label,children:[(0,B.jsx)(e.icone,{}),(0,B.jsx)(xT,{children:e.label})]},e.label))})]})]})})}var CT={richBlack:`#000F08`,darkGreen:`#032221`,bangladeshGreen:`#03624C`,mountainMeadow:`#2CC295`,caribbeanGreen:`#00DF91`,white:`#F1F7F6`},wT=[{cargo:`Programming Instructor Intern`,empresa:`Microlins`,local:`Maceió, AL`,periodo:`Jun/2025 — Present`,atual:!0,descricao:[`Support for theoretical and practical classes, ensuring alignment with the teaching plan.`,`Individual student assistance, resolving doubts and monitoring academic progress.`,`Application of exercises and practical activities to reinforce content.`,`Collaboration in preparation and organization of teaching materials.`,`Development of communication, teaching and interpersonal relationship skills.`]},{cargo:`Front-End Developer`,empresa:`Freelancer — siegvfx.com`,local:`Remote`,periodo:`Aug/2024 — Sep/2024`,atual:!1,descricao:[`Development of siegvfx.com with focus on responsive design and user experience.`,`Application of coding best practices, ensuring performance and maintainability.`,`Implementation of adaptive layouts and cross-browser compatibility.`,`Versioning with Git and GitHub, demonstrating code control and best practices.`]},{cargo:`Customer Service Representative`,empresa:`AlmaViva do Brasil`,local:`Maceió, AL`,periodo:`Jun/2023 — Apr/2024`,atual:!1,descricao:[`Receptive customer service focused on problem resolution and satisfaction.`,`Strategic customer retention using argumentation and negotiation techniques.`,`Service sales, contributing to revenue growth and goal achievement.`,`Recording and tracking calls, ensuring quality and assertiveness in service.`]}],TT=[{curso:`Bachelor's in Computer Science`,instituicao:`Uninassau`,local:`Maceió, AL`,periodo:`2025 — Present`,atual:!0},{curso:`Technical Degree in Internet IT`,instituicao:`SENAI`,local:`Maceió, AL`,periodo:`2019 — 2021`,atual:!1}],ET=Mn`
+`;function CT(){let e=(0,v.useRef)(null),t=(0,v.useRef)(null),n=(0,v.useRef)(null),r=(0,v.useRef)(null);return(0,v.useEffect)(()=>{let i=[e.current,t.current,n.current,r.current].filter(Boolean),a=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&(e.target.classList.add(`visivel`),a.unobserve(e.target))})},{threshold:.15});return i.forEach(e=>a.observe(e)),()=>a.disconnect()},[]),(0,B.jsx)(Zw,{id:`about`,children:(0,B.jsxs)(Qw,{children:[(0,B.jsxs)($w,{ref:e,children:[(0,B.jsx)(eT,{children:`// about me`}),(0,B.jsxs)(tT,{children:[`A little `,(0,B.jsx)(`span`,{children:`about`}),` me`]}),(0,B.jsx)(nT,{})]}),(0,B.jsxs)(rT,{ref:t,children:[(0,B.jsx)(iT,{children:(0,B.jsx)(aT,{children:(0,B.jsx)(oT,{children:`A`})})}),(0,B.jsxs)(sT,{children:[(0,B.jsx)(cT,{children:`Hi, I'm Alex, a developer constantly involved and passionate about creating intuitive and functional web experiences. I focus on HTML, CSS, and responsive design, always striving to combine aesthetics and efficiency in every project I work on.`}),(0,B.jsx)(cT,{children:`My journey in programming is fueled by curiosity and a desire to turn ideas into reality. I love tackling technical challenges, seeing every line of code as an opportunity to learn and grow.`}),(0,B.jsx)(cT,{children:`When I'm not coding, you'll probably find me enjoying D&D, exploring new design concepts, or planning my next steps in the world of technology.`}),(0,B.jsxs)(lT,{ref:n,children:[(0,B.jsx)(uT,{children:`Too long? Didn't read? A summary for you:`}),(0,B.jsx)(dT,{children:hT.map(e=>(0,B.jsxs)(fT,{children:[(0,B.jsx)(pT,{children:e.icone}),(0,B.jsx)(mT,{children:e.texto})]},e.texto))})]})]})]}),(0,B.jsxs)(_T,{ref:r,children:[(0,B.jsxs)(`div`,{children:[(0,B.jsx)(vT,{children:`// known technologies`}),(0,B.jsx)(yT,{children:`What I work with`})]}),(0,B.jsx)(bT,{children:gT.map(e=>(0,B.jsxs)(xT,{$cor:e.cor,title:e.label,children:[(0,B.jsx)(e.icone,{}),(0,B.jsx)(ST,{children:e.label})]},e.label))})]})]})})}var wT={richBlack:`#000F08`,darkGreen:`#032221`,bangladeshGreen:`#03624C`,mountainMeadow:`#2CC295`,caribbeanGreen:`#00DF91`,white:`#F1F7F6`},TT=[{cargo:`Programming Instructor Intern`,empresa:`Microlins`,local:`Maceió, AL`,periodo:`Jun/2025 — Present`,atual:!0,descricao:[`Support for theoretical and practical classes, ensuring alignment with the teaching plan.`,`Individual student assistance, resolving doubts and monitoring academic progress.`,`Application of exercises and practical activities to reinforce content.`,`Collaboration in preparation and organization of teaching materials.`,`Development of communication, teaching and interpersonal relationship skills.`]},{cargo:`Front-End Developer`,empresa:`Freelancer — siegvfx.com`,local:`Remote`,periodo:`Aug/2024 — Sep/2024`,atual:!1,descricao:[`Development of siegvfx.com with focus on responsive design and user experience.`,`Application of coding best practices, ensuring performance and maintainability.`,`Implementation of adaptive layouts and cross-browser compatibility.`,`Versioning with Git and GitHub, demonstrating code control and best practices.`]},{cargo:`Customer Service Representative`,empresa:`AlmaViva do Brasil`,local:`Maceió, AL`,periodo:`Jun/2023 — Apr/2024`,atual:!1,descricao:[`Receptive customer service focused on problem resolution and satisfaction.`,`Strategic customer retention using argumentation and negotiation techniques.`,`Service sales, contributing to revenue growth and goal achievement.`,`Recording and tracking calls, ensuring quality and assertiveness in service.`]}],ET=[{curso:`Bachelor's in Computer Science`,instituicao:`Uninassau`,local:`Maceió, AL`,periodo:`2025 — Present`,atual:!0},{curso:`Technical Degree in Internet IT`,instituicao:`SENAI`,local:`Maceió, AL`,periodo:`2019 — 2021`,atual:!1}],DT=Mn`
     opacity: 0;
     transform: translateY(24px);
 
@@ -5386,54 +5386,54 @@ No matching component was found for:
     to   { opacity: 1; transform: translateY(0);    }
 `} 0.7s ease forwards;
     }
-`,DT=z.section`
+`,OT=z.section`
     position: relative;
-    background-color: ${CT.richBlack};
+    background-color: ${wT.richBlack};
     padding: 5rem 1.5rem;
 
     @media (min-width: 768px) {
         padding: 7rem 3rem;
     }
-`,OT=z.div`
+`,kT=z.div`
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 4rem;
-`,kT=z.div`
+`,AT=z.div`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    ${ET}
+    ${DT}
 
     &.visivel {
         animation-delay: 0s;
     }
-`,AT=z.span`
+`,jT=z.span`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.75rem;
-    color: ${CT.caribbeanGreen};
+    color: ${wT.caribbeanGreen};
     letter-spacing: 0.3em;
     text-transform: uppercase;
-`,jT=z.h2`
+`,MT=z.h2`
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: clamp(1.4rem, 4vw, 2rem);
-    color: ${CT.white};
+    color: ${wT.white};
     line-height: 1.4;
 
     span {
-        color: ${CT.caribbeanGreen};
+        color: ${wT.caribbeanGreen};
     }
-`,MT=z.div`
+`,NT=z.div`
     width: 60px;
     height: 2px;
-    background: linear-gradient(90deg, ${CT.caribbeanGreen}, transparent);
+    background: linear-gradient(90deg, ${wT.caribbeanGreen}, transparent);
     margin-top: 0.5rem;
-`,NT=z.div`
+`,PT=z.div`
     display: grid;
     grid-template-columns: 1fr;
     gap: 3rem;
-    ${ET}
+    ${DT}
 
     &.visivel {
         animation-delay: 0.2s;
@@ -5443,17 +5443,17 @@ No matching component was found for:
         grid-template-columns: 1fr 1fr;
         gap: 5rem;
     }
-`,PT=z.div`
+`,FT=z.div`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-`,FT=z.h3`
+`,IT=z.h3`
     display: flex;
     align-items: center;
     gap: 0.6rem;
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: 0.75rem;
-    color: ${CT.mountainMeadow};
+    color: ${wT.mountainMeadow};
     letter-spacing: 0.1em;
     text-transform: uppercase;
     margin-bottom: 1.5rem;
@@ -5461,22 +5461,22 @@ No matching component was found for:
     /* Ícone da coluna */
     svg {
         font-size: 1rem;
-        color: ${CT.caribbeanGreen};
+        color: ${wT.caribbeanGreen};
         flex-shrink: 0;
     }
-`,IT=z.span`
+`,LT=z.span`
     display: inline-block;
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.6rem;
     letter-spacing: 0.08em;
-    color: ${CT.richBlack};
-    background: ${CT.caribbeanGreen};
+    color: ${wT.richBlack};
+    background: ${wT.caribbeanGreen};
     padding: 0.2rem 0.55rem;
     border-radius: 20px;
     margin-left: 0.5rem;
     vertical-align: middle;
     text-transform: uppercase;
-`,LT=z.span`
+`,RT=z.span`
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
@@ -5488,7 +5488,7 @@ No matching component was found for:
     svg {
         font-size: 0.65rem;
     }
-`,RT=z.div`
+`,zT=z.div`
     position: relative;
     display: flex;
     flex-direction: column;
@@ -5504,11 +5504,11 @@ No matching component was found for:
         width: 1px;
         background: linear-gradient(
             to bottom,
-            ${CT.caribbeanGreen},
+            ${wT.caribbeanGreen},
             transparent
         );
     }
-`,zT=z.div`
+`,BT=z.div`
     position: relative;
     padding-left: 2.5rem;
     padding-bottom: 2.5rem;
@@ -5522,39 +5522,39 @@ No matching component was found for:
         width: 15px;
         height: 15px;
         border-radius: 50%;
-        background: ${CT.bangladeshGreen};
-        border: 2px solid ${CT.caribbeanGreen};
+        background: ${wT.bangladeshGreen};
+        border: 2px solid ${wT.caribbeanGreen};
         z-index: 1;
     }
 
     &:last-child {
         padding-bottom: 0;
     }
-`,BT=z.span`
+`,VT=z.span`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.7rem;
-    color: ${CT.caribbeanGreen};
+    color: ${wT.caribbeanGreen};
     letter-spacing: 0.1em;
     display: block;
     margin-bottom: 0.4rem;
-`,VT=z.h4`
+`,HT=z.h4`
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: 0.65rem;
-    color: ${CT.white};
+    color: ${wT.white};
     line-height: 1.6;
     margin-bottom: 0.25rem;
-`,HT=z.span`
+`,UT=z.span`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.8rem;
-    color: ${CT.mountainMeadow};
+    color: ${wT.mountainMeadow};
     display: block;
     margin-bottom: 0.75rem;
-`,UT=z.ul`
+`,WT=z.ul`
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
     list-style: none;
-`,WT=z.li`
+`,GT=z.li`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.78rem;
     color: rgba(241, 247, 246, 0.6);
@@ -5566,9 +5566,9 @@ No matching component was found for:
         content: "›";
         position: absolute;
         left: 0;
-        color: ${CT.caribbeanGreen};
+        color: ${wT.caribbeanGreen};
     }
-`,GT=z.div`
+`,KT=z.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -5578,7 +5578,7 @@ No matching component was found for:
     border-radius: 12px;
     background: rgba(3, 98, 76, 0.08);
     text-align: center;
-    ${ET}
+    ${DT}
 
     &.visivel {
         animation-delay: 0.3s;
@@ -5589,20 +5589,20 @@ No matching component was found for:
         justify-content: space-between;
         text-align: left;
     }
-`,KT=z.div`
+`,qT=z.div`
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
-`,qT=z.p`
+`,JT=z.p`
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: 0.7rem;
-    color: ${CT.white};
+    color: ${wT.white};
     line-height: 1.6;
-`,JT=z.p`
+`,YT=z.p`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.8rem;
     color: rgba(241, 247, 246, 0.5);
-`,YT=z.a`
+`,XT=z.a`
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
@@ -5610,8 +5610,8 @@ No matching component was found for:
     font-size: 0.85rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: ${CT.richBlack};
-    background: ${CT.caribbeanGreen};
+    color: ${wT.richBlack};
+    background: ${wT.caribbeanGreen};
     padding: 0.85rem 1.75rem;
     border-radius: 4px;
     text-decoration: none;
@@ -5624,10 +5624,10 @@ No matching component was found for:
     }
 
     &:hover {
-        background: ${CT.mountainMeadow};
+        background: ${wT.mountainMeadow};
         transform: translateY(-2px);
     }
-`;function XT(){let e=(0,v.useRef)(null),t=(0,v.useRef)(null),n=(0,v.useRef)(null);return(0,v.useEffect)(()=>{let r=[e.current,t.current,n.current].filter(Boolean),i=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&(e.target.classList.add(`visivel`),i.unobserve(e.target))})},{threshold:.1});return r.forEach(e=>i.observe(e)),()=>i.disconnect()},[]),(0,B.jsx)(DT,{id:`experience`,children:(0,B.jsxs)(OT,{children:[(0,B.jsxs)(kT,{ref:e,children:[(0,B.jsx)(AT,{children:`// my journey`}),(0,B.jsxs)(jT,{children:[`Experience & `,(0,B.jsx)(`span`,{children:`Education`})]}),(0,B.jsx)(MT,{})]}),(0,B.jsxs)(NT,{ref:t,children:[(0,B.jsxs)(PT,{children:[(0,B.jsxs)(FT,{children:[(0,B.jsx)(ZC,{}),`Work Experience`]}),(0,B.jsx)(RT,{children:wT.map(e=>(0,B.jsxs)(zT,{children:[(0,B.jsxs)(BT,{children:[e.periodo,e.atual&&(0,B.jsx)(IT,{children:`Current`})]}),(0,B.jsx)(VT,{children:e.cargo}),(0,B.jsx)(HT,{children:e.empresa}),(0,B.jsxs)(LT,{children:[(0,B.jsx)(qC,{}),e.local]}),(0,B.jsx)(UT,{children:e.descricao.map((e,t)=>(0,B.jsx)(WT,{children:e},t))})]},e.empresa))})]}),(0,B.jsxs)(PT,{children:[(0,B.jsxs)(FT,{children:[(0,B.jsx)(JC,{}),`Education`]}),(0,B.jsx)(RT,{children:TT.map(e=>(0,B.jsxs)(zT,{children:[(0,B.jsxs)(BT,{children:[e.periodo,e.atual&&(0,B.jsx)(IT,{children:`Current`})]}),(0,B.jsx)(VT,{children:e.curso}),(0,B.jsx)(HT,{children:e.instituicao}),(0,B.jsxs)(LT,{children:[(0,B.jsx)(qC,{}),e.local]})]},e.instituicao))})]})]}),(0,B.jsxs)(GT,{ref:n,children:[(0,B.jsxs)(KT,{children:[(0,B.jsx)(qT,{children:`Want to know more?`}),(0,B.jsx)(JT,{children:`Download my full resume for more details.`})]}),(0,B.jsxs)(YT,{href:`/portfolio-v2/resume.pdf`,download:`Alexsander_Albino_Resume.pdf`,target:`_blank`,rel:`noopener noreferrer`,children:[(0,B.jsx)(XC,{}),`Grab a copy`]})]})]})})}var ZT={richBlack:`#000F08`,darkGreen:`#032221`,bangladeshGreen:`#03624C`,mountainMeadow:`#2CC295`,caribbeanGreen:`#00DF91`,white:`#F1F7F6`},QT=[{id:1,titulo:`Django Task Manager`,descricao:`A functional task management system featuring full CRUD capabilities for personal organization. Developed with Python using the Django framework with a clean MVT architecture. Fully responsive interface with modern CSS and media queries.`,tecnologias:[`Python`,`Django`,`SQLite`,`CSS`],linkSite:`https://primeiro-projeto-django-ke1o.onrender.com/`,linkGithub:`https://github.com/AlexOnn1/Primeiro-projeto-django`,imagem:null},{id:2,titulo:`Shopping Cart`,descricao:`A simple sales system featuring a shopping cart, product, customer and order registration. Developed with pure Python using Streamlit. Allows adding products to the cart, calculating totals, removing items, finalizing orders and viewing history.`,tecnologias:[`Python`,`Streamlit`],linkSite:`https://sistema-de-vendas.streamlit.app/`,linkGithub:`https://github.com/AlexOnn1/Sistema-de-vendas`,imagem:null},{id:3,titulo:`Huddle Base`,descricao:`A responsive landing page based on the Frontend Mentor challenge. Focus on creating a pixel-perfect design that adapts seamlessly to different screen sizes, refining HTML and CSS skills while implementing best practices for accessibility.`,tecnologias:[`HTML5`,`CSS3`],linkSite:`https://alexonn1.github.io/projeto-huddle-base/`,linkGithub:`https://github.com/AlexOnn1/projeto-huddle-base`,imagem:null},{id:4,titulo:`Landing Page`,descricao:`A project made to finish the HTML5 and CSS3 advanced module from the DevQuest course. Applied all concepts of Flexbox and Grid learned in the module, combining them to build a fully responsive and modern layout.`,tecnologias:[`HTML5`,`CSS3`],linkSite:`https://alexonn1.github.io/landing-page-com-grid/`,linkGithub:`https://github.com/AlexOnn1/landing-page-com-grid`,imagem:null},{id:5,titulo:`Sieg's Portfolio`,descricao:`My first big project — a portfolio for a graphic designer with 3 pages showing his Work, Studies and a page about him. Built with HTML5 and CSS3 only, before studying JavaScript, as a great opportunity to test my knowledge.`,tecnologias:[`HTML5`,`CSS3`],linkSite:`https://alexonn1.github.io/Sieg/`,linkGithub:`https://github.com/AlexOnn1/Sieg`,imagem:null}],$T=Mn`
+`;function ZT(){let e=(0,v.useRef)(null),t=(0,v.useRef)(null),n=(0,v.useRef)(null);return(0,v.useEffect)(()=>{let r=[e.current,t.current,n.current].filter(Boolean),i=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&(e.target.classList.add(`visivel`),i.unobserve(e.target))})},{threshold:.1});return r.forEach(e=>i.observe(e)),()=>i.disconnect()},[]),(0,B.jsx)(OT,{id:`experience`,children:(0,B.jsxs)(kT,{children:[(0,B.jsxs)(AT,{ref:e,children:[(0,B.jsx)(jT,{children:`// my journey`}),(0,B.jsxs)(MT,{children:[`Experience & `,(0,B.jsx)(`span`,{children:`Education`})]}),(0,B.jsx)(NT,{})]}),(0,B.jsxs)(PT,{ref:t,children:[(0,B.jsxs)(FT,{children:[(0,B.jsxs)(IT,{children:[(0,B.jsx)(ZC,{}),`Work Experience`]}),(0,B.jsx)(zT,{children:TT.map(e=>(0,B.jsxs)(BT,{children:[(0,B.jsxs)(VT,{children:[e.periodo,e.atual&&(0,B.jsx)(LT,{children:`Current`})]}),(0,B.jsx)(HT,{children:e.cargo}),(0,B.jsx)(UT,{children:e.empresa}),(0,B.jsxs)(RT,{children:[(0,B.jsx)(qC,{}),e.local]}),(0,B.jsx)(WT,{children:e.descricao.map((e,t)=>(0,B.jsx)(GT,{children:e},t))})]},e.empresa))})]}),(0,B.jsxs)(FT,{children:[(0,B.jsxs)(IT,{children:[(0,B.jsx)(JC,{}),`Education`]}),(0,B.jsx)(zT,{children:ET.map(e=>(0,B.jsxs)(BT,{children:[(0,B.jsxs)(VT,{children:[e.periodo,e.atual&&(0,B.jsx)(LT,{children:`Current`})]}),(0,B.jsx)(HT,{children:e.curso}),(0,B.jsx)(UT,{children:e.instituicao}),(0,B.jsxs)(RT,{children:[(0,B.jsx)(qC,{}),e.local]})]},e.instituicao))})]})]}),(0,B.jsxs)(KT,{ref:n,children:[(0,B.jsxs)(qT,{children:[(0,B.jsx)(JT,{children:`Want to know more?`}),(0,B.jsx)(YT,{children:`Download my full resume for more details.`})]}),(0,B.jsxs)(XT,{href:`/portfolio-v2/resume.pdf`,download:`Alexsander_Albino_Resume.pdf`,target:`_blank`,rel:`noopener noreferrer`,children:[(0,B.jsx)(XC,{}),`Grab a copy`]})]})]})})}var QT={richBlack:`#000F08`,darkGreen:`#032221`,bangladeshGreen:`#03624C`,mountainMeadow:`#2CC295`,caribbeanGreen:`#00DF91`,white:`#F1F7F6`},$T=[{id:1,titulo:`O Leãozinho Digital Platform`,descricao:`A complete digital platform prototype designed for a local restaurant. Features a dynamic digital menu, an interactive shopping cart, and a direct WhatsApp checkout flow. Built with React, TypeScript and Vite, implementing robust global state management using Context API and useReducer. A highly polished, responsive showcase of modern front-end architecture.`,tecnologias:[`React`,`TypeScript`,`Vite`,`Context API`],linkSite:`https://alexonn1.github.io/leaozinho-prototipo-app/`,linkGithub:`https://github.com/AlexOnn1/nome-do-repositorio`,imagem:null},{id:2,titulo:`Django Task Manager`,descricao:`A functional task management system featuring full CRUD capabilities for personal organization. Developed with Python using the Django framework with a clean MVT architecture. Fully responsive interface with modern CSS and media queries.`,tecnologias:[`Python`,`Django`,`SQLite`,`CSS`],linkSite:`https://primeiro-projeto-django-ke1o.onrender.com/`,linkGithub:`https://github.com/AlexOnn1/Primeiro-projeto-django`,imagem:null},{id:3,titulo:`Shopping Cart`,descricao:`A simple sales system featuring a shopping cart, product, customer and order registration. Developed with pure Python using Streamlit. Allows adding products to the cart, calculating totals, removing items, finalizing orders and viewing history.`,tecnologias:[`Python`,`Streamlit`],linkSite:`https://sistema-de-vendas.streamlit.app/`,linkGithub:`https://github.com/AlexOnn1/Sistema-de-vendas`,imagem:null},{id:4,titulo:`Huddle Base`,descricao:`A responsive landing page based on the Frontend Mentor challenge. Focus on creating a pixel-perfect design that adapts seamlessly to different screen sizes, refining HTML and CSS skills while implementing best practices for accessibility.`,tecnologias:[`HTML5`,`CSS3`],linkSite:`https://alexonn1.github.io/projeto-huddle-base/`,linkGithub:`https://github.com/AlexOnn1/projeto-huddle-base`,imagem:null},{id:5,titulo:`Landing Page`,descricao:`A project made to finish the HTML5 and CSS3 advanced module from the DevQuest course. Applied all concepts of Flexbox and Grid learned in the module, combining them to build a fully responsive and modern layout.`,tecnologias:[`HTML5`,`CSS3`],linkSite:`https://alexonn1.github.io/landing-page-com-grid/`,linkGithub:`https://github.com/AlexOnn1/landing-page-com-grid`,imagem:null},{id:6,titulo:`Sieg's Portfolio`,descricao:`My first big project — a portfolio for a graphic designer with 3 pages showing his Work, Studies and a page about him. Built with HTML5 and CSS3 only, before studying JavaScript, as a great opportunity to test my knowledge.`,tecnologias:[`HTML5`,`CSS3`],linkSite:`https://alexonn1.github.io/Sieg/`,linkGithub:`https://github.com/AlexOnn1/Sieg`,imagem:null}],eE=[`All`,...Array.from(new Set($T.flatMap(e=>e.tecnologias)))],tE=Mn`
     opacity: 0;
     transform: translateY(24px);
 
@@ -5637,54 +5637,54 @@ No matching component was found for:
     to   { opacity: 1; transform: translateY(0);    }
 `} 0.7s ease forwards;
     }
-`,eE=z.section`
+`,nE=z.section`
     position: relative;
-    background-color: ${ZT.darkGreen};
+    background-color: ${QT.darkGreen};
     padding: 5rem 1.5rem;
 
     @media (min-width: 768px) {
         padding: 7rem 3rem;
     }
-`,tE=z.div`
+`,rE=z.div`
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 3rem;
-`,nE=z.div`
+`,iE=z.div`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    ${$T}
+    ${tE}
 
     &.visivel {
         animation-delay: 0s;
     }
-`,rE=z.span`
+`,aE=z.span`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.75rem;
-    color: ${ZT.caribbeanGreen};
+    color: ${QT.caribbeanGreen};
     letter-spacing: 0.3em;
     text-transform: uppercase;
-`,iE=z.h2`
+`,oE=z.h2`
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: clamp(1.4rem, 4vw, 2rem);
-    color: ${ZT.white};
+    color: ${QT.white};
     line-height: 1.4;
 
     span {
-        color: ${ZT.caribbeanGreen};
+        color: ${QT.caribbeanGreen};
     }
-`,aE=z.div`
+`,sE=z.div`
     width: 60px;
     height: 2px;
-    background: linear-gradient(90deg, ${ZT.caribbeanGreen}, transparent);
+    background: linear-gradient(90deg, ${QT.caribbeanGreen}, transparent);
     margin-top: 0.5rem;
-`,oE=z.div`
+`,cE=z.div`
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.5rem;
-    ${$T}
+    ${tE}
 
     &.visivel {
         animation-delay: 0.2s;
@@ -5697,7 +5697,7 @@ No matching component was found for:
     @media (min-width: 1024px) {
         grid-template-columns: repeat(3, 1fr);
     }
-`,sE=z.button`
+`,lE=z.button`
     display: flex;
     flex-direction: column;
     background: rgba(3, 15, 8, 0.6);
@@ -5715,7 +5715,7 @@ No matching component was found for:
         transform: translateY(-5px);
         box-shadow: 0 12px 32px rgba(0, 223, 145, 0.08);
     }
-`,cE=z.div`
+`,uE=z.div`
     position: absolute;
     inset: 0;
     background: rgba(0, 223, 145, 0.08);
@@ -5728,21 +5728,21 @@ No matching component was found for:
 
     svg {
         font-size: 2rem;
-        color: ${ZT.caribbeanGreen};
+        color: ${QT.caribbeanGreen};
         filter: drop-shadow(0 0 8px rgba(0, 223, 145, 0.6));
     }
 
-    ${sE}:hover & {
+    ${lE}:hover & {
         opacity: 1;
     }
-`,lE=z.div`
+`,dE=z.div`
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
     background: linear-gradient(
         135deg,
-        ${ZT.bangladeshGreen} 0%,
-        ${ZT.richBlack} 100%
+        ${QT.bangladeshGreen} 0%,
+        ${QT.richBlack} 100%
     );
     display: flex;
     align-items: center;
@@ -5759,25 +5759,25 @@ No matching component was found for:
             linear-gradient(90deg, rgba(44, 194, 149, 0.05) 1px, transparent 1px);
         background-size: 24px 24px;
     }
-`,uE=z.span`
+`,fE=z.span`
     font-family: "Press Start 2P", monospace;
     font-size: 0.55rem;
     color: rgba(44, 194, 149, 0.3);
     letter-spacing: 0.1em;
     position: relative;
     z-index: 1;
-`,dE=z.div`
+`,pE=z.div`
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
     padding: 1.25rem;
     flex: 1;
-`,fE=z.h3`
+`,mE=z.h3`
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: 0.65rem;
-    color: ${ZT.white};
+    color: ${QT.white};
     line-height: 1.6;
-`,pE=z.p`
+`,hE=z.p`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.78rem;
     color: rgba(241, 247, 246, 0.55);
@@ -5788,27 +5788,76 @@ No matching component was found for:
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-`,mE=z.div`
+`,gE=z.div`
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
     margin-top: auto;
-`,hE=z.span`
+`,_E=z.span`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.65rem;
-    color: ${ZT.caribbeanGreen};
+    color: ${QT.caribbeanGreen};
     background: rgba(0, 223, 145, 0.08);
     border: 1px solid rgba(0, 223, 145, 0.2);
     padding: 0.2rem 0.55rem;
     border-radius: 20px;
     letter-spacing: 0.05em;
-`,gE=Ln`
+`,vE=z.div`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+`,yE=z.button`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.85rem;
+    border-radius: 20px;
+    border: 1px solid ${({$ativo:e})=>e?QT.caribbeanGreen:`rgba(44, 194, 149, 0.2)`};
+    background: ${({$ativo:e})=>e?`rgba(0, 223, 145, 0.12)`:`transparent`};
+    color: ${({$ativo:e})=>e?QT.caribbeanGreen:`rgba(241, 247, 246, 0.4)`};
+    cursor: pointer;
+    transition: all 0.25s ease;
+
+    &:hover {
+        border-color: ${QT.caribbeanGreen};
+        color: ${QT.caribbeanGreen};
+        background: rgba(0, 223, 145, 0.08);
+    }
+`,bE=z.a`
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(241, 247, 246, 0.5);
+    text-decoration: none;
+    padding: 0.7rem 0;
+    align-self: center;
+    transition: color 0.3s ease;
+
+    svg {
+        font-size: 1rem;
+        transition: transform 0.3s ease;
+    }
+
+    &:hover {
+        color: ${QT.caribbeanGreen};
+
+        svg {
+            transform: translateX(4px);
+        }
+    }
+`,xE=Ln`
     from { opacity: 0; }
     to   { opacity: 1; }
-`,_E=Ln`
+`,SE=Ln`
     from { opacity: 0; transform: translateY(32px) scale(0.97); }
     to   { opacity: 1; transform: translateY(0)    scale(1);    }
-`,vE=z.div`
+`,CE=z.div`
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.85);
@@ -5818,28 +5867,28 @@ No matching component was found for:
     align-items: center;
     justify-content: center;
     padding: 1.5rem;
-    animation: ${gE} 0.25s ease forwards;
-`,yE=z.div`
+    animation: ${xE} 0.25s ease forwards;
+`,wE=z.div`
     position: relative;
-    background: ${ZT.darkGreen};
+    background: ${QT.darkGreen};
     border: 1px solid rgba(44, 194, 149, 0.2);
     border-radius: 16px;
     width: 100%;
     max-width: 580px;
     max-height: 85dvh;
     overflow-y: auto;
-    animation: ${_E} 0.3s ease forwards;
+    animation: ${SE} 0.3s ease forwards;
 
     /* Scrollbar personalizada dentro do modal */
     scrollbar-width: thin;
-    scrollbar-color: ${ZT.bangladeshGreen} transparent;
-`,bE=z.div`
+    scrollbar-color: ${QT.bangladeshGreen} transparent;
+`,TE=z.div`
     width: 100%;
     aspect-ratio: 16 / 9;
     background: linear-gradient(
         135deg,
-        ${ZT.bangladeshGreen} 0%,
-        ${ZT.richBlack} 100%
+        ${QT.bangladeshGreen} 0%,
+        ${QT.richBlack} 100%
     );
     display: flex;
     align-items: center;
@@ -5858,39 +5907,39 @@ No matching component was found for:
             linear-gradient(90deg, rgba(44, 194, 149, 0.06) 1px, transparent 1px);
         background-size: 24px 24px;
     }
-`,xE=z.span`
+`,EE=z.span`
     font-family: "Press Start 2P", monospace;
     font-size: 0.6rem;
     color: rgba(44, 194, 149, 0.25);
     letter-spacing: 0.12em;
     position: relative;
     z-index: 1;
-`,SE=z.div`
+`,DE=z.div`
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
     padding: 1.75rem;
-`,CE=z.h3`
+`,OE=z.h3`
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: clamp(0.7rem, 2vw, 0.9rem);
-    color: ${ZT.white};
+    color: ${QT.white};
     line-height: 1.6;
     padding-right: 2rem;
-`,wE=z.p`
+`,kE=z.p`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.85rem;
     color: rgba(241, 247, 246, 0.7);
     line-height: 1.8;
-`,TE=z.div`
+`,AE=z.div`
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
-`,EE=z.div`
+`,jE=z.div`
     display: flex;
     gap: 0.75rem;
     flex-wrap: wrap;
     margin-top: 0.25rem;
-`,DE=z.a`
+`,ME=z.a`
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -5906,24 +5955,24 @@ No matching component was found for:
     svg {
         font-size: 0.85rem;
     }
-`,OE=z(DE)`
-    background: ${ZT.caribbeanGreen};
-    color: ${ZT.richBlack};
+`,NE=z(ME)`
+    background: ${QT.caribbeanGreen};
+    color: ${QT.richBlack};
 
     &:hover {
-        background: ${ZT.mountainMeadow};
+        background: ${QT.mountainMeadow};
         transform: translateY(-2px);
     }
-`,kE=z(DE)`
+`,PE=z(ME)`
     background: transparent;
-    color: ${ZT.caribbeanGreen};
-    border: 1px solid ${ZT.caribbeanGreen};
+    color: ${QT.caribbeanGreen};
+    border: 1px solid ${QT.caribbeanGreen};
 
     &:hover {
         background: rgba(0, 223, 145, 0.08);
         transform: translateY(-2px);
     }
-`,AE=z.button`
+`,FE=z.button`
     position: absolute;
     top: 1rem;
     right: 1rem;
@@ -5932,7 +5981,7 @@ No matching component was found for:
     border-radius: 50%;
     background: rgba(0, 0, 0, 0.4);
     border: 1px solid rgba(44, 194, 149, 0.2);
-    color: ${ZT.white};
+    color: ${QT.white};
     display: flex;
     align-items: center;
     justify-content: center;
@@ -5943,6 +5992,6 @@ No matching component was found for:
 
     &:hover {
         background: rgba(0, 223, 145, 0.15);
-        border-color: ${ZT.caribbeanGreen};
+        border-color: ${QT.caribbeanGreen};
     }
-`;function jE({projeto:e,onFechar:t}){return(0,B.jsx)(vE,{onClick:e=>{e.target===e.currentTarget&&t()},children:(0,B.jsxs)(yE,{children:[(0,B.jsx)(AE,{onClick:t,"aria-label":`Fechar modal`,children:(0,B.jsx)(GC,{})}),(0,B.jsx)(bE,{children:(0,B.jsx)(xE,{children:e.titulo.toUpperCase()})}),(0,B.jsxs)(SE,{children:[(0,B.jsx)(CE,{children:e.titulo}),(0,B.jsx)(wE,{children:e.descricao}),(0,B.jsx)(TE,{children:e.tecnologias.map(e=>(0,B.jsx)(hE,{children:e},e))}),(0,B.jsxs)(EE,{children:[(0,B.jsxs)(OE,{href:e.linkSite,target:`_blank`,rel:`noopener noreferrer`,children:[(0,B.jsx)(YC,{}),`View Project`]}),(0,B.jsxs)(kE,{href:e.linkGithub,target:`_blank`,rel:`noopener noreferrer`,children:[(0,B.jsx)(HC,{}),`View Source`]})]})]})]})})}function ME(){let[e,t]=(0,v.useState)(null),n=(0,v.useRef)(null),r=(0,v.useRef)(null);(0,v.useEffect)(()=>{let e=[n.current,r.current].filter(Boolean),t=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&(e.target.classList.add(`visivel`),t.unobserve(e.target))})},{threshold:.1});return e.forEach(e=>t.observe(e)),()=>t.disconnect()},[]);let i=e=>{t(e),document.body.style.overflow=`hidden`};return(0,B.jsxs)(eE,{id:`projects`,children:[(0,B.jsxs)(tE,{children:[(0,B.jsxs)(nE,{ref:n,children:[(0,B.jsx)(rE,{children:`// what i've built`}),(0,B.jsxs)(iE,{children:[`My `,(0,B.jsx)(`span`,{children:`Projects`})]}),(0,B.jsx)(aE,{})]}),(0,B.jsx)(oE,{ref:r,children:QT.map(e=>(0,B.jsxs)(sE,{onClick:()=>i(e),children:[(0,B.jsxs)(lE,{children:[(0,B.jsx)(uE,{children:e.titulo.toUpperCase()}),(0,B.jsx)(cE,{children:(0,B.jsx)(KC,{})})]}),(0,B.jsxs)(dE,{children:[(0,B.jsx)(fE,{children:e.titulo}),(0,B.jsx)(pE,{children:e.descricao}),(0,B.jsx)(mE,{children:e.tecnologias.map(e=>(0,B.jsx)(hE,{children:e},e))})]})]},e.id))})]}),e&&(0,B.jsx)(jE,{projeto:e,onFechar:()=>{t(null),document.body.style.overflow=``}})]})}function NE(){let[e,t]=(0,v.useState)(!1),n=(0,v.useRef)(null);return(0,B.jsxs)(B.Fragment,{children:[!e&&(0,B.jsx)(ar,{onCarregado:()=>t(!0),logoRef:n}),(0,B.jsx)(Cr,{visivel:e,logoRef:n}),(0,B.jsxs)(`main`,{children:[(0,B.jsx)(qw,{}),(0,B.jsx)(ST,{}),(0,B.jsx)(XT,{}),(0,B.jsx)(ME,{})]})]})}(0,y.createRoot)(document.getElementById(`root`)).render((0,B.jsx)(v.StrictMode,{children:(0,B.jsx)(NE,{})}));
+`;function IE({projeto:e,onFechar:t}){return(0,B.jsx)(CE,{onClick:e=>{e.target===e.currentTarget&&t()},children:(0,B.jsxs)(wE,{children:[(0,B.jsx)(FE,{onClick:t,"aria-label":`Fechar modal`,children:(0,B.jsx)(GC,{})}),(0,B.jsx)(TE,{children:(0,B.jsx)(EE,{children:e.titulo.toUpperCase()})}),(0,B.jsxs)(DE,{children:[(0,B.jsx)(OE,{children:e.titulo}),(0,B.jsx)(kE,{children:e.descricao}),(0,B.jsx)(AE,{children:e.tecnologias.map(e=>(0,B.jsx)(_E,{children:e},e))}),(0,B.jsxs)(jE,{children:[(0,B.jsxs)(NE,{href:e.linkSite,target:`_blank`,rel:`noopener noreferrer`,children:[(0,B.jsx)(YC,{}),`View Project`]}),(0,B.jsxs)(PE,{href:e.linkGithub,target:`_blank`,rel:`noopener noreferrer`,children:[(0,B.jsx)(HC,{}),`View Source`]})]})]})]})})}function LE(){let[e,t]=(0,v.useState)(null),[n,r]=(0,v.useState)(`All`),i=(0,v.useRef)(null),a=(0,v.useRef)(null),o=n===`All`?$T:$T.filter(e=>e.tecnologias.includes(n));(0,v.useEffect)(()=>{let e=[i.current,a.current].filter(Boolean),t=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&(e.target.classList.add(`visivel`),t.unobserve(e.target))})},{threshold:.1});return e.forEach(e=>t.observe(e)),()=>t.disconnect()},[]);let s=e=>{t(e),document.body.style.overflow=`hidden`};return(0,B.jsxs)(nE,{id:`projects`,children:[(0,B.jsxs)(rE,{children:[(0,B.jsxs)(iE,{ref:i,children:[(0,B.jsx)(aE,{children:`// what i've built`}),(0,B.jsxs)(oE,{children:[`My `,(0,B.jsx)(`span`,{children:`Projects`})]}),(0,B.jsx)(sE,{})]}),(0,B.jsx)(vE,{children:eE.map(e=>(0,B.jsx)(yE,{$ativo:n===e,onClick:()=>r(e),children:e},e))}),(0,B.jsx)(cE,{ref:a,children:o.map(e=>(0,B.jsxs)(lE,{onClick:()=>s(e),children:[(0,B.jsxs)(dE,{children:[(0,B.jsx)(fE,{children:e.titulo.toUpperCase()}),(0,B.jsx)(uE,{children:(0,B.jsx)(KC,{})})]}),(0,B.jsxs)(pE,{children:[(0,B.jsx)(mE,{children:e.titulo}),(0,B.jsx)(hE,{children:e.descricao}),(0,B.jsx)(gE,{children:e.tecnologias.map(e=>(0,B.jsx)(_E,{children:e},e))})]})]},e.id))}),(0,B.jsxs)(bE,{href:`https://github.com/AlexOnn1`,target:`_blank`,rel:`noopener noreferrer`,children:[`See all projects on GitHub`,(0,B.jsx)(QC,{})]})]}),e&&(0,B.jsx)(IE,{projeto:e,onFechar:()=>{t(null),document.body.style.overflow=``}})]})}function RE(){let[e,t]=(0,v.useState)(!1),n=(0,v.useRef)(null);return(0,B.jsxs)(B.Fragment,{children:[!e&&(0,B.jsx)(ar,{onCarregado:()=>t(!0),logoRef:n}),(0,B.jsx)(Cr,{visivel:e,logoRef:n}),(0,B.jsxs)(`main`,{children:[(0,B.jsx)(Jw,{}),(0,B.jsx)(CT,{}),(0,B.jsx)(ZT,{}),(0,B.jsx)(LE,{})]})]})}(0,y.createRoot)(document.getElementById(`root`)).render((0,B.jsx)(v.StrictMode,{children:(0,B.jsx)(RE,{})}));
