@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react"
 import styled, { keyframes, css } from "styled-components"
-import { FaGithub, FaExternalLinkAlt, FaTimes, FaSearch } from "react-icons/fa"
+import { FaGithub, FaExternalLinkAlt, FaTimes, FaSearch, FaArrowRight } from "react-icons/fa"
 
 /* ================================
    Projects — Seção de projetos
@@ -24,6 +24,15 @@ const colors = {
 const PROJETOS = [
     {
         id: 1,
+        titulo: "O Leãozinho Digital Platform",
+        descricao: "A complete digital platform prototype designed for a local restaurant. Features a dynamic digital menu, an interactive shopping cart, and a direct WhatsApp checkout flow. Built with React, TypeScript and Vite, implementing robust global state management using Context API and useReducer. A highly polished, responsive showcase of modern front-end architecture.",
+        tecnologias: ["React", "TypeScript", "Vite", "Context API"],
+        linkSite: "https://alexonn1.github.io/leaozinho-prototipo-app/",
+        linkGithub: "https://github.com/AlexOnn1/nome-do-repositorio",
+        imagem: null,
+    },
+    {
+        id: 2,
         titulo: "Django Task Manager",
         descricao: "A functional task management system featuring full CRUD capabilities for personal organization. Developed with Python using the Django framework with a clean MVT architecture. Fully responsive interface with modern CSS and media queries.",
         tecnologias: ["Python", "Django", "SQLite", "CSS"],
@@ -32,7 +41,7 @@ const PROJETOS = [
         imagem: null,
     },
     {
-        id: 2,
+        id: 3,
         titulo: "Shopping Cart",
         descricao: "A simple sales system featuring a shopping cart, product, customer and order registration. Developed with pure Python using Streamlit. Allows adding products to the cart, calculating totals, removing items, finalizing orders and viewing history.",
         tecnologias: ["Python", "Streamlit"],
@@ -41,7 +50,7 @@ const PROJETOS = [
         imagem: null,
     },
     {
-        id: 3,
+        id: 4,
         titulo: "Huddle Base",
         descricao: "A responsive landing page based on the Frontend Mentor challenge. Focus on creating a pixel-perfect design that adapts seamlessly to different screen sizes, refining HTML and CSS skills while implementing best practices for accessibility.",
         tecnologias: ["HTML5", "CSS3"],
@@ -50,7 +59,7 @@ const PROJETOS = [
         imagem: null,
     },
     {
-        id: 4,
+        id: 5,
         titulo: "Landing Page",
         descricao: "A project made to finish the HTML5 and CSS3 advanced module from the DevQuest course. Applied all concepts of Flexbox and Grid learned in the module, combining them to build a fully responsive and modern layout.",
         tecnologias: ["HTML5", "CSS3"],
@@ -59,7 +68,7 @@ const PROJETOS = [
         imagem: null,
     },
     {
-        id: 5,
+        id: 6,
         titulo: "Sieg's Portfolio",
         descricao: "My first big project — a portfolio for a graphic designer with 3 pages showing his Work, Studies and a page about him. Built with HTML5 and CSS3 only, before studying JavaScript, as a great opportunity to test my knowledge.",
         tecnologias: ["HTML5", "CSS3"],
@@ -67,6 +76,12 @@ const PROJETOS = [
         linkGithub: "https://github.com/AlexOnn1/Sieg",
         imagem: null,
     },
+]
+
+// Extrai todas as tecnologias únicas para o filtro
+const TODAS_TECHS = [
+    "All",
+    ...Array.from(new Set(PROJETOS.flatMap((p) => p.tecnologias))),
 ]
 
 /* ================================
@@ -293,6 +308,73 @@ const Tag = styled.span`
     padding: 0.2rem 0.55rem;
     border-radius: 20px;
     letter-spacing: 0.05em;
+`
+
+/* ================================
+   Filtro de tecnologias
+   ================================ */
+
+interface FiltroProps {
+    $ativo: boolean
+}
+
+const FiltroContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+`
+
+const FiltroBotao = styled.button<FiltroProps>`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.85rem;
+    border-radius: 20px;
+    border: 1px solid ${({ $ativo }) =>
+        $ativo ? colors.caribbeanGreen : "rgba(44, 194, 149, 0.2)"};
+    background: ${({ $ativo }) =>
+        $ativo ? "rgba(0, 223, 145, 0.12)" : "transparent"};
+    color: ${({ $ativo }) =>
+        $ativo ? colors.caribbeanGreen : "rgba(241, 247, 246, 0.4)"};
+    cursor: pointer;
+    transition: all 0.25s ease;
+
+    &:hover {
+        border-color: ${colors.caribbeanGreen};
+        color: ${colors.caribbeanGreen};
+        background: rgba(0, 223, 145, 0.08);
+    }
+`
+
+/* Link para ver todos no GitHub */
+const GithubLink = styled.a`
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(241, 247, 246, 0.5);
+    text-decoration: none;
+    padding: 0.7rem 0;
+    align-self: center;
+    transition: color 0.3s ease;
+
+    svg {
+        font-size: 1rem;
+        transition: transform 0.3s ease;
+    }
+
+    &:hover {
+        color: ${colors.caribbeanGreen};
+
+        svg {
+            transform: translateX(4px);
+        }
+    }
 `
 
 /* ================================
@@ -565,9 +647,15 @@ function Modal({
    ================================ */
 
 export default function Projects() {
-    const [projetoAtivo, setProjetoAtivo] = useState<Projeto | null>(null)
+    const [projetoAtivo, setProjetoAtivo]   = useState<Projeto | null>(null)
+    const [filtroAtivo, setFiltroAtivo]     = useState<string>("All")
     const tituloRef = useRef<HTMLDivElement>(null)
     const gridRef   = useRef<HTMLDivElement>(null)
+
+    // Projetos filtrados pela tecnologia selecionada
+    const projetosFiltrados = filtroAtivo === "All"
+        ? PROJETOS
+        : PROJETOS.filter((p) => p.tecnologias.includes(filtroAtivo))
 
     useEffect(() => {
         const elementos = [
@@ -615,9 +703,22 @@ export default function Projects() {
                     <LinhaDivisoria />
                 </TituloContainer>
 
+                {/* Filtro de tecnologias */}
+                <FiltroContainer>
+                    {TODAS_TECHS.map((tech) => (
+                        <FiltroBotao
+                            key={tech}
+                            $ativo={filtroAtivo === tech}
+                            onClick={() => setFiltroAtivo(tech)}
+                        >
+                            {tech}
+                        </FiltroBotao>
+                    ))}
+                </FiltroContainer>
+
                 {/* Grid de cards */}
                 <Grid ref={gridRef}>
-                    {PROJETOS.map((projeto) => (
+                    {projetosFiltrados.map((projeto) => (
                         <Card key={projeto.id} onClick={() => abrirModal(projeto)}>
 
                             {/* Imagem — placeholder enquanto não tem screenshot */}
@@ -644,6 +745,16 @@ export default function Projects() {
                         </Card>
                     ))}
                 </Grid>
+
+                {/* Link para ver todos os projetos no GitHub */}
+                <GithubLink
+                    href="https://github.com/AlexOnn1"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    See all projects on GitHub
+                    <FaArrowRight />
+                </GithubLink>
 
             </Container>
 
