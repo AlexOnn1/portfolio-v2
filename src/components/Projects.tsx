@@ -1,4 +1,6 @@
+import { useState } from "react"
 import styled, { keyframes } from "styled-components"
+import { FaGithub, FaExternalLinkAlt, FaTimes } from "react-icons/fa"
 
 /* ================================
    Projects — Seção de projetos
@@ -251,10 +253,287 @@ const Tag = styled.span`
 `
 
 /* ================================
+   Tipo do projeto
+   ================================ */
+
+interface Projeto {
+    id: number
+    titulo: string
+    descricao: string
+    tecnologias: string[]
+    linkSite: string
+    linkGithub: string
+    imagem: string | null
+}
+
+/* ================================
+   Modal de detalhes do projeto
+   ================================ */
+
+const fadeIn = keyframes`
+    from { opacity: 0; }
+    to   { opacity: 1; }
+`
+
+const slideUp = keyframes`
+    from { opacity: 0; transform: translateY(32px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0)    scale(1);    }
+`
+
+const Overlay = styled.div`
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(4px);
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    animation: ${fadeIn} 0.25s ease forwards;
+`
+
+const ModalBox = styled.div`
+    position: relative;
+    background: ${colors.darkGreen};
+    border: 1px solid rgba(44, 194, 149, 0.2);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 580px;
+    max-height: 85dvh;
+    overflow-y: auto;
+    animation: ${slideUp} 0.3s ease forwards;
+
+    /* Scrollbar personalizada dentro do modal */
+    scrollbar-width: thin;
+    scrollbar-color: ${colors.bangladeshGreen} transparent;
+`
+
+const ModalImagem = styled.div`
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(
+        135deg,
+        ${colors.bangladeshGreen} 0%,
+        ${colors.richBlack} 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px 16px 0 0;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(rgba(44, 194, 149, 0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(44, 194, 149, 0.06) 1px, transparent 1px);
+        background-size: 24px 24px;
+    }
+`
+
+const ModalImagemTexto = styled.span`
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.6rem;
+    color: rgba(44, 194, 149, 0.25);
+    letter-spacing: 0.12em;
+    position: relative;
+    z-index: 1;
+`
+
+const ModalCorpo = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.75rem;
+`
+
+const ModalTitulo = styled.h3`
+    font-family: "Press Start 2P", "Courier New", monospace;
+    font-size: clamp(0.7rem, 2vw, 0.9rem);
+    color: ${colors.white};
+    line-height: 1.6;
+    padding-right: 2rem;
+`
+
+const ModalDescricao = styled.p`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.85rem;
+    color: rgba(241, 247, 246, 0.7);
+    line-height: 1.8;
+`
+
+const ModalTagsContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+`
+
+const ModalBotoes = styled.div`
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 0.25rem;
+`
+
+const BotaoLink = styled.a`
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.7rem 1.25rem;
+    border-radius: 6px;
+    transition: background 0.3s ease, transform 0.2s ease;
+
+    svg {
+        font-size: 0.85rem;
+    }
+`
+
+const BotaoPrimario = styled(BotaoLink)`
+    background: ${colors.caribbeanGreen};
+    color: ${colors.richBlack};
+
+    &:hover {
+        background: ${colors.mountainMeadow};
+        transform: translateY(-2px);
+    }
+`
+
+const BotaoSecundario = styled(BotaoLink)`
+    background: transparent;
+    color: ${colors.caribbeanGreen};
+    border: 1px solid ${colors.caribbeanGreen};
+
+    &:hover {
+        background: rgba(0, 223, 145, 0.08);
+        transform: translateY(-2px);
+    }
+`
+
+/* Botão fechar modal */
+const BtnFechar = styled.button`
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(44, 194, 149, 0.2);
+    color: ${colors.white};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+    z-index: 10;
+
+    &:hover {
+        background: rgba(0, 223, 145, 0.15);
+        border-color: ${colors.caribbeanGreen};
+    }
+`
+
+/* ================================
+   Subcomponente Modal
+   ================================ */
+
+function Modal({
+    projeto,
+    onFechar,
+}: {
+    projeto: Projeto
+    onFechar: () => void
+}) {
+    // Fecha ao clicar no overlay fora do ModalBox
+    const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (e.target === e.currentTarget) onFechar()
+    }
+
+    return (
+        <Overlay onClick={handleOverlayClick}>
+            <ModalBox>
+
+                {/* Botão de fechar */}
+                <BtnFechar onClick={onFechar} aria-label="Fechar modal">
+                    <FaTimes />
+                </BtnFechar>
+
+                {/* Imagem / placeholder */}
+                <ModalImagem>
+                    <ModalImagemTexto>
+                        {projeto.titulo.toUpperCase()}
+                    </ModalImagemTexto>
+                </ModalImagem>
+
+                <ModalCorpo>
+
+                    {/* Título */}
+                    <ModalTitulo>{projeto.titulo}</ModalTitulo>
+
+                    {/* Descrição completa */}
+                    <ModalDescricao>{projeto.descricao}</ModalDescricao>
+
+                    {/* Tags */}
+                    <ModalTagsContainer>
+                        {projeto.tecnologias.map((tech) => (
+                            <Tag key={tech}>{tech}</Tag>
+                        ))}
+                    </ModalTagsContainer>
+
+                    {/* Botões de ação */}
+                    <ModalBotoes>
+                        <BotaoPrimario
+                            href={projeto.linkSite}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <FaExternalLinkAlt />
+                            View Project
+                        </BotaoPrimario>
+                        <BotaoSecundario
+                            href={projeto.linkGithub}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <FaGithub />
+                            View Source
+                        </BotaoSecundario>
+                    </ModalBotoes>
+
+                </ModalCorpo>
+            </ModalBox>
+        </Overlay>
+    )
+}
+
+/* ================================
    Componente principal
    ================================ */
 
 export default function Projects() {
+    const [projetoAtivo, setProjetoAtivo] = useState<Projeto | null>(null)
+
+    const abrirModal  = (projeto: Projeto) => {
+        setProjetoAtivo(projeto)
+        document.body.style.overflow = "hidden"
+    }
+
+    const fecharModal = () => {
+        setProjetoAtivo(null)
+        document.body.style.overflow = ""
+    }
+
     return (
         <Secao id="projects">
             <Container>
@@ -271,7 +550,7 @@ export default function Projects() {
                 {/* Grid de cards */}
                 <Grid>
                     {PROJETOS.map((projeto) => (
-                        <Card key={projeto.id}>
+                        <Card key={projeto.id} onClick={() => abrirModal(projeto)}>
 
                             {/* Imagem — placeholder enquanto não tem screenshot */}
                             <CardImagem>
@@ -296,6 +575,12 @@ export default function Projects() {
                 </Grid>
 
             </Container>
+
+            {/* Modal — renderiza quando há um projeto ativo */}
+            {projetoAtivo && (
+                <Modal projeto={projetoAtivo} onFechar={fecharModal} />
+            )}
+
         </Secao>
     )
 }
