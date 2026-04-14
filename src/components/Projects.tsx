@@ -1,10 +1,10 @@
-import { useState } from "react"
-import styled, { keyframes } from "styled-components"
-import { FaGithub, FaExternalLinkAlt, FaTimes } from "react-icons/fa"
+import { useState, useRef, useEffect } from "react"
+import styled, { keyframes, css } from "styled-components"
+import { FaGithub, FaExternalLinkAlt, FaTimes, FaSearch } from "react-icons/fa"
 
 /* ================================
    Projects — Seção de projetos
-   Mobile-first | Estrutura base com grid de cards
+   Mobile-first | Animações com IntersectionObserver
    ================================ */
 
 // Paleta de cores
@@ -70,12 +70,21 @@ const PROJETOS = [
 ]
 
 /* ================================
-   Animações
+   Animações — disparadas pelo IntersectionObserver
    ================================ */
 
 const fadeSlideUp = keyframes`
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0);    }
+`
+
+const animacaoBase = css`
+    opacity: 0;
+    transform: translateY(24px);
+
+    &.visivel {
+        animation: ${fadeSlideUp} 0.7s ease forwards;
+    }
 `
 
 /* ================================
@@ -105,7 +114,11 @@ const TituloContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    animation: ${fadeSlideUp} 0.6s ease forwards;
+    ${animacaoBase}
+
+    &.visivel {
+        animation-delay: 0s;
+    }
 `
 
 const Rotulo = styled.span`
@@ -139,6 +152,11 @@ const Grid = styled.div`
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.5rem;
+    ${animacaoBase}
+
+    &.visivel {
+        animation-delay: 0.2s;
+    }
 
     @media (min-width: 640px) {
         grid-template-columns: repeat(2, 1fr);
@@ -160,11 +178,36 @@ const Card = styled.button`
     cursor: pointer;
     text-align: left;
     width: 100%;
-    transition: border-color 0.3s ease, transform 0.3s ease;
+    transition: border-color 0.35s ease, transform 0.35s ease,
+                box-shadow 0.35s ease;
 
     &:hover {
-        border-color: rgba(44, 194, 149, 0.4);
-        transform: translateY(-4px);
+        border-color: rgba(44, 194, 149, 0.45);
+        transform: translateY(-5px);
+        box-shadow: 0 12px 32px rgba(0, 223, 145, 0.08);
+    }
+`
+
+/* Overlay da imagem que aparece no hover com ícone de lupa */
+const CardImagemOverlay = styled.div`
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 223, 145, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    z-index: 2;
+
+    svg {
+        font-size: 2rem;
+        color: ${colors.caribbeanGreen};
+        filter: drop-shadow(0 0 8px rgba(0, 223, 145, 0.6));
+    }
+
+    ${Card}:hover & {
+        opacity: 1;
     }
 `
 
@@ -523,6 +566,31 @@ function Modal({
 
 export default function Projects() {
     const [projetoAtivo, setProjetoAtivo] = useState<Projeto | null>(null)
+    const tituloRef = useRef<HTMLDivElement>(null)
+    const gridRef   = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        const elementos = [
+            tituloRef.current,
+            gridRef.current,
+        ].filter(Boolean) as HTMLElement[]
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visivel")
+                        observer.unobserve(entry.target)
+                    }
+                })
+            },
+            { threshold: 0.1 }
+        )
+
+        elementos.forEach((el) => observer.observe(el))
+
+        return () => observer.disconnect()
+    }, [])
 
     const abrirModal  = (projeto: Projeto) => {
         setProjetoAtivo(projeto)
@@ -539,7 +607,7 @@ export default function Projects() {
             <Container>
 
                 {/* Título da seção */}
-                <TituloContainer>
+                <TituloContainer ref={tituloRef}>
                     <Rotulo>// what i've built</Rotulo>
                     <Titulo>
                         My <span>Projects</span>
@@ -548,7 +616,7 @@ export default function Projects() {
                 </TituloContainer>
 
                 {/* Grid de cards */}
-                <Grid>
+                <Grid ref={gridRef}>
                     {PROJETOS.map((projeto) => (
                         <Card key={projeto.id} onClick={() => abrirModal(projeto)}>
 
@@ -557,6 +625,9 @@ export default function Projects() {
                                 <CardImagemTexto>
                                     {projeto.titulo.toUpperCase()}
                                 </CardImagemTexto>
+                                <CardImagemOverlay>
+                                    <FaSearch />
+                                </CardImagemOverlay>
                             </CardImagem>
 
                             {/* Conteúdo */}
