@@ -4811,19 +4811,19 @@ No matching component was found for:
 					#include <premultiplied_alpha_fragment>
 
 				}
-			`,clipping:!0}),this.isLineMaterial=!0,this.onBeforeCompile=function(){this.transparent?this.defines.USE_LINE_COLOR_ALPHA=`1`:delete this.defines.USE_LINE_COLOR_ALPHA},Object.defineProperties(this,{color:{enumerable:!0,get:function(){return this.uniforms.diffuse.value},set:function(e){this.uniforms.diffuse.value=e}},worldUnits:{enumerable:!0,get:function(){return`WORLD_UNITS`in this.defines},set:function(e){e===!0?this.defines.WORLD_UNITS=``:delete this.defines.WORLD_UNITS}},linewidth:{enumerable:!0,get:function(){return this.uniforms.linewidth.value},set:function(e){this.uniforms.linewidth.value=e}},dashed:{enumerable:!0,get:function(){return`USE_DASH`in this.defines},set(e){!!e!=`USE_DASH`in this.defines&&(this.needsUpdate=!0),e===!0?this.defines.USE_DASH=``:delete this.defines.USE_DASH}},dashScale:{enumerable:!0,get:function(){return this.uniforms.dashScale.value},set:function(e){this.uniforms.dashScale.value=e}},dashSize:{enumerable:!0,get:function(){return this.uniforms.dashSize.value},set:function(e){this.uniforms.dashSize.value=e}},dashOffset:{enumerable:!0,get:function(){return this.uniforms.dashOffset.value},set:function(e){this.uniforms.dashOffset.value=e}},gapSize:{enumerable:!0,get:function(){return this.uniforms.gapSize.value},set:function(e){this.uniforms.gapSize.value=e}},opacity:{enumerable:!0,get:function(){return this.uniforms.opacity.value},set:function(e){this.uniforms.opacity.value=e}},resolution:{enumerable:!0,get:function(){return this.uniforms.resolution.value},set:function(e){this.uniforms.resolution.value.copy(e)}},alphaToCoverage:{enumerable:!0,get:function(){return`USE_ALPHA_TO_COVERAGE`in this.defines},set:function(e){!!e!=`USE_ALPHA_TO_COVERAGE`in this.defines&&(this.needsUpdate=!0),e===!0?(this.defines.USE_ALPHA_TO_COVERAGE=``,this.extensions.derivatives=!0):(delete this.defines.USE_ALPHA_TO_COVERAGE,this.extensions.derivatives=!1)}}}),this.setValues(e)}},$S=new Ho,eC=new K,tC=new K,nC=new Ho,rC=new Ho,iC=new Ho,aC=new K,oC=new Yo,sC=new qh,cC=new K,lC=new Js,uC=new kc,dC=new Ho,fC,pC;function mC(e,t,n){return dC.set(0,0,-t,1).applyMatrix4(e.projectionMatrix),dC.multiplyScalar(1/dC.w),dC.x=pC/n.width,dC.y=pC/n.height,dC.applyMatrix4(e.projectionMatrixInverse),dC.multiplyScalar(1/dC.w),Math.abs(Math.max(dC.x,dC.y))}function hC(e,t){let n=e.matrixWorld,r=e.geometry,i=r.attributes.instanceStart,a=r.attributes.instanceEnd,o=Math.min(r.instanceCount,i.count);for(let r=0,s=o;r<s;r++){sC.start.fromBufferAttribute(i,r),sC.end.fromBufferAttribute(a,r),sC.applyMatrix4(n);let o=new K,s=new K;fC.distanceSqToSegment(sC.start,sC.end,s,o),s.distanceTo(o)<pC*.5&&t.push({point:s,pointOnLine:o,distance:fC.origin.distanceTo(s),object:e,face:null,faceIndex:r,uv:null,[FS]:null})}}function gC(e,t,n){let r=t.projectionMatrix,i=e.material.resolution,a=e.matrixWorld,o=e.geometry,s=o.attributes.instanceStart,c=o.attributes.instanceEnd,l=Math.min(o.instanceCount,s.count),u=-t.near;fC.at(1,iC),iC.w=1,iC.applyMatrix4(t.matrixWorldInverse),iC.applyMatrix4(r),iC.multiplyScalar(1/iC.w),iC.x*=i.x/2,iC.y*=i.y/2,iC.z=0,aC.copy(iC),oC.multiplyMatrices(t.matrixWorldInverse,a);for(let t=0,o=l;t<o;t++){if(nC.fromBufferAttribute(s,t),rC.fromBufferAttribute(c,t),nC.w=1,rC.w=1,nC.applyMatrix4(oC),rC.applyMatrix4(oC),nC.z>u&&rC.z>u)continue;if(nC.z>u){let e=nC.z-rC.z,t=(nC.z-u)/e;nC.lerp(rC,t)}else if(rC.z>u){let e=rC.z-nC.z,t=(rC.z-u)/e;rC.lerp(nC,t)}nC.applyMatrix4(r),rC.applyMatrix4(r),nC.multiplyScalar(1/nC.w),rC.multiplyScalar(1/rC.w),nC.x*=i.x/2,nC.y*=i.y/2,rC.x*=i.x/2,rC.y*=i.y/2,sC.start.copy(nC),sC.start.z=0,sC.end.copy(rC),sC.end.z=0;let o=sC.closestPointToPointParameter(aC,!0);sC.at(o,cC);let l=Co.lerp(nC.z,rC.z,o),d=l>=-1&&l<=1,f=aC.distanceTo(cC)<pC*.5;if(d&&f){sC.start.fromBufferAttribute(s,t),sC.end.fromBufferAttribute(c,t),sC.start.applyMatrix4(a),sC.end.applyMatrix4(a);let r=new K,i=new K;fC.distanceSqToSegment(sC.start,sC.end,i,r),n.push({point:i,pointOnLine:r,distance:fC.origin.distanceTo(i),object:e,face:null,faceIndex:t,uv:null,[FS]:null})}}}var _C=class extends Dl{constructor(e=new XS,t=new QS({color:Math.random()*16777215})){super(e,t),this.isLineSegments2=!0,this.type=`LineSegments2`}computeLineDistances(){let e=this.geometry,t=e.attributes.instanceStart,n=e.attributes.instanceEnd,r=new Float32Array(2*t.count);for(let e=0,i=0,a=t.count;e<a;e++,i+=2)eC.fromBufferAttribute(t,e),tC.fromBufferAttribute(n,e),r[i]=i===0?0:r[i-1],r[i+1]=r[i]+eC.distanceTo(tC);let i=new Oh(r,2,1);return e.setAttribute(`instanceDistanceStart`,new zc(i,1,0)),e.setAttribute(`instanceDistanceEnd`,new zc(i,1,1)),this}raycast(e,t){let n=this.material.worldUnits,r=e.camera;r===null&&!n&&console.error(`LineSegments2: "Raycaster.camera" needs to be set in order to raycast against LineSegments2 while worldUnits is set to false.`);let i=e.params.Line2===void 0?0:e.params.Line2.threshold||0;fC=e.ray;let a=this.matrixWorld,o=this.geometry,s=this.material;pC=s.linewidth+i,o.boundingSphere===null&&o.computeBoundingSphere(),uC.copy(o.boundingSphere).applyMatrix4(a);let c;if(c=n?pC*.5:mC(r,Math.max(r.near,uC.distanceToPoint(fC.origin)),s.resolution),uC.radius+=c,fC.intersectsSphere(uC)===!1)return;o.boundingBox===null&&o.computeBoundingBox(),lC.copy(o.boundingBox).applyMatrix4(a);let l;l=n?pC*.5:mC(r,Math.max(r.near,lC.distanceToPoint(fC.origin)),s.resolution),lC.expandByScalar(l),fC.intersectsBox(lC)!==!1&&(n?hC(this,t):gC(this,r,t))}onBeforeRender(e){let t=this.material.uniforms;t&&t.resolution&&(e.getViewport($S),this.material.uniforms.resolution.value.set($S.z,$S.w))}},vC=class extends _C{constructor(e=new ZS,t=new QS({color:Math.random()*16777215})){super(e,t),this.isLine2=!0,this.type=`Line2`}},yC=v.forwardRef(function({points:e,color:t=16777215,vertexColors:n,linewidth:r,lineWidth:i,segments:a,dashed:o,...s},c){var l;let u=lx(e=>e.size),d=v.useMemo(()=>a?new _C:new vC,[a]),[f]=v.useState(()=>new QS),p=(n==null||(l=n[0])==null?void 0:l.length)===4?4:3,m=v.useMemo(()=>{let r=a?new XS:new ZS,i=e.map(e=>{let t=Array.isArray(e);return e instanceof K||e instanceof Ho?[e.x,e.y,e.z]:e instanceof G?[e.x,e.y,0]:t&&e.length===3?[e[0],e[1],e[2]]:t&&e.length===2?[e[0],e[1],0]:e});if(r.setPositions(i.flat()),n){t=16777215;let e=n.map(e=>e instanceof J?e.toArray():e);r.setColors(e.flat(),p)}return r},[e,a,n,p]);return v.useLayoutEffect(()=>{d.computeLineDistances()},[e,d]),v.useLayoutEffect(()=>{o?f.defines.USE_DASH=``:delete f.defines.USE_DASH,f.needsUpdate=!0},[o,f]),v.useEffect(()=>()=>{m.dispose(),f.dispose()},[m]),v.createElement(`primitive`,NS({object:d,ref:c},s),v.createElement(`primitive`,{object:m,attach:`geometry`}),v.createElement(`primitive`,NS({object:f,attach:`material`,color:t,vertexColors:!!n,resolution:[u.width,u.height],linewidth:r??i??1,dashed:o,transparent:p===4},s)))}),bC=v.forwardRef(({threshold:e=15,geometry:t,...n},r)=>{let i=v.useRef(null);v.useImperativeHandle(r,()=>i.current,[]);let a=v.useMemo(()=>[0,0,0,1,0,0],[]),o=v.useRef(null),s=v.useRef(null);return v.useLayoutEffect(()=>{let n=i.current.parent,r=t??n?.geometry;if(!r||o.current===r&&s.current===e)return;o.current=r,s.current=e;let a=new _d(r,e).attributes.position.array;i.current.geometry.setPositions(a),i.current.geometry.attributes.instanceStart.needsUpdate=!0,i.current.geometry.attributes.instanceEnd.needsUpdate=!0,i.current.computeLineDistances()}),v.createElement(yC,NS({segments:!0,points:a,ref:i,raycast:()=>null},n))}),xC=v.forwardRef(({makeDefault:e,camera:t,regress:n,domElement:r,enableDamping:i=!0,keyEvents:a=!1,onChange:o,onStart:s,onEnd:c,...l},u)=>{let d=lx(e=>e.invalidate),f=lx(e=>e.camera),p=lx(e=>e.gl),m=lx(e=>e.events),h=lx(e=>e.setEvents),g=lx(e=>e.set),_=lx(e=>e.get),y=lx(e=>e.performance),b=t||f,x=r||m.connected||p.domElement,S=v.useMemo(()=>new qS(b),[b]);return ux(()=>{S.enabled&&S.update()},-1),v.useEffect(()=>(a&&S.connect(a===!0?x:a),S.connect(x),()=>void S.dispose()),[a,x,n,S,d]),v.useEffect(()=>{let e=e=>{d(),n&&y.regress(),o&&o(e)},t=e=>{s&&s(e)},r=e=>{c&&c(e)};return S.addEventListener(`change`,e),S.addEventListener(`start`,t),S.addEventListener(`end`,r),()=>{S.removeEventListener(`start`,t),S.removeEventListener(`end`,r),S.removeEventListener(`change`,e)}},[o,s,c,S,d,h]),v.useEffect(()=>{if(e){let e=_().controls;return g({controls:S}),()=>g({controls:e})}},[e,S]),v.createElement(`primitive`,NS({ref:u,object:S,enableDamping:i},l))}),SC={color:void 0,size:void 0,className:void 0,style:void 0,attr:void 0},CC=v.createContext&&v.createContext(SC),wC=[`attr`,`size`,`title`];function TC(e,t){if(e==null)return{};var n,r,i=EC(e,t);if(Object.getOwnPropertySymbols){var a=Object.getOwnPropertySymbols(e);for(r=0;r<a.length;r++)n=a[r],t.indexOf(n)===-1&&{}.propertyIsEnumerable.call(e,n)&&(i[n]=e[n])}return i}function EC(e,t){if(e==null)return{};var n={};for(var r in e)if({}.hasOwnProperty.call(e,r)){if(t.indexOf(r)!==-1)continue;n[r]=e[r]}return n}function DC(){return DC=Object.assign?Object.assign.bind():function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)({}).hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e},DC.apply(null,arguments)}function OC(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter(function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable})),n.push.apply(n,r)}return n}function kC(e){for(var t=1;t<arguments.length;t++){var n=arguments[t]==null?{}:arguments[t];t%2?OC(Object(n),!0).forEach(function(t){AC(e,t,n[t])}):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):OC(Object(n)).forEach(function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))})}return e}function AC(e,t,n){return(t=jC(t))in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function jC(e){var t=MC(e,`string`);return typeof t==`symbol`?t:t+``}function MC(e,t){if(typeof e!=`object`||!e)return e;var n=e[Symbol.toPrimitive];if(n!==void 0){var r=n.call(e,t||`default`);if(typeof r!=`object`)return r;throw TypeError(`@@toPrimitive must return a primitive value.`)}return(t===`string`?String:Number)(e)}function NC(e){return e&&e.map((e,t)=>v.createElement(e.tag,kC({key:t},e.attr),NC(e.child)))}function PC(e){return t=>v.createElement(FC,DC({attr:kC({},e.attr)},t),NC(e.child))}function FC(e){var t=t=>{var{attr:n,size:r,title:i}=e,a=TC(e,wC),o=r||t.size||`1em`,s;return t.className&&(s=t.className),e.className&&(s=(s?s+` `:``)+e.className),v.createElement(`svg`,DC({stroke:`currentColor`,fill:`currentColor`,strokeWidth:`0`},t.attr,n,a,{className:s,style:kC(kC({color:e.color||t.color},t.style),e.style),height:o,width:o,xmlns:`http://www.w3.org/2000/svg`}),i&&v.createElement(`title`,null,i),e.children)};return CC===void 0?t(SC):v.createElement(CC.Consumer,null,e=>t(e))}function IC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 512 512`},child:[{tag:`path`,attr:{d:`M61.7 169.4l101.5 278C92.2 413 43.3 340.2 43.3 256c0-30.9 6.6-60.1 18.4-86.6zm337.9 75.9c0-26.3-9.4-44.5-17.5-58.7-10.8-17.5-20.9-32.4-20.9-49.9 0-19.6 14.8-37.8 35.7-37.8.9 0 1.8.1 2.8.2-37.9-34.7-88.3-55.9-143.7-55.9-74.3 0-139.7 38.1-177.8 95.9 5 .2 9.7.3 13.7.3 22.2 0 56.7-2.7 56.7-2.7 11.5-.7 12.8 16.2 1.4 17.5 0 0-11.5 1.3-24.3 2l77.5 230.4L249.8 247l-33.1-90.8c-11.5-.7-22.3-2-22.3-2-11.5-.7-10.1-18.2 1.3-17.5 0 0 35.1 2.7 56 2.7 22.2 0 56.7-2.7 56.7-2.7 11.5-.7 12.8 16.2 1.4 17.5 0 0-11.5 1.3-24.3 2l76.9 228.7 21.2-70.9c9-29.4 16-50.5 16-68.7zm-139.9 29.3l-63.8 185.5c19.1 5.6 39.2 8.7 60.1 8.7 24.8 0 48.5-4.3 70.6-12.1-.6-.9-1.1-1.9-1.5-2.9l-65.4-179.2zm183-120.7c.9 6.8 1.4 14 1.4 21.9 0 21.6-4 45.8-16.2 76.2l-65 187.9C426.2 403 468.7 334.5 468.7 256c0-37-9.4-71.8-26-102.1zM504 256c0 136.8-111.3 248-248 248C119.2 504 8 392.7 8 256 8 119.2 119.2 8 256 8c136.7 0 248 111.2 248 248zm-11.4 0c0-130.5-106.2-236.6-236.6-236.6C125.5 19.4 19.4 125.5 19.4 256S125.6 492.6 256 492.6c130.5 0 236.6-106.1 236.6-236.6z`},child:[]}]})(e)}function LC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 512 512`},child:[{tag:`path`,attr:{d:`M418.2 177.2c-5.4-1.8-10.8-3.5-16.2-5.1.9-3.7 1.7-7.4 2.5-11.1 12.3-59.6 4.2-107.5-23.1-123.3-26.3-15.1-69.2.6-112.6 38.4-4.3 3.7-8.5 7.6-12.5 11.5-2.7-2.6-5.5-5.2-8.3-7.7-45.5-40.4-91.1-57.4-118.4-41.5-26.2 15.2-34 60.3-23 116.7 1.1 5.6 2.3 11.1 3.7 16.7-6.4 1.8-12.7 3.8-18.6 5.9C38.3 196.2 0 225.4 0 255.6c0 31.2 40.8 62.5 96.3 81.5 4.5 1.5 9 3 13.6 4.3-1.5 6-2.8 11.9-4 18-10.5 55.5-2.3 99.5 23.9 114.6 27 15.6 72.4-.4 116.6-39.1 3.5-3.1 7-6.3 10.5-9.7 4.4 4.3 9 8.4 13.6 12.4 42.8 36.8 85.1 51.7 111.2 36.6 27-15.6 35.8-62.9 24.4-120.5-.9-4.4-1.9-8.9-3-13.5 3.2-.9 6.3-1.9 9.4-2.9 57.7-19.1 99.5-50 99.5-81.7 0-30.3-39.4-59.7-93.8-78.4zM282.9 92.3c37.2-32.4 71.9-45.1 87.7-36 16.9 9.7 23.4 48.9 12.8 100.4-.7 3.4-1.4 6.7-2.3 10-22.2-5-44.7-8.6-67.3-10.6-13-18.6-27.2-36.4-42.6-53.1 3.9-3.7 7.7-7.2 11.7-10.7zM167.2 307.5c5.1 8.7 10.3 17.4 15.8 25.9-15.6-1.7-31.1-4.2-46.4-7.5 4.4-14.4 9.9-29.3 16.3-44.5 4.6 8.8 9.3 17.5 14.3 26.1zm-30.3-120.3c14.4-3.2 29.7-5.8 45.6-7.8-5.3 8.3-10.5 16.8-15.4 25.4-4.9 8.5-9.7 17.2-14.2 26-6.3-14.9-11.6-29.5-16-43.6zm27.4 68.9c6.6-13.8 13.8-27.3 21.4-40.6s15.8-26.2 24.4-38.9c15-1.1 30.3-1.7 45.9-1.7s31 .6 45.9 1.7c8.5 12.6 16.6 25.5 24.3 38.7s14.9 26.7 21.7 40.4c-6.7 13.8-13.9 27.4-21.6 40.8-7.6 13.3-15.7 26.2-24.2 39-14.9 1.1-30.4 1.6-46.1 1.6s-30.9-.5-45.6-1.4c-8.7-12.7-16.9-25.7-24.6-39s-14.8-26.8-21.5-40.6zm180.6 51.2c5.1-8.8 9.9-17.7 14.6-26.7 6.4 14.5 12 29.2 16.9 44.3-15.5 3.5-31.2 6.2-47 8 5.4-8.4 10.5-17 15.5-25.6zm14.4-76.5c-4.7-8.8-9.5-17.6-14.5-26.2-4.9-8.5-10-16.9-15.3-25.2 16.1 2 31.5 4.7 45.9 8-4.6 14.8-10 29.2-16.1 43.4zM256.2 118.3c10.5 11.4 20.4 23.4 29.6 35.8-19.8-.9-39.7-.9-59.5 0 9.8-12.9 19.9-24.9 29.9-35.8zM140.2 57c16.8-9.8 54.1 4.2 93.4 39 2.5 2.2 5 4.6 7.6 7-15.5 16.7-29.8 34.5-42.9 53.1-22.6 2-45 5.5-67.2 10.4-1.3-5.1-2.4-10.3-3.5-15.5-9.4-48.4-3.2-84.9 12.6-94zm-24.5 263.6c-4.2-1.2-8.3-2.5-12.4-3.9-21.3-6.7-45.5-17.3-63-31.2-10.1-7-16.9-17.8-18.8-29.9 0-18.3 31.6-41.7 77.2-57.6 5.7-2 11.5-3.8 17.3-5.5 6.8 21.7 15 43 24.5 63.6-9.6 20.9-17.9 42.5-24.8 64.5zm116.6 98c-16.5 15.1-35.6 27.1-56.4 35.3-11.1 5.3-23.9 5.8-35.3 1.3-15.9-9.2-22.5-44.5-13.5-92 1.1-5.6 2.3-11.2 3.7-16.7 22.4 4.8 45 8.1 67.9 9.8 13.2 18.7 27.7 36.6 43.2 53.4-3.2 3.1-6.4 6.1-9.6 8.9zm24.5-24.3c-10.2-11-20.4-23.2-30.3-36.3 9.6.4 19.5.6 29.5.6 10.3 0 20.4-.2 30.4-.7-9.2 12.7-19.1 24.8-29.6 36.4zm130.7 30c-.9 12.2-6.9 23.6-16.5 31.3-15.9 9.2-49.8-2.8-86.4-34.2-4.2-3.6-8.4-7.5-12.7-11.5 15.3-16.9 29.4-34.8 42.2-53.6 22.9-1.9 45.7-5.4 68.2-10.5 1 4.1 1.9 8.2 2.7 12.2 4.9 21.6 5.7 44.1 2.5 66.3zm18.2-107.5c-2.8.9-5.6 1.8-8.5 2.6-7-21.8-15.6-43.1-25.5-63.8 9.6-20.4 17.7-41.4 24.5-62.9 5.2 1.5 10.2 3.1 15 4.7 46.6 16 79.3 39.8 79.3 58 0 19.6-34.9 44.9-84.8 61.4zm-149.7-15c25.3 0 45.8-20.5 45.8-45.8s-20.5-45.8-45.8-45.8c-25.3 0-45.8 20.5-45.8 45.8s20.5 45.8 45.8 45.8z`},child:[]}]})(e)}function RC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 448 512`},child:[{tag:`path`,attr:{d:`M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4.1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3.1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z`},child:[]}]})(e)}function zC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 640 512`},child:[{tag:`path`,attr:{d:`M320 104.5c171.4 0 303.2 72.2 303.2 151.5S491.3 407.5 320 407.5c-171.4 0-303.2-72.2-303.2-151.5S148.7 104.5 320 104.5m0-16.8C143.3 87.7 0 163 0 256s143.3 168.3 320 168.3S640 349 640 256 496.7 87.7 320 87.7zM218.2 242.5c-7.9 40.5-35.8 36.3-70.1 36.3l13.7-70.6c38 0 63.8-4.1 56.4 34.3zM97.4 350.3h36.7l8.7-44.8c41.1 0 66.6 3 90.2-19.1 26.1-24 32.9-66.7 14.3-88.1-9.7-11.2-25.3-16.7-46.5-16.7h-70.7L97.4 350.3zm185.7-213.6h36.5l-8.7 44.8c31.5 0 60.7-2.3 74.8 10.7 14.8 13.6 7.7 31-8.3 113.1h-37c15.4-79.4 18.3-86 12.7-92-5.4-5.8-17.7-4.6-47.4-4.6l-18.8 96.6h-36.5l32.7-168.6zM505 242.5c-8 41.1-36.7 36.3-70.1 36.3l13.7-70.6c38.2 0 63.8-4.1 56.4 34.3zM384.2 350.3H421l8.7-44.8c43.2 0 67.1 2.5 90.2-19.1 26.1-24 32.9-66.7 14.3-88.1-9.7-11.2-25.3-16.7-46.5-16.7H417l-32.8 168.7z`},child:[]}]})(e)}function BC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 448 512`},child:[{tag:`path`,attr:{d:`M0 32v448h448V32H0zm243.8 349.4c0 43.6-25.6 63.5-62.9 63.5-33.7 0-53.2-17.4-63.2-38.5l34.3-20.7c6.6 11.7 12.6 21.6 27.1 21.6 13.8 0 22.6-5.4 22.6-26.5V237.7h42.1v143.7zm99.6 63.5c-39.1 0-64.4-18.6-76.7-43l34.3-19.8c9 14.7 20.8 25.6 41.5 25.6 17.4 0 28.6-8.7 28.6-20.8 0-14.4-11.4-19.5-30.7-28l-10.5-4.5c-30.4-12.9-50.5-29.2-50.5-63.5 0-31.6 24.1-55.6 61.6-55.6 26.8 0 46 9.3 59.8 33.7L368 290c-7.2-12.9-15-18-27.1-18-12.3 0-20.1 7.8-20.1 18 0 12.6 7.8 17.7 25.9 25.6l10.5 4.5c35.8 15.3 55.9 31 55.9 66.2 0 37.8-29.8 58.6-69.7 58.6z`},child:[]}]})(e)}function VC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 384 512`},child:[{tag:`path`,attr:{d:`M0 32l34.9 395.8L191.5 480l157.6-52.2L384 32H0zm308.2 127.9H124.4l4.1 49.4h175.6l-13.6 148.4-97.9 27v.3h-1.1l-98.7-27.3-6-75.8h47.7L138 320l53.5 14.5 53.7-14.5 6-62.2H84.3L71.5 112.2h241.1l-4.4 47.7z`},child:[]}]})(e)}function HC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 496 512`},child:[{tag:`path`,attr:{d:`M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z`},child:[]}]})(e)}function UC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 448 512`},child:[{tag:`path`,attr:{d:`M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z`},child:[]}]})(e)}function WC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 384 512`},child:[{tag:`path`,attr:{d:`M0 32l34.9 395.8L192 480l157.1-52.2L384 32H0zm313.1 80l-4.8 47.3L193 208.6l-.3.1h111.5l-12.8 146.6-98.2 28.7-98.8-29.2-6.4-73.9h48.9l3.2 38.3 52.6 13.3 54.7-15.4 3.7-61.6-166.3-.5v-.1l-.2.1-3.6-46.3L193.1 162l6.5-2.7H76.7L70.9 112h242.2z`},child:[]}]})(e)}function GC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 384 512`},child:[{tag:`path`,attr:{d:`M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z`},child:[]}]})(e)}function KC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 640 512`},child:[{tag:`path`,attr:{d:`M622.34 153.2L343.4 67.5c-15.2-4.67-31.6-4.67-46.79 0L17.66 153.2c-23.54 7.23-23.54 38.36 0 45.59l48.63 14.94c-10.67 13.19-17.23 29.28-17.88 46.9C38.78 266.15 32 276.11 32 288c0 10.78 5.68 19.85 13.86 25.65L20.33 428.53C18.11 438.52 25.71 448 35.94 448h56.11c10.24 0 17.84-9.48 15.62-19.47L82.14 313.65C90.32 307.85 96 298.78 96 288c0-11.57-6.47-21.25-15.66-26.87.76-15.02 8.44-28.3 20.69-36.72L296.6 284.5c9.06 2.78 26.44 6.25 46.79 0l278.95-85.7c23.55-7.24 23.55-38.36 0-45.6zM352.79 315.09c-28.53 8.76-52.84 3.92-65.59 0l-145.02-44.55L128 384c0 35.35 85.96 64 192 64s192-28.65 192-64l-14.18-113.47-145.03 44.56z`},child:[]}]})(e)}function qC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 512 512`},child:[{tag:`path`,attr:{d:`M320 336c0 8.84-7.16 16-16 16h-96c-8.84 0-16-7.16-16-16v-48H0v144c0 25.6 22.4 48 48 48h416c25.6 0 48-22.4 48-48V288H320v48zm144-208h-80V80c0-25.6-22.4-48-48-48H176c-25.6 0-48 22.4-48 48v48H48c-25.6 0-48 22.4-48 48v80h512v-80c0-25.6-22.4-48-48-48zm-144 0H192V96h128v32z`},child:[]}]})(e)}function JC(e){return PC({tag:`svg`,attr:{role:`img`,viewBox:`0 0 24 24`},child:[{tag:`path`,attr:{d:`M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z`},child:[]}]})(e)}function YC(e){return PC({tag:`svg`,attr:{role:`img`,viewBox:`0 0 24 24`},child:[{tag:`path`,attr:{d:`M16.405 5.501c-.115 0-.193.014-.274.033v.013h.014c.054.104.146.18.214.273.054.107.1.214.154.32l.014-.015c.094-.066.14-.172.14-.333-.04-.047-.046-.094-.08-.14-.04-.067-.126-.1-.18-.153zM5.77 18.695h-.927a50.854 50.854 0 00-.27-4.41h-.008l-1.41 4.41H2.45l-1.4-4.41h-.01a72.892 72.892 0 00-.195 4.41H0c.055-1.966.192-3.81.41-5.53h1.15l1.335 4.064h.008l1.347-4.064h1.095c.242 2.015.384 3.86.428 5.53zm4.017-4.08c-.378 2.045-.876 3.533-1.492 4.46-.482.716-1.01 1.073-1.583 1.073-.153 0-.34-.046-.566-.138v-.494c.11.017.24.026.386.026.268 0 .483-.075.647-.222.197-.18.295-.382.295-.605 0-.155-.077-.47-.23-.944L6.23 14.615h.91l.727 2.36c.164.536.233.91.205 1.123.4-1.064.678-2.227.835-3.483zm12.325 4.08h-2.63v-5.53h.885v4.85h1.745zm-3.32.135l-1.016-.5c.09-.076.177-.158.255-.25.433-.506.648-1.258.648-2.253 0-1.83-.718-2.746-2.155-2.746-.704 0-1.254.232-1.65.697-.43.508-.646 1.256-.646 2.245 0 .972.19 1.686.574 2.14.35.41.877.615 1.583.615.264 0 .506-.033.725-.098l1.325.772.36-.622zM15.5 17.588c-.225-.36-.337-.94-.337-1.736 0-1.393.424-2.09 1.27-2.09.443 0 .77.167.977.5.224.362.336.936.336 1.723 0 1.404-.424 2.108-1.27 2.108-.445 0-.77-.167-.978-.5zm-1.658-.425c0 .47-.172.856-.516 1.156-.344.3-.803.45-1.384.45-.543 0-1.064-.172-1.573-.515l.237-.476c.438.22.833.328 1.19.328.332 0 .593-.073.783-.22a.754.754 0 00.3-.615c0-.33-.23-.61-.648-.845-.388-.213-1.163-.657-1.163-.657-.422-.307-.632-.636-.632-1.177 0-.45.157-.81.47-1.085.315-.278.72-.415 1.22-.415.512 0 .98.136 1.4.41l-.213.476a2.726 2.726 0 00-1.064-.23c-.283 0-.502.068-.654.206a.685.685 0 00-.248.524c0 .328.234.61.666.85.393.215 1.187.67 1.187.67.433.305.648.63.648 1.168zm9.382-5.852c-.535-.014-.95.04-1.297.188-.1.04-.26.04-.274.167.055.053.063.14.11.214.08.134.218.313.346.407.14.11.28.216.427.31.26.16.555.255.81.416.145.094.293.213.44.313.073.05.12.14.214.172v-.02c-.046-.06-.06-.147-.105-.214-.067-.067-.134-.127-.2-.193a3.223 3.223 0 00-.695-.675c-.214-.146-.682-.35-.77-.595l-.013-.014c.146-.013.32-.066.46-.106.227-.06.435-.047.67-.106.106-.027.213-.06.32-.094v-.06c-.12-.12-.21-.283-.334-.395a8.867 8.867 0 00-1.104-.823c-.21-.134-.476-.22-.697-.334-.08-.04-.214-.06-.26-.127-.12-.146-.19-.34-.275-.514a17.69 17.69 0 01-.547-1.163c-.12-.262-.193-.523-.34-.763-.69-1.137-1.437-1.826-2.586-2.5-.247-.14-.543-.2-.856-.274-.167-.008-.334-.02-.5-.027-.11-.047-.216-.174-.31-.235-.38-.24-1.364-.76-1.644-.072-.18.434.267.862.422 1.082.115.153.26.328.34.5.047.116.06.235.107.356.106.294.207.622.347.897.073.14.153.287.247.413.054.073.146.107.167.227-.094.136-.1.334-.154.5-.24.757-.146 1.693.194 2.25.107.166.362.534.703.393.3-.12.234-.5.32-.835.02-.08.007-.133.048-.187v.015c.094.188.188.367.274.555.206.328.566.668.867.895.16.12.287.328.487.402v-.02h-.015c-.043-.058-.1-.086-.154-.133a3.445 3.445 0 01-.35-.4 8.76 8.76 0 01-.747-1.218c-.11-.21-.202-.436-.29-.643-.04-.08-.04-.2-.107-.24-.1.146-.247.273-.32.453-.127.288-.14.642-.188 1.01-.027.007-.014 0-.027.014-.214-.052-.287-.274-.367-.46-.2-.475-.233-1.238-.06-1.785.047-.14.247-.582.167-.716-.042-.127-.174-.2-.247-.303a2.478 2.478 0 01-.24-.427c-.16-.374-.24-.788-.414-1.162-.08-.173-.22-.354-.334-.513-.127-.18-.267-.307-.368-.52-.033-.073-.08-.194-.027-.274.014-.054.042-.075.094-.09.088-.072.335.022.422.062.247.1.455.194.662.334.094.066.195.193.315.226h.14c.214.047.455.014.655.073.355.114.675.28.962.46a5.953 5.953 0 012.085 2.286c.08.154.115.295.188.455.14.33.313.663.455.982.14.315.275.636.476.897.1.14.502.213.682.286.133.06.34.115.46.188.23.14.454.3.67.454.11.076.443.243.463.378z`},child:[]}]})(e)}function XC(e){return PC({tag:`svg`,attr:{role:`img`,viewBox:`0 0 24 24`},child:[{tag:`path`,attr:{d:`M11.146 0h3.924v18.166c-2.013.382-3.491.535-5.096.535-4.791 0-7.288-2.166-7.288-6.32 0-4.002 2.65-6.6 6.753-6.6.637 0 1.121.05 1.707.203zm0 9.143a3.894 3.894 0 00-1.325-.204c-1.988 0-3.134 1.223-3.134 3.365 0 2.09 1.096 3.236 3.109 3.236.433 0 .79-.025 1.35-.102V9.142zM21.314 6.06v9.098c0 3.134-.229 4.638-.917 5.937-.637 1.249-1.478 2.039-3.211 2.905l-3.644-1.733c1.733-.815 2.574-1.53 3.109-2.625.561-1.121.739-2.421.739-5.835V6.059h3.924zM17.39.021h3.924v4.026H17.39z`},child:[]}]})(e)}var ZC={richBlack:`#000F08`,darkGreen:`#032221`,bangladeshGreen:`#03624C`,mountainMeadow:`#2CC295`,caribbeanGreen:`#00DF91`,white:`#F1F7F6`},QC=[{icon:LC,label:`React`,color:`#61DAFB`},{icon:RC,label:`Python`,color:`#3776AB`},{icon:BC,label:`JavaScript`,color:`#F7DF1E`},{icon:zC,label:`PHP`,color:`#777BB4`},{icon:YC,label:`MySQL`,color:`#4479A1`},{icon:VC,label:`HTML5`,color:`#E34F26`},{icon:WC,label:`CSS3`,color:`#1572B6`},{icon:HC,label:`GitHub`,color:ZC.white},{icon:UC,label:`Git`,color:`#F05032`}];function $C(){let e=(0,v.useRef)(null);return ux((t,n)=>{e.current&&(e.current.rotation.x+=n*.18,e.current.rotation.y+=n*.28,t.invalidate())}),(0,B.jsxs)(`mesh`,{ref:e,children:[(0,B.jsx)(`icosahedronGeometry`,{args:[1.2,0]}),(0,B.jsx)(`meshStandardMaterial`,{color:`#0a2e28`,roughness:.85,metalness:.4}),(0,B.jsx)(bC,{threshold:5,color:ZC.caribbeanGreen,lineWidth:1.2})]})}var ew=(0,v.memo)(function(){let e=(0,v.useRef)(null);return(0,v.useEffect)(()=>{let t=[setTimeout(()=>window.dispatchEvent(new Event(`resize`)),100),setTimeout(()=>window.dispatchEvent(new Event(`resize`)),500),setTimeout(()=>window.dispatchEvent(new Event(`resize`)),2e3)],n=new ResizeObserver(()=>{window.dispatchEvent(new Event(`resize`))});return e.current&&n.observe(e.current),()=>{t.forEach(clearTimeout),n.disconnect()}},[]),(0,B.jsx)(ow,{ref:e,children:(0,B.jsxs)(MS,{camera:{position:[0,0,3.5],fov:45},gl:{antialias:!0,alpha:!0},frameloop:`demand`,performance:{min:.5},children:[(0,B.jsx)(`ambientLight`,{intensity:.4}),(0,B.jsx)(`pointLight`,{position:[5,5,5],intensity:1.2,color:`#ffffff`}),(0,B.jsx)(`pointLight`,{position:[-5,-3,2],intensity:.6,color:ZC.caribbeanGreen}),(0,B.jsx)($C,{}),(0,B.jsx)(xC,{enableZoom:!1,enablePan:!1})]})})}),tw=Ln`
+			`,clipping:!0}),this.isLineMaterial=!0,this.onBeforeCompile=function(){this.transparent?this.defines.USE_LINE_COLOR_ALPHA=`1`:delete this.defines.USE_LINE_COLOR_ALPHA},Object.defineProperties(this,{color:{enumerable:!0,get:function(){return this.uniforms.diffuse.value},set:function(e){this.uniforms.diffuse.value=e}},worldUnits:{enumerable:!0,get:function(){return`WORLD_UNITS`in this.defines},set:function(e){e===!0?this.defines.WORLD_UNITS=``:delete this.defines.WORLD_UNITS}},linewidth:{enumerable:!0,get:function(){return this.uniforms.linewidth.value},set:function(e){this.uniforms.linewidth.value=e}},dashed:{enumerable:!0,get:function(){return`USE_DASH`in this.defines},set(e){!!e!=`USE_DASH`in this.defines&&(this.needsUpdate=!0),e===!0?this.defines.USE_DASH=``:delete this.defines.USE_DASH}},dashScale:{enumerable:!0,get:function(){return this.uniforms.dashScale.value},set:function(e){this.uniforms.dashScale.value=e}},dashSize:{enumerable:!0,get:function(){return this.uniforms.dashSize.value},set:function(e){this.uniforms.dashSize.value=e}},dashOffset:{enumerable:!0,get:function(){return this.uniforms.dashOffset.value},set:function(e){this.uniforms.dashOffset.value=e}},gapSize:{enumerable:!0,get:function(){return this.uniforms.gapSize.value},set:function(e){this.uniforms.gapSize.value=e}},opacity:{enumerable:!0,get:function(){return this.uniforms.opacity.value},set:function(e){this.uniforms.opacity.value=e}},resolution:{enumerable:!0,get:function(){return this.uniforms.resolution.value},set:function(e){this.uniforms.resolution.value.copy(e)}},alphaToCoverage:{enumerable:!0,get:function(){return`USE_ALPHA_TO_COVERAGE`in this.defines},set:function(e){!!e!=`USE_ALPHA_TO_COVERAGE`in this.defines&&(this.needsUpdate=!0),e===!0?(this.defines.USE_ALPHA_TO_COVERAGE=``,this.extensions.derivatives=!0):(delete this.defines.USE_ALPHA_TO_COVERAGE,this.extensions.derivatives=!1)}}}),this.setValues(e)}},$S=new Ho,eC=new K,tC=new K,nC=new Ho,rC=new Ho,iC=new Ho,aC=new K,oC=new Yo,sC=new qh,cC=new K,lC=new Js,uC=new kc,dC=new Ho,fC,pC;function mC(e,t,n){return dC.set(0,0,-t,1).applyMatrix4(e.projectionMatrix),dC.multiplyScalar(1/dC.w),dC.x=pC/n.width,dC.y=pC/n.height,dC.applyMatrix4(e.projectionMatrixInverse),dC.multiplyScalar(1/dC.w),Math.abs(Math.max(dC.x,dC.y))}function hC(e,t){let n=e.matrixWorld,r=e.geometry,i=r.attributes.instanceStart,a=r.attributes.instanceEnd,o=Math.min(r.instanceCount,i.count);for(let r=0,s=o;r<s;r++){sC.start.fromBufferAttribute(i,r),sC.end.fromBufferAttribute(a,r),sC.applyMatrix4(n);let o=new K,s=new K;fC.distanceSqToSegment(sC.start,sC.end,s,o),s.distanceTo(o)<pC*.5&&t.push({point:s,pointOnLine:o,distance:fC.origin.distanceTo(s),object:e,face:null,faceIndex:r,uv:null,[FS]:null})}}function gC(e,t,n){let r=t.projectionMatrix,i=e.material.resolution,a=e.matrixWorld,o=e.geometry,s=o.attributes.instanceStart,c=o.attributes.instanceEnd,l=Math.min(o.instanceCount,s.count),u=-t.near;fC.at(1,iC),iC.w=1,iC.applyMatrix4(t.matrixWorldInverse),iC.applyMatrix4(r),iC.multiplyScalar(1/iC.w),iC.x*=i.x/2,iC.y*=i.y/2,iC.z=0,aC.copy(iC),oC.multiplyMatrices(t.matrixWorldInverse,a);for(let t=0,o=l;t<o;t++){if(nC.fromBufferAttribute(s,t),rC.fromBufferAttribute(c,t),nC.w=1,rC.w=1,nC.applyMatrix4(oC),rC.applyMatrix4(oC),nC.z>u&&rC.z>u)continue;if(nC.z>u){let e=nC.z-rC.z,t=(nC.z-u)/e;nC.lerp(rC,t)}else if(rC.z>u){let e=rC.z-nC.z,t=(rC.z-u)/e;rC.lerp(nC,t)}nC.applyMatrix4(r),rC.applyMatrix4(r),nC.multiplyScalar(1/nC.w),rC.multiplyScalar(1/rC.w),nC.x*=i.x/2,nC.y*=i.y/2,rC.x*=i.x/2,rC.y*=i.y/2,sC.start.copy(nC),sC.start.z=0,sC.end.copy(rC),sC.end.z=0;let o=sC.closestPointToPointParameter(aC,!0);sC.at(o,cC);let l=Co.lerp(nC.z,rC.z,o),d=l>=-1&&l<=1,f=aC.distanceTo(cC)<pC*.5;if(d&&f){sC.start.fromBufferAttribute(s,t),sC.end.fromBufferAttribute(c,t),sC.start.applyMatrix4(a),sC.end.applyMatrix4(a);let r=new K,i=new K;fC.distanceSqToSegment(sC.start,sC.end,i,r),n.push({point:i,pointOnLine:r,distance:fC.origin.distanceTo(i),object:e,face:null,faceIndex:t,uv:null,[FS]:null})}}}var _C=class extends Dl{constructor(e=new XS,t=new QS({color:Math.random()*16777215})){super(e,t),this.isLineSegments2=!0,this.type=`LineSegments2`}computeLineDistances(){let e=this.geometry,t=e.attributes.instanceStart,n=e.attributes.instanceEnd,r=new Float32Array(2*t.count);for(let e=0,i=0,a=t.count;e<a;e++,i+=2)eC.fromBufferAttribute(t,e),tC.fromBufferAttribute(n,e),r[i]=i===0?0:r[i-1],r[i+1]=r[i]+eC.distanceTo(tC);let i=new Oh(r,2,1);return e.setAttribute(`instanceDistanceStart`,new zc(i,1,0)),e.setAttribute(`instanceDistanceEnd`,new zc(i,1,1)),this}raycast(e,t){let n=this.material.worldUnits,r=e.camera;r===null&&!n&&console.error(`LineSegments2: "Raycaster.camera" needs to be set in order to raycast against LineSegments2 while worldUnits is set to false.`);let i=e.params.Line2===void 0?0:e.params.Line2.threshold||0;fC=e.ray;let a=this.matrixWorld,o=this.geometry,s=this.material;pC=s.linewidth+i,o.boundingSphere===null&&o.computeBoundingSphere(),uC.copy(o.boundingSphere).applyMatrix4(a);let c;if(c=n?pC*.5:mC(r,Math.max(r.near,uC.distanceToPoint(fC.origin)),s.resolution),uC.radius+=c,fC.intersectsSphere(uC)===!1)return;o.boundingBox===null&&o.computeBoundingBox(),lC.copy(o.boundingBox).applyMatrix4(a);let l;l=n?pC*.5:mC(r,Math.max(r.near,lC.distanceToPoint(fC.origin)),s.resolution),lC.expandByScalar(l),fC.intersectsBox(lC)!==!1&&(n?hC(this,t):gC(this,r,t))}onBeforeRender(e){let t=this.material.uniforms;t&&t.resolution&&(e.getViewport($S),this.material.uniforms.resolution.value.set($S.z,$S.w))}},vC=class extends _C{constructor(e=new ZS,t=new QS({color:Math.random()*16777215})){super(e,t),this.isLine2=!0,this.type=`Line2`}},yC=v.forwardRef(function({points:e,color:t=16777215,vertexColors:n,linewidth:r,lineWidth:i,segments:a,dashed:o,...s},c){var l;let u=lx(e=>e.size),d=v.useMemo(()=>a?new _C:new vC,[a]),[f]=v.useState(()=>new QS),p=(n==null||(l=n[0])==null?void 0:l.length)===4?4:3,m=v.useMemo(()=>{let r=a?new XS:new ZS,i=e.map(e=>{let t=Array.isArray(e);return e instanceof K||e instanceof Ho?[e.x,e.y,e.z]:e instanceof G?[e.x,e.y,0]:t&&e.length===3?[e[0],e[1],e[2]]:t&&e.length===2?[e[0],e[1],0]:e});if(r.setPositions(i.flat()),n){t=16777215;let e=n.map(e=>e instanceof J?e.toArray():e);r.setColors(e.flat(),p)}return r},[e,a,n,p]);return v.useLayoutEffect(()=>{d.computeLineDistances()},[e,d]),v.useLayoutEffect(()=>{o?f.defines.USE_DASH=``:delete f.defines.USE_DASH,f.needsUpdate=!0},[o,f]),v.useEffect(()=>()=>{m.dispose(),f.dispose()},[m]),v.createElement(`primitive`,NS({object:d,ref:c},s),v.createElement(`primitive`,{object:m,attach:`geometry`}),v.createElement(`primitive`,NS({object:f,attach:`material`,color:t,vertexColors:!!n,resolution:[u.width,u.height],linewidth:r??i??1,dashed:o,transparent:p===4},s)))}),bC=v.forwardRef(({threshold:e=15,geometry:t,...n},r)=>{let i=v.useRef(null);v.useImperativeHandle(r,()=>i.current,[]);let a=v.useMemo(()=>[0,0,0,1,0,0],[]),o=v.useRef(null),s=v.useRef(null);return v.useLayoutEffect(()=>{let n=i.current.parent,r=t??n?.geometry;if(!r||o.current===r&&s.current===e)return;o.current=r,s.current=e;let a=new _d(r,e).attributes.position.array;i.current.geometry.setPositions(a),i.current.geometry.attributes.instanceStart.needsUpdate=!0,i.current.geometry.attributes.instanceEnd.needsUpdate=!0,i.current.computeLineDistances()}),v.createElement(yC,NS({segments:!0,points:a,ref:i,raycast:()=>null},n))}),xC=v.forwardRef(({makeDefault:e,camera:t,regress:n,domElement:r,enableDamping:i=!0,keyEvents:a=!1,onChange:o,onStart:s,onEnd:c,...l},u)=>{let d=lx(e=>e.invalidate),f=lx(e=>e.camera),p=lx(e=>e.gl),m=lx(e=>e.events),h=lx(e=>e.setEvents),g=lx(e=>e.set),_=lx(e=>e.get),y=lx(e=>e.performance),b=t||f,x=r||m.connected||p.domElement,S=v.useMemo(()=>new qS(b),[b]);return ux(()=>{S.enabled&&S.update()},-1),v.useEffect(()=>(a&&S.connect(a===!0?x:a),S.connect(x),()=>void S.dispose()),[a,x,n,S,d]),v.useEffect(()=>{let e=e=>{d(),n&&y.regress(),o&&o(e)},t=e=>{s&&s(e)},r=e=>{c&&c(e)};return S.addEventListener(`change`,e),S.addEventListener(`start`,t),S.addEventListener(`end`,r),()=>{S.removeEventListener(`start`,t),S.removeEventListener(`end`,r),S.removeEventListener(`change`,e)}},[o,s,c,S,d,h]),v.useEffect(()=>{if(e){let e=_().controls;return g({controls:S}),()=>g({controls:e})}},[e,S]),v.createElement(`primitive`,NS({ref:u,object:S,enableDamping:i},l))}),SC={color:void 0,size:void 0,className:void 0,style:void 0,attr:void 0},CC=v.createContext&&v.createContext(SC),wC=[`attr`,`size`,`title`];function TC(e,t){if(e==null)return{};var n,r,i=EC(e,t);if(Object.getOwnPropertySymbols){var a=Object.getOwnPropertySymbols(e);for(r=0;r<a.length;r++)n=a[r],t.indexOf(n)===-1&&{}.propertyIsEnumerable.call(e,n)&&(i[n]=e[n])}return i}function EC(e,t){if(e==null)return{};var n={};for(var r in e)if({}.hasOwnProperty.call(e,r)){if(t.indexOf(r)!==-1)continue;n[r]=e[r]}return n}function DC(){return DC=Object.assign?Object.assign.bind():function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)({}).hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e},DC.apply(null,arguments)}function OC(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter(function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable})),n.push.apply(n,r)}return n}function kC(e){for(var t=1;t<arguments.length;t++){var n=arguments[t]==null?{}:arguments[t];t%2?OC(Object(n),!0).forEach(function(t){AC(e,t,n[t])}):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):OC(Object(n)).forEach(function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))})}return e}function AC(e,t,n){return(t=jC(t))in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function jC(e){var t=MC(e,`string`);return typeof t==`symbol`?t:t+``}function MC(e,t){if(typeof e!=`object`||!e)return e;var n=e[Symbol.toPrimitive];if(n!==void 0){var r=n.call(e,t||`default`);if(typeof r!=`object`)return r;throw TypeError(`@@toPrimitive must return a primitive value.`)}return(t===`string`?String:Number)(e)}function NC(e){return e&&e.map((e,t)=>v.createElement(e.tag,kC({key:t},e.attr),NC(e.child)))}function PC(e){return t=>v.createElement(FC,DC({attr:kC({},e.attr)},t),NC(e.child))}function FC(e){var t=t=>{var{attr:n,size:r,title:i}=e,a=TC(e,wC),o=r||t.size||`1em`,s;return t.className&&(s=t.className),e.className&&(s=(s?s+` `:``)+e.className),v.createElement(`svg`,DC({stroke:`currentColor`,fill:`currentColor`,strokeWidth:`0`},t.attr,n,a,{className:s,style:kC(kC({color:e.color||t.color},t.style),e.style),height:o,width:o,xmlns:`http://www.w3.org/2000/svg`}),i&&v.createElement(`title`,null,i),e.children)};return CC===void 0?t(SC):v.createElement(CC.Consumer,null,e=>t(e))}function IC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 512 512`},child:[{tag:`path`,attr:{d:`M61.7 169.4l101.5 278C92.2 413 43.3 340.2 43.3 256c0-30.9 6.6-60.1 18.4-86.6zm337.9 75.9c0-26.3-9.4-44.5-17.5-58.7-10.8-17.5-20.9-32.4-20.9-49.9 0-19.6 14.8-37.8 35.7-37.8.9 0 1.8.1 2.8.2-37.9-34.7-88.3-55.9-143.7-55.9-74.3 0-139.7 38.1-177.8 95.9 5 .2 9.7.3 13.7.3 22.2 0 56.7-2.7 56.7-2.7 11.5-.7 12.8 16.2 1.4 17.5 0 0-11.5 1.3-24.3 2l77.5 230.4L249.8 247l-33.1-90.8c-11.5-.7-22.3-2-22.3-2-11.5-.7-10.1-18.2 1.3-17.5 0 0 35.1 2.7 56 2.7 22.2 0 56.7-2.7 56.7-2.7 11.5-.7 12.8 16.2 1.4 17.5 0 0-11.5 1.3-24.3 2l76.9 228.7 21.2-70.9c9-29.4 16-50.5 16-68.7zm-139.9 29.3l-63.8 185.5c19.1 5.6 39.2 8.7 60.1 8.7 24.8 0 48.5-4.3 70.6-12.1-.6-.9-1.1-1.9-1.5-2.9l-65.4-179.2zm183-120.7c.9 6.8 1.4 14 1.4 21.9 0 21.6-4 45.8-16.2 76.2l-65 187.9C426.2 403 468.7 334.5 468.7 256c0-37-9.4-71.8-26-102.1zM504 256c0 136.8-111.3 248-248 248C119.2 504 8 392.7 8 256 8 119.2 119.2 8 256 8c136.7 0 248 111.2 248 248zm-11.4 0c0-130.5-106.2-236.6-236.6-236.6C125.5 19.4 19.4 125.5 19.4 256S125.6 492.6 256 492.6c130.5 0 236.6-106.1 236.6-236.6z`},child:[]}]})(e)}function LC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 512 512`},child:[{tag:`path`,attr:{d:`M418.2 177.2c-5.4-1.8-10.8-3.5-16.2-5.1.9-3.7 1.7-7.4 2.5-11.1 12.3-59.6 4.2-107.5-23.1-123.3-26.3-15.1-69.2.6-112.6 38.4-4.3 3.7-8.5 7.6-12.5 11.5-2.7-2.6-5.5-5.2-8.3-7.7-45.5-40.4-91.1-57.4-118.4-41.5-26.2 15.2-34 60.3-23 116.7 1.1 5.6 2.3 11.1 3.7 16.7-6.4 1.8-12.7 3.8-18.6 5.9C38.3 196.2 0 225.4 0 255.6c0 31.2 40.8 62.5 96.3 81.5 4.5 1.5 9 3 13.6 4.3-1.5 6-2.8 11.9-4 18-10.5 55.5-2.3 99.5 23.9 114.6 27 15.6 72.4-.4 116.6-39.1 3.5-3.1 7-6.3 10.5-9.7 4.4 4.3 9 8.4 13.6 12.4 42.8 36.8 85.1 51.7 111.2 36.6 27-15.6 35.8-62.9 24.4-120.5-.9-4.4-1.9-8.9-3-13.5 3.2-.9 6.3-1.9 9.4-2.9 57.7-19.1 99.5-50 99.5-81.7 0-30.3-39.4-59.7-93.8-78.4zM282.9 92.3c37.2-32.4 71.9-45.1 87.7-36 16.9 9.7 23.4 48.9 12.8 100.4-.7 3.4-1.4 6.7-2.3 10-22.2-5-44.7-8.6-67.3-10.6-13-18.6-27.2-36.4-42.6-53.1 3.9-3.7 7.7-7.2 11.7-10.7zM167.2 307.5c5.1 8.7 10.3 17.4 15.8 25.9-15.6-1.7-31.1-4.2-46.4-7.5 4.4-14.4 9.9-29.3 16.3-44.5 4.6 8.8 9.3 17.5 14.3 26.1zm-30.3-120.3c14.4-3.2 29.7-5.8 45.6-7.8-5.3 8.3-10.5 16.8-15.4 25.4-4.9 8.5-9.7 17.2-14.2 26-6.3-14.9-11.6-29.5-16-43.6zm27.4 68.9c6.6-13.8 13.8-27.3 21.4-40.6s15.8-26.2 24.4-38.9c15-1.1 30.3-1.7 45.9-1.7s31 .6 45.9 1.7c8.5 12.6 16.6 25.5 24.3 38.7s14.9 26.7 21.7 40.4c-6.7 13.8-13.9 27.4-21.6 40.8-7.6 13.3-15.7 26.2-24.2 39-14.9 1.1-30.4 1.6-46.1 1.6s-30.9-.5-45.6-1.4c-8.7-12.7-16.9-25.7-24.6-39s-14.8-26.8-21.5-40.6zm180.6 51.2c5.1-8.8 9.9-17.7 14.6-26.7 6.4 14.5 12 29.2 16.9 44.3-15.5 3.5-31.2 6.2-47 8 5.4-8.4 10.5-17 15.5-25.6zm14.4-76.5c-4.7-8.8-9.5-17.6-14.5-26.2-4.9-8.5-10-16.9-15.3-25.2 16.1 2 31.5 4.7 45.9 8-4.6 14.8-10 29.2-16.1 43.4zM256.2 118.3c10.5 11.4 20.4 23.4 29.6 35.8-19.8-.9-39.7-.9-59.5 0 9.8-12.9 19.9-24.9 29.9-35.8zM140.2 57c16.8-9.8 54.1 4.2 93.4 39 2.5 2.2 5 4.6 7.6 7-15.5 16.7-29.8 34.5-42.9 53.1-22.6 2-45 5.5-67.2 10.4-1.3-5.1-2.4-10.3-3.5-15.5-9.4-48.4-3.2-84.9 12.6-94zm-24.5 263.6c-4.2-1.2-8.3-2.5-12.4-3.9-21.3-6.7-45.5-17.3-63-31.2-10.1-7-16.9-17.8-18.8-29.9 0-18.3 31.6-41.7 77.2-57.6 5.7-2 11.5-3.8 17.3-5.5 6.8 21.7 15 43 24.5 63.6-9.6 20.9-17.9 42.5-24.8 64.5zm116.6 98c-16.5 15.1-35.6 27.1-56.4 35.3-11.1 5.3-23.9 5.8-35.3 1.3-15.9-9.2-22.5-44.5-13.5-92 1.1-5.6 2.3-11.2 3.7-16.7 22.4 4.8 45 8.1 67.9 9.8 13.2 18.7 27.7 36.6 43.2 53.4-3.2 3.1-6.4 6.1-9.6 8.9zm24.5-24.3c-10.2-11-20.4-23.2-30.3-36.3 9.6.4 19.5.6 29.5.6 10.3 0 20.4-.2 30.4-.7-9.2 12.7-19.1 24.8-29.6 36.4zm130.7 30c-.9 12.2-6.9 23.6-16.5 31.3-15.9 9.2-49.8-2.8-86.4-34.2-4.2-3.6-8.4-7.5-12.7-11.5 15.3-16.9 29.4-34.8 42.2-53.6 22.9-1.9 45.7-5.4 68.2-10.5 1 4.1 1.9 8.2 2.7 12.2 4.9 21.6 5.7 44.1 2.5 66.3zm18.2-107.5c-2.8.9-5.6 1.8-8.5 2.6-7-21.8-15.6-43.1-25.5-63.8 9.6-20.4 17.7-41.4 24.5-62.9 5.2 1.5 10.2 3.1 15 4.7 46.6 16 79.3 39.8 79.3 58 0 19.6-34.9 44.9-84.8 61.4zm-149.7-15c25.3 0 45.8-20.5 45.8-45.8s-20.5-45.8-45.8-45.8c-25.3 0-45.8 20.5-45.8 45.8s20.5 45.8 45.8 45.8z`},child:[]}]})(e)}function RC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 448 512`},child:[{tag:`path`,attr:{d:`M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4.1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3.1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z`},child:[]}]})(e)}function zC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 640 512`},child:[{tag:`path`,attr:{d:`M320 104.5c171.4 0 303.2 72.2 303.2 151.5S491.3 407.5 320 407.5c-171.4 0-303.2-72.2-303.2-151.5S148.7 104.5 320 104.5m0-16.8C143.3 87.7 0 163 0 256s143.3 168.3 320 168.3S640 349 640 256 496.7 87.7 320 87.7zM218.2 242.5c-7.9 40.5-35.8 36.3-70.1 36.3l13.7-70.6c38 0 63.8-4.1 56.4 34.3zM97.4 350.3h36.7l8.7-44.8c41.1 0 66.6 3 90.2-19.1 26.1-24 32.9-66.7 14.3-88.1-9.7-11.2-25.3-16.7-46.5-16.7h-70.7L97.4 350.3zm185.7-213.6h36.5l-8.7 44.8c31.5 0 60.7-2.3 74.8 10.7 14.8 13.6 7.7 31-8.3 113.1h-37c15.4-79.4 18.3-86 12.7-92-5.4-5.8-17.7-4.6-47.4-4.6l-18.8 96.6h-36.5l32.7-168.6zM505 242.5c-8 41.1-36.7 36.3-70.1 36.3l13.7-70.6c38.2 0 63.8-4.1 56.4 34.3zM384.2 350.3H421l8.7-44.8c43.2 0 67.1 2.5 90.2-19.1 26.1-24 32.9-66.7 14.3-88.1-9.7-11.2-25.3-16.7-46.5-16.7H417l-32.8 168.7z`},child:[]}]})(e)}function BC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 448 512`},child:[{tag:`path`,attr:{d:`M0 32v448h448V32H0zm243.8 349.4c0 43.6-25.6 63.5-62.9 63.5-33.7 0-53.2-17.4-63.2-38.5l34.3-20.7c6.6 11.7 12.6 21.6 27.1 21.6 13.8 0 22.6-5.4 22.6-26.5V237.7h42.1v143.7zm99.6 63.5c-39.1 0-64.4-18.6-76.7-43l34.3-19.8c9 14.7 20.8 25.6 41.5 25.6 17.4 0 28.6-8.7 28.6-20.8 0-14.4-11.4-19.5-30.7-28l-10.5-4.5c-30.4-12.9-50.5-29.2-50.5-63.5 0-31.6 24.1-55.6 61.6-55.6 26.8 0 46 9.3 59.8 33.7L368 290c-7.2-12.9-15-18-27.1-18-12.3 0-20.1 7.8-20.1 18 0 12.6 7.8 17.7 25.9 25.6l10.5 4.5c35.8 15.3 55.9 31 55.9 66.2 0 37.8-29.8 58.6-69.7 58.6z`},child:[]}]})(e)}function VC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 384 512`},child:[{tag:`path`,attr:{d:`M0 32l34.9 395.8L191.5 480l157.6-52.2L384 32H0zm308.2 127.9H124.4l4.1 49.4h175.6l-13.6 148.4-97.9 27v.3h-1.1l-98.7-27.3-6-75.8h47.7L138 320l53.5 14.5 53.7-14.5 6-62.2H84.3L71.5 112.2h241.1l-4.4 47.7z`},child:[]}]})(e)}function HC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 496 512`},child:[{tag:`path`,attr:{d:`M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z`},child:[]}]})(e)}function UC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 448 512`},child:[{tag:`path`,attr:{d:`M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z`},child:[]}]})(e)}function WC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 384 512`},child:[{tag:`path`,attr:{d:`M0 32l34.9 395.8L192 480l157.1-52.2L384 32H0zm313.1 80l-4.8 47.3L193 208.6l-.3.1h111.5l-12.8 146.6-98.2 28.7-98.8-29.2-6.4-73.9h48.9l3.2 38.3 52.6 13.3 54.7-15.4 3.7-61.6-166.3-.5v-.1l-.2.1-3.6-46.3L193.1 162l6.5-2.7H76.7L70.9 112h242.2z`},child:[]}]})(e)}function GC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 384 512`},child:[{tag:`path`,attr:{d:`M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z`},child:[]}]})(e)}function KC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 640 512`},child:[{tag:`path`,attr:{d:`M622.34 153.2L343.4 67.5c-15.2-4.67-31.6-4.67-46.79 0L17.66 153.2c-23.54 7.23-23.54 38.36 0 45.59l48.63 14.94c-10.67 13.19-17.23 29.28-17.88 46.9C38.78 266.15 32 276.11 32 288c0 10.78 5.68 19.85 13.86 25.65L20.33 428.53C18.11 438.52 25.71 448 35.94 448h56.11c10.24 0 17.84-9.48 15.62-19.47L82.14 313.65C90.32 307.85 96 298.78 96 288c0-11.57-6.47-21.25-15.66-26.87.76-15.02 8.44-28.3 20.69-36.72L296.6 284.5c9.06 2.78 26.44 6.25 46.79 0l278.95-85.7c23.55-7.24 23.55-38.36 0-45.6zM352.79 315.09c-28.53 8.76-52.84 3.92-65.59 0l-145.02-44.55L128 384c0 35.35 85.96 64 192 64s192-28.65 192-64l-14.18-113.47-145.03 44.56z`},child:[]}]})(e)}function qC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 512 512`},child:[{tag:`path`,attr:{d:`M216 0h80c13.3 0 24 10.7 24 24v168h87.7c17.8 0 26.7 21.5 14.1 34.1L269.7 378.3c-7.5 7.5-19.8 7.5-27.3 0L90.1 226.1c-12.6-12.6-3.7-34.1 14.1-34.1H192V24c0-13.3 10.7-24 24-24zm296 376v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h146.7l49 49c20.1 20.1 52.5 20.1 72.6 0l49-49H488c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z`},child:[]}]})(e)}function JC(e){return PC({tag:`svg`,attr:{viewBox:`0 0 512 512`},child:[{tag:`path`,attr:{d:`M320 336c0 8.84-7.16 16-16 16h-96c-8.84 0-16-7.16-16-16v-48H0v144c0 25.6 22.4 48 48 48h416c25.6 0 48-22.4 48-48V288H320v48zm144-208h-80V80c0-25.6-22.4-48-48-48H176c-25.6 0-48 22.4-48 48v48H48c-25.6 0-48 22.4-48 48v80h512v-80c0-25.6-22.4-48-48-48zm-144 0H192V96h128v32z`},child:[]}]})(e)}function YC(e){return PC({tag:`svg`,attr:{role:`img`,viewBox:`0 0 24 24`},child:[{tag:`path`,attr:{d:`M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z`},child:[]}]})(e)}function XC(e){return PC({tag:`svg`,attr:{role:`img`,viewBox:`0 0 24 24`},child:[{tag:`path`,attr:{d:`M16.405 5.501c-.115 0-.193.014-.274.033v.013h.014c.054.104.146.18.214.273.054.107.1.214.154.32l.014-.015c.094-.066.14-.172.14-.333-.04-.047-.046-.094-.08-.14-.04-.067-.126-.1-.18-.153zM5.77 18.695h-.927a50.854 50.854 0 00-.27-4.41h-.008l-1.41 4.41H2.45l-1.4-4.41h-.01a72.892 72.892 0 00-.195 4.41H0c.055-1.966.192-3.81.41-5.53h1.15l1.335 4.064h.008l1.347-4.064h1.095c.242 2.015.384 3.86.428 5.53zm4.017-4.08c-.378 2.045-.876 3.533-1.492 4.46-.482.716-1.01 1.073-1.583 1.073-.153 0-.34-.046-.566-.138v-.494c.11.017.24.026.386.026.268 0 .483-.075.647-.222.197-.18.295-.382.295-.605 0-.155-.077-.47-.23-.944L6.23 14.615h.91l.727 2.36c.164.536.233.91.205 1.123.4-1.064.678-2.227.835-3.483zm12.325 4.08h-2.63v-5.53h.885v4.85h1.745zm-3.32.135l-1.016-.5c.09-.076.177-.158.255-.25.433-.506.648-1.258.648-2.253 0-1.83-.718-2.746-2.155-2.746-.704 0-1.254.232-1.65.697-.43.508-.646 1.256-.646 2.245 0 .972.19 1.686.574 2.14.35.41.877.615 1.583.615.264 0 .506-.033.725-.098l1.325.772.36-.622zM15.5 17.588c-.225-.36-.337-.94-.337-1.736 0-1.393.424-2.09 1.27-2.09.443 0 .77.167.977.5.224.362.336.936.336 1.723 0 1.404-.424 2.108-1.27 2.108-.445 0-.77-.167-.978-.5zm-1.658-.425c0 .47-.172.856-.516 1.156-.344.3-.803.45-1.384.45-.543 0-1.064-.172-1.573-.515l.237-.476c.438.22.833.328 1.19.328.332 0 .593-.073.783-.22a.754.754 0 00.3-.615c0-.33-.23-.61-.648-.845-.388-.213-1.163-.657-1.163-.657-.422-.307-.632-.636-.632-1.177 0-.45.157-.81.47-1.085.315-.278.72-.415 1.22-.415.512 0 .98.136 1.4.41l-.213.476a2.726 2.726 0 00-1.064-.23c-.283 0-.502.068-.654.206a.685.685 0 00-.248.524c0 .328.234.61.666.85.393.215 1.187.67 1.187.67.433.305.648.63.648 1.168zm9.382-5.852c-.535-.014-.95.04-1.297.188-.1.04-.26.04-.274.167.055.053.063.14.11.214.08.134.218.313.346.407.14.11.28.216.427.31.26.16.555.255.81.416.145.094.293.213.44.313.073.05.12.14.214.172v-.02c-.046-.06-.06-.147-.105-.214-.067-.067-.134-.127-.2-.193a3.223 3.223 0 00-.695-.675c-.214-.146-.682-.35-.77-.595l-.013-.014c.146-.013.32-.066.46-.106.227-.06.435-.047.67-.106.106-.027.213-.06.32-.094v-.06c-.12-.12-.21-.283-.334-.395a8.867 8.867 0 00-1.104-.823c-.21-.134-.476-.22-.697-.334-.08-.04-.214-.06-.26-.127-.12-.146-.19-.34-.275-.514a17.69 17.69 0 01-.547-1.163c-.12-.262-.193-.523-.34-.763-.69-1.137-1.437-1.826-2.586-2.5-.247-.14-.543-.2-.856-.274-.167-.008-.334-.02-.5-.027-.11-.047-.216-.174-.31-.235-.38-.24-1.364-.76-1.644-.072-.18.434.267.862.422 1.082.115.153.26.328.34.5.047.116.06.235.107.356.106.294.207.622.347.897.073.14.153.287.247.413.054.073.146.107.167.227-.094.136-.1.334-.154.5-.24.757-.146 1.693.194 2.25.107.166.362.534.703.393.3-.12.234-.5.32-.835.02-.08.007-.133.048-.187v.015c.094.188.188.367.274.555.206.328.566.668.867.895.16.12.287.328.487.402v-.02h-.015c-.043-.058-.1-.086-.154-.133a3.445 3.445 0 01-.35-.4 8.76 8.76 0 01-.747-1.218c-.11-.21-.202-.436-.29-.643-.04-.08-.04-.2-.107-.24-.1.146-.247.273-.32.453-.127.288-.14.642-.188 1.01-.027.007-.014 0-.027.014-.214-.052-.287-.274-.367-.46-.2-.475-.233-1.238-.06-1.785.047-.14.247-.582.167-.716-.042-.127-.174-.2-.247-.303a2.478 2.478 0 01-.24-.427c-.16-.374-.24-.788-.414-1.162-.08-.173-.22-.354-.334-.513-.127-.18-.267-.307-.368-.52-.033-.073-.08-.194-.027-.274.014-.054.042-.075.094-.09.088-.072.335.022.422.062.247.1.455.194.662.334.094.066.195.193.315.226h.14c.214.047.455.014.655.073.355.114.675.28.962.46a5.953 5.953 0 012.085 2.286c.08.154.115.295.188.455.14.33.313.663.455.982.14.315.275.636.476.897.1.14.502.213.682.286.133.06.34.115.46.188.23.14.454.3.67.454.11.076.443.243.463.378z`},child:[]}]})(e)}function ZC(e){return PC({tag:`svg`,attr:{role:`img`,viewBox:`0 0 24 24`},child:[{tag:`path`,attr:{d:`M11.146 0h3.924v18.166c-2.013.382-3.491.535-5.096.535-4.791 0-7.288-2.166-7.288-6.32 0-4.002 2.65-6.6 6.753-6.6.637 0 1.121.05 1.707.203zm0 9.143a3.894 3.894 0 00-1.325-.204c-1.988 0-3.134 1.223-3.134 3.365 0 2.09 1.096 3.236 3.109 3.236.433 0 .79-.025 1.35-.102V9.142zM21.314 6.06v9.098c0 3.134-.229 4.638-.917 5.937-.637 1.249-1.478 2.039-3.211 2.905l-3.644-1.733c1.733-.815 2.574-1.53 3.109-2.625.561-1.121.739-2.421.739-5.835V6.059h3.924zM17.39.021h3.924v4.026H17.39z`},child:[]}]})(e)}var QC={richBlack:`#000F08`,darkGreen:`#032221`,bangladeshGreen:`#03624C`,mountainMeadow:`#2CC295`,caribbeanGreen:`#00DF91`,white:`#F1F7F6`},$C=[{icon:LC,label:`React`,color:`#61DAFB`},{icon:RC,label:`Python`,color:`#3776AB`},{icon:BC,label:`JavaScript`,color:`#F7DF1E`},{icon:zC,label:`PHP`,color:`#777BB4`},{icon:XC,label:`MySQL`,color:`#4479A1`},{icon:VC,label:`HTML5`,color:`#E34F26`},{icon:WC,label:`CSS3`,color:`#1572B6`},{icon:HC,label:`GitHub`,color:QC.white},{icon:UC,label:`Git`,color:`#F05032`}];function ew(){let e=(0,v.useRef)(null);return ux((t,n)=>{e.current&&(e.current.rotation.x+=n*.18,e.current.rotation.y+=n*.28,t.invalidate())}),(0,B.jsxs)(`mesh`,{ref:e,children:[(0,B.jsx)(`icosahedronGeometry`,{args:[1.2,0]}),(0,B.jsx)(`meshStandardMaterial`,{color:`#0a2e28`,roughness:.85,metalness:.4}),(0,B.jsx)(bC,{threshold:5,color:QC.caribbeanGreen,lineWidth:1.2})]})}var tw=(0,v.memo)(function(){let e=(0,v.useRef)(null);return(0,v.useEffect)(()=>{let t=[setTimeout(()=>window.dispatchEvent(new Event(`resize`)),100),setTimeout(()=>window.dispatchEvent(new Event(`resize`)),500),setTimeout(()=>window.dispatchEvent(new Event(`resize`)),2e3)],n=new ResizeObserver(()=>{window.dispatchEvent(new Event(`resize`))});return e.current&&n.observe(e.current),()=>{t.forEach(clearTimeout),n.disconnect()}},[]),(0,B.jsx)(sw,{ref:e,children:(0,B.jsxs)(MS,{camera:{position:[0,0,3.5],fov:45},gl:{antialias:!0,alpha:!0},frameloop:`demand`,performance:{min:.5},children:[(0,B.jsx)(`ambientLight`,{intensity:.4}),(0,B.jsx)(`pointLight`,{position:[5,5,5],intensity:1.2,color:`#ffffff`}),(0,B.jsx)(`pointLight`,{position:[-5,-3,2],intensity:.6,color:QC.caribbeanGreen}),(0,B.jsx)(ew,{}),(0,B.jsx)(xC,{enableZoom:!1,enablePan:!1})]})})}),nw=Ln`
     from { transform: translate(-50%, -50%) rotate(0deg);   }
     to   { transform: translate(-50%, -50%) rotate(360deg); }
-`,nw=Ln`
+`,rw=Ln`
     from { transform: rotate(0deg);    }
     to   { transform: rotate(-360deg); }
-`,rw=Ln`
+`,iw=Ln`
     0%, 100% { opacity: 0.35; }
     50%       { opacity: 0.65; }
-`,iw=Ln`
+`,aw=Ln`
     from { opacity: 0; transform: scale(0.85); }
     to   { opacity: 1; transform: scale(1);    }
-`,aw=z.div`
+`,ow=z.div`
     position: relative;
     width: 420px;
     height: 420px;
@@ -4831,8 +4831,8 @@ No matching component was found for:
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    animation: ${iw} 0.9s ease 1s both;
-`,ow=z.div`
+    animation: ${aw} 0.9s ease 1s both;
+`,sw=z.div`
     position: absolute;
     width: 220px;
     height: 220px;
@@ -4849,7 +4849,7 @@ No matching component was found for:
     canvas {
         border-radius: 50%;
     }
-`,sw=z.div`
+`,cw=z.div`
     position: absolute;
     width: 360px;
     height: 360px;
@@ -4864,9 +4864,9 @@ No matching component was found for:
     pointer-events: none;
 
     animation:
-        ${tw}  25s linear infinite,
-        ${rw} 4s ease-in-out infinite;
-`,cw=z.div`
+        ${nw}  25s linear infinite,
+        ${iw} 4s ease-in-out infinite;
+`,lw=z.div`
     position: absolute;
     width: 40px;
     height: 40px;
@@ -4884,7 +4884,7 @@ No matching component was found for:
     top: ${({$angulo:e})=>`calc(50% + ${Math.sin(e*Math.PI/180)*180}px - 20px)`};
 
     & > span {
-        animation: ${nw} 25s linear infinite;
+        animation: ${rw} 25s linear infinite;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -4902,7 +4902,7 @@ No matching component was found for:
     &:hover > span {
         color: ${({$corHover:e})=>e};
     }
-`,lw=z.div`
+`,uw=z.div`
     position: absolute;
     width: 180px;
     height: 180px;
@@ -4917,56 +4917,56 @@ No matching component was found for:
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-`;function uw(){return(0,B.jsxs)(aw,{children:[(0,B.jsx)(lw,{}),(0,B.jsx)(ew,{}),(0,B.jsx)(sw,{children:QC.map((e,t)=>(0,B.jsx)(cw,{$angulo:t/QC.length*360-90,$corHover:e.color,title:e.label,children:(0,B.jsx)(`span`,{children:(0,B.jsx)(e.icon,{})})},e.label))})]})}var dw={richBlack:`#000F08`,darkGreen:`#032221`,bangladeshGreen:`#03624C`,mountainMeadow:`#2CC295`,caribbeanGreen:`#00DF91`,white:`#F1F7F6`},fw=Ln`
+`;function dw(){return(0,B.jsxs)(ow,{children:[(0,B.jsx)(uw,{}),(0,B.jsx)(tw,{}),(0,B.jsx)(cw,{children:$C.map((e,t)=>(0,B.jsx)(lw,{$angulo:t/$C.length*360-90,$corHover:e.color,title:e.label,children:(0,B.jsx)(`span`,{children:(0,B.jsx)(e.icon,{})})},e.label))})]})}var fw={richBlack:`#000F08`,darkGreen:`#032221`,bangladeshGreen:`#03624C`,mountainMeadow:`#2CC295`,caribbeanGreen:`#00DF91`,white:`#F1F7F6`},pw=Ln`
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0);    }
-`,pw=Ln`
+`,mw=Ln`
     0%, 100% { opacity: 1; }
     50%       { opacity: 0; }
-`,mw=Ln`
+`,hw=Ln`
     0%, 100% { opacity: 0.15; }
     50%       { opacity: 0.8;  }
-`,hw=Ln`
+`,gw=Ln`
     0%   { opacity: 0; transform: translateY(-6px) rotate(45deg) translate(-2px, -2px); }
     50%  { opacity: 1; transform: translateY(0) rotate(45deg) translate(-2px, -2px);    }
     100% { opacity: 0; transform: translateY(6px) rotate(45deg) translate(-2px, -2px);  }
-`,gw=Array.from({length:60},(e,t)=>({id:t,top:Math.random()*100,left:Math.random()*100,size:Math.random()<.7?1:2,delay:2+Math.random()*4,offset:Math.random()*5})),_w=z.span`
+`,_w=Array.from({length:60},(e,t)=>({id:t,top:Math.random()*100,left:Math.random()*100,size:Math.random()<.7?1:2,delay:2+Math.random()*4,offset:Math.random()*5})),vw=z.span`
     position: absolute;
     width: ${({$size:e})=>e}px;
     height: ${({$size:e})=>e}px;
     border-radius: 50%;
-    background: ${dw.white};
+    background: ${fw.white};
     top: ${({$top:e})=>e}%;
     left: ${({$left:e})=>e}%;
     pointer-events: none;
-    animation: ${mw} ${({$delay:e})=>e}s infinite ease-in-out;
+    animation: ${hw} ${({$delay:e})=>e}s infinite ease-in-out;
     animation-delay: ${({$offset:e})=>e}s;
-`,vw=(0,v.memo)(function(){return(0,B.jsx)(B.Fragment,{children:gw.map(e=>(0,B.jsx)(_w,{$top:e.top,$left:e.left,$size:e.size,$delay:e.delay,$offset:e.offset},e.id))})}),yw=`Front-End Developer`,bw=[`A good Front-End Developer`,`Nerd 🤓`,`Future Fullstack Developer`,`DungeonMaster 🎲🐲`,`Hardworking Programmer! 🚀`,`A awesome person! (i try...)`],xw=120,Sw=60,Cw=1500,ww=400,Tw=15e3,Ew=z.div`
+`,yw=(0,v.memo)(function(){return(0,B.jsx)(B.Fragment,{children:_w.map(e=>(0,B.jsx)(vw,{$top:e.top,$left:e.left,$size:e.size,$delay:e.delay,$offset:e.offset},e.id))})}),bw=`Front-End Developer`,xw=[`A good Front-End Developer`,`Nerd 🤓`,`Future Fullstack Developer`,`DungeonMaster 🎲🐲`,`Hardworking Programmer! 🚀`,`A awesome person! (i try...)`],Sw=120,Cw=60,ww=1500,Tw=400,Ew=15e3,Dw=z.div`
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 2px;
     min-height: 2rem;
     opacity: 0;
-    animation: ${fw} 0.6s ease 0.6s forwards;
+    animation: ${pw} 0.6s ease 0.6s forwards;
 
     @media (min-width: 768px) {
         justify-content: flex-start;
     }
-`,Dw=z.h2`
+`,Ow=z.h2`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: clamp(1rem, 3.5vw, 1.4rem);
-    color: ${dw.mountainMeadow};
+    color: ${fw.mountainMeadow};
     font-weight: 400;
     letter-spacing: 0.05em;
-`,Ow=z.span`
+`,kw=z.span`
     display: inline-block;
     width: clamp(2px, 0.8vw, 3px);
     height: 1.2em;
-    background: ${dw.caribbeanGreen};
+    background: ${fw.caribbeanGreen};
     vertical-align: middle;
-    animation: ${pw} 1s step-end infinite;
-`;function kw(){let[e,t]=(0,v.useState)(``),n=(0,v.useRef)(null);return(0,v.useEffect)(()=>{let e=(i,a,o)=>{let s=bw[o];if(a){let a=i.slice(0,i.length-1);if(t(a),a===``){let t=o+1;t<bw.length?n.current=setTimeout(()=>e(``,!1,t),ww):n.current=setTimeout(()=>r(``,!1),ww)}else n.current=setTimeout(()=>e(a,!0,o),Sw)}else{let r=s.slice(0,i.length+1);t(r),r===s?n.current=setTimeout(()=>e(r,!0,o),Cw):n.current=setTimeout(()=>e(r,!1,o),xw)}},r=(i,a)=>{if(a){let a=i.slice(0,i.length-1);t(a),a===``?n.current=setTimeout(()=>e(``,!1,0),ww):n.current=setTimeout(()=>r(a,!0),Sw)}else{let e=yw.slice(0,i.length+1);t(e),e===yw?n.current=setTimeout(()=>r(e,!0),Tw):n.current=setTimeout(()=>r(e,!1),xw)}};return n.current=setTimeout(()=>r(``,!1),xw),()=>{n.current&&clearTimeout(n.current)}},[]),(0,B.jsxs)(Ew,{children:[(0,B.jsx)(Dw,{children:e}),(0,B.jsx)(Ow,{})]})}var Aw=z.section`
+    animation: ${mw} 1s step-end infinite;
+`;function Aw(){let[e,t]=(0,v.useState)(``),n=(0,v.useRef)(null);return(0,v.useEffect)(()=>{let e=(i,a,o)=>{let s=xw[o];if(a){let a=i.slice(0,i.length-1);if(t(a),a===``){let t=o+1;t<xw.length?n.current=setTimeout(()=>e(``,!1,t),Tw):n.current=setTimeout(()=>r(``,!1),Tw)}else n.current=setTimeout(()=>e(a,!0,o),Cw)}else{let r=s.slice(0,i.length+1);t(r),r===s?n.current=setTimeout(()=>e(r,!0,o),ww):n.current=setTimeout(()=>e(r,!1,o),Sw)}},r=(i,a)=>{if(a){let a=i.slice(0,i.length-1);t(a),a===``?n.current=setTimeout(()=>e(``,!1,0),Tw):n.current=setTimeout(()=>r(a,!0),Cw)}else{let e=bw.slice(0,i.length+1);t(e),e===bw?n.current=setTimeout(()=>r(e,!0),Ew):n.current=setTimeout(()=>r(e,!1),Sw)}};return n.current=setTimeout(()=>r(``,!1),Sw),()=>{n.current&&clearTimeout(n.current)}},[]),(0,B.jsxs)(Dw,{children:[(0,B.jsx)(Ow,{children:e}),(0,B.jsx)(kw,{})]})}var jw=z.section`
     position: relative;
     min-height: 100dvh;
     display: flex;
@@ -4978,8 +4978,8 @@ No matching component was found for:
     overflow: hidden;
     background: radial-gradient(
         ellipse at 50% 80%,
-        ${dw.darkGreen} 0%,
-        ${dw.richBlack} 55%,
+        ${fw.darkGreen} 0%,
+        ${fw.richBlack} 55%,
         #000 100%
     );
 
@@ -4994,7 +4994,7 @@ No matching component was found for:
         justify-content: space-between;
         align-items: center;
     }
-`,jw=z.div`
+`,Mw=z.div`
     display: none;
 
     @media (min-width: 992px) {
@@ -5003,59 +5003,59 @@ No matching component was found for:
         justify-content: center;
         flex-shrink: 0;
     }
-`,Mw=z.div`
+`,Nw=z.div`
     position: relative;
     z-index: 1;
     max-width: 800px;
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
-`,Nw=z.p`
+`,Pw=z.p`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: clamp(0.85rem, 2.5vw, 1rem);
-    color: ${dw.mountainMeadow};
+    color: ${fw.mountainMeadow};
     letter-spacing: 0.2em;
     text-transform: uppercase;
     opacity: 0;
-    animation: ${fw} 0.6s ease 0.2s forwards;
-`,Pw=z.h1`
+    animation: ${pw} 0.6s ease 0.2s forwards;
+`,Fw=z.h1`
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: clamp(2rem, 8vw, 4.5rem);
-    color: ${dw.white};
+    color: ${fw.white};
     line-height: 1.3;
     opacity: 0;
-    animation: ${fw} 0.6s ease 0.4s forwards;
+    animation: ${pw} 0.6s ease 0.4s forwards;
 
     span {
-        color: ${dw.caribbeanGreen};
+        color: ${fw.caribbeanGreen};
     }
-`,Fw=z.p`
+`,Iw=z.p`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: clamp(0.85rem, 2vw, 1rem);
     color: rgba(241, 247, 246, 0.65);
     line-height: 1.8;
     max-width: 520px;
     opacity: 0;
-    animation: ${fw} 0.6s ease 0.8s forwards;
-`,Iw=z.div`
+    animation: ${pw} 0.6s ease 0.8s forwards;
+`,Lw=z.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
     margin-top: 0.5rem;
     opacity: 0;
-    animation: ${fw} 0.6s ease 1s forwards;
+    animation: ${pw} 0.6s ease 1s forwards;
 
     @media (min-width: 480px) {
         flex-direction: row;
         align-items: center;
     }
-`,Lw=z.a`
+`,Rw=z.a`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.9rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: ${dw.richBlack};
-    background: ${dw.caribbeanGreen};
+    color: ${fw.richBlack};
+    background: ${fw.caribbeanGreen};
     padding: 0.85rem 1.75rem;
     border-radius: 4px;
     text-decoration: none;
@@ -5063,16 +5063,16 @@ No matching component was found for:
     transition: background 0.3s ease, transform 0.2s ease;
 
     &:hover {
-        background: ${dw.mountainMeadow};
+        background: ${fw.mountainMeadow};
         transform: translateY(-2px);
     }
-`,Rw=z.a`
+`,zw=z.a`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.9rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: ${dw.caribbeanGreen};
-    border: 1px solid ${dw.caribbeanGreen};
+    color: ${fw.caribbeanGreen};
+    border: 1px solid ${fw.caribbeanGreen};
     padding: 0.85rem 1.75rem;
     border-radius: 4px;
     text-decoration: none;
@@ -5083,7 +5083,7 @@ No matching component was found for:
         background: rgba(0, 223, 145, 0.08);
         transform: translateY(-2px);
     }
-`,zw=z.a`
+`,Bw=z.a`
     position: absolute;
     bottom: 2rem;
     left: 0;
@@ -5094,31 +5094,31 @@ No matching component was found for:
     gap: 0.4rem;
     text-decoration: none;
     opacity: 0;
-    animation: ${fw} 0.6s ease 1.4s forwards;
+    animation: ${pw} 0.6s ease 1.4s forwards;
     z-index: 1;
-`,Bw=z.span`
+`,Vw=z.span`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.65rem;
     color: rgba(44, 194, 149, 0.5);
     letter-spacing: 0.2em;
     text-transform: uppercase;
-`,Vw=z.div`
+`,Hw=z.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 4px;
     overflow: visible;
     padding: 4px;
-`,Hw=z.span`
+`,Uw=z.span`
     display: block;
     width: 10px;
     height: 10px;
-    border-right: 2px solid ${dw.mountainMeadow};
-    border-bottom: 2px solid ${dw.mountainMeadow};
+    border-right: 2px solid ${fw.mountainMeadow};
+    border-bottom: 2px solid ${fw.mountainMeadow};
     transform: rotate(45deg) translate(-2px, -2px);
-    animation: ${hw} 1.4s ease-in-out infinite;
+    animation: ${gw} 1.4s ease-in-out infinite;
     animation-delay: ${({$delay:e})=>e}s;
-`;function Uw(){return(0,B.jsxs)(Aw,{id:`home`,children:[(0,B.jsx)(vw,{}),(0,B.jsxs)(Mw,{children:[(0,B.jsx)(Nw,{children:`Hi, i'm`}),(0,B.jsxs)(Pw,{children:[`ALEX`,(0,B.jsx)(`span`,{children:`ON`})]}),(0,B.jsx)(kw,{}),(0,B.jsx)(Fw,{children:`Computer Science student passionate about building intuitive and functional web experiences.`}),(0,B.jsxs)(Iw,{children:[(0,B.jsx)(Lw,{href:`#projects`,children:`See my work`}),(0,B.jsx)(Rw,{href:`#contact`,children:`Get in touch`})]})]}),(0,B.jsx)(jw,{children:(0,B.jsx)(uw,{})}),(0,B.jsxs)(zw,{href:`#about`,children:[(0,B.jsx)(Bw,{children:`scroll`}),(0,B.jsxs)(Vw,{children:[(0,B.jsx)(Hw,{$delay:0}),(0,B.jsx)(Hw,{$delay:.2}),(0,B.jsx)(Hw,{$delay:.4})]})]})]})}var Ww={richBlack:`#000F08`,darkGreen:`#032221`,bangladeshGreen:`#03624C`,mountainMeadow:`#2CC295`,caribbeanGreen:`#00DF91`,white:`#F1F7F6`},Gw=Mn`
+`;function Ww(){return(0,B.jsxs)(jw,{id:`home`,children:[(0,B.jsx)(yw,{}),(0,B.jsxs)(Nw,{children:[(0,B.jsx)(Pw,{children:`Hi, i'm`}),(0,B.jsxs)(Fw,{children:[`ALEX`,(0,B.jsx)(`span`,{children:`ON`})]}),(0,B.jsx)(Aw,{}),(0,B.jsx)(Iw,{children:`Computer Science student passionate about building intuitive and functional web experiences.`}),(0,B.jsxs)(Lw,{children:[(0,B.jsx)(Rw,{href:`#projects`,children:`See my work`}),(0,B.jsx)(zw,{href:`#contact`,children:`Get in touch`})]})]}),(0,B.jsx)(Mw,{children:(0,B.jsx)(dw,{})}),(0,B.jsxs)(Bw,{href:`#about`,children:[(0,B.jsx)(Vw,{children:`scroll`}),(0,B.jsxs)(Hw,{children:[(0,B.jsx)(Uw,{$delay:0}),(0,B.jsx)(Uw,{$delay:.2}),(0,B.jsx)(Uw,{$delay:.4})]})]})]})}var Gw={richBlack:`#000F08`,darkGreen:`#032221`,bangladeshGreen:`#03624C`,mountainMeadow:`#2CC295`,caribbeanGreen:`#00DF91`,white:`#F1F7F6`},Kw=Mn`
     opacity: 0;
     transform: translateY(24px);
     transition: opacity 0.01s; /* fallback sem JS */
@@ -5129,58 +5129,58 @@ No matching component was found for:
     to   { opacity: 1; transform: translateY(0);    }
 `} 0.7s ease forwards;
     }
-`,Kw=z.section`
+`,qw=z.section`
     position: relative;
-    background-color: ${Ww.darkGreen};
+    background-color: ${Gw.darkGreen};
     padding: 5rem 1.5rem;
 
     @media (min-width: 768px) {
         padding: 7rem 3rem;
     }
-`,qw=z.div`
+`,Jw=z.div`
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 3rem;
-`,Jw=z.div`
+`,Yw=z.div`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    ${Gw}
+    ${Kw}
 
     &.visivel {
         animation-delay: 0s;
     }
-`,Yw=z.span`
+`,Xw=z.span`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.75rem;
-    color: ${Ww.caribbeanGreen};
+    color: ${Gw.caribbeanGreen};
     letter-spacing: 0.3em;
     text-transform: uppercase;
-`,Xw=z.h2`
+`,Zw=z.h2`
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: clamp(1.4rem, 4vw, 2rem);
-    color: ${Ww.white};
+    color: ${Gw.white};
     line-height: 1.4;
 
     span {
-        color: ${Ww.caribbeanGreen};
+        color: ${Gw.caribbeanGreen};
     }
-`,Zw=z.div`
+`,Qw=z.div`
     width: 60px;
     height: 2px;
     background: linear-gradient(
         90deg,
-        ${Ww.caribbeanGreen},
+        ${Gw.caribbeanGreen},
         transparent
     );
     margin-top: 0.5rem;
-`,Qw=z.div`
+`,$w=z.div`
     display: grid;
     grid-template-columns: 1fr;
     gap: 2.5rem;
-    ${Gw}
+    ${Kw}
 
     &.visivel {
         animation-delay: 0.15s;
@@ -5191,7 +5191,7 @@ No matching component was found for:
         gap: 4rem;
         align-items: start;
     }
-`,$w=z.div`
+`,eT=z.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -5200,7 +5200,7 @@ No matching component was found for:
     @media (min-width: 768px) {
         align-items: flex-start;
     }
-`,eT=z.div`
+`,tT=z.div`
     position: relative;
     width: 200px;
     height: 200px;
@@ -5210,7 +5210,7 @@ No matching component was found for:
         content: "";
         position: absolute;
         inset: 0;
-        border: 2px solid ${Ww.caribbeanGreen};
+        border: 2px solid ${Gw.caribbeanGreen};
         border-radius: 50%;
         transform: translate(8px, 8px);
         opacity: 0.4;
@@ -5225,14 +5225,14 @@ No matching component was found for:
         width: 240px;
         height: 240px;
     }
-`,tT=z.div`
+`,nT=z.div`
     width: 100%;
     height: 100%;
     border-radius: 50%;
     background: linear-gradient(
         135deg,
-        ${Ww.bangladeshGreen} 0%,
-        ${Ww.darkGreen} 100%
+        ${Gw.bangladeshGreen} 0%,
+        ${Gw.darkGreen} 100%
     );
     border: 2px solid rgba(44, 194, 149, 0.3);
     display: flex;
@@ -5240,34 +5240,34 @@ No matching component was found for:
     justify-content: center;
     font-family: "Press Start 2P", monospace;
     font-size: 3rem;
-    color: ${Ww.caribbeanGreen};
+    color: ${Gw.caribbeanGreen};
     opacity: 0.6;
-`,nT=z.div`
+`,rT=z.div`
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-`,rT=z.p`
+`,iT=z.p`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: clamp(0.85rem, 1.5vw, 1rem);
     color: rgba(241, 247, 246, 0.75);
     line-height: 1.9;
-`,iT=z.div`
+`,aT=z.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
     margin-top: 0.5rem;
-    ${Gw}
+    ${Kw}
 
     &.visivel {
         animation-delay: 0.3s;
     }
-`,aT=z.p`
+`,oT=z.p`
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: 0.6rem;
-    color: ${Ww.caribbeanGreen};
+    color: ${Gw.caribbeanGreen};
     letter-spacing: 0.05em;
     opacity: 0.8;
-`,oT=z.div`
+`,sT=z.div`
     display: grid;
     grid-template-columns: 1fr;
     gap: 0.75rem;
@@ -5275,7 +5275,7 @@ No matching component was found for:
     @media (min-width: 480px) {
         grid-template-columns: repeat(3, 1fr);
     }
-`,sT=z.div`
+`,cT=z.div`
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -5289,36 +5289,36 @@ No matching component was found for:
         background: rgba(3, 98, 76, 0.35);
         border-color: rgba(44, 194, 149, 0.4);
     }
-`,cT=z.span`
+`,lT=z.span`
     font-size: 1.3rem;
     flex-shrink: 0;
-`,lT=z.span`
+`,uT=z.span`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.8rem;
-    color: ${Ww.white};
+    color: ${Gw.white};
     letter-spacing: 0.02em;
-`,uT=[{icone:`⌨️`,texto:`Web Developer`},{icone:`📖`,texto:`Front-End Enthusiast`},{icone:`🎲`,texto:`Nerd`}],dT=[{icone:VC,label:`HTML5`,cor:`#E34F26`},{icone:WC,label:`CSS3`,cor:`#1572B6`},{icone:BC,label:`JavaScript`,cor:`#F7DF1E`},{icone:LC,label:`React`,cor:`#61DAFB`},{icone:JC,label:`Tailwind`,cor:`#38BDF8`},{icone:RC,label:`Python`,cor:`#3776AB`},{icone:XC,label:`Django`,cor:`#092E20`},{icone:zC,label:`PHP`,cor:`#777BB4`},{icone:YC,label:`MySQL`,cor:`#4479A1`},{icone:IC,label:`WordPress`,cor:`#21759B`},{icone:HC,label:`GitHub`,cor:`#F1F7F6`},{icone:UC,label:`Git`,cor:`#F05032`}],fT=z.div`
+`,dT=[{icone:`⌨️`,texto:`Web Developer`},{icone:`📖`,texto:`Front-End Enthusiast`},{icone:`🎲`,texto:`Nerd`}],fT=[{icone:VC,label:`HTML5`,cor:`#E34F26`},{icone:WC,label:`CSS3`,cor:`#1572B6`},{icone:BC,label:`JavaScript`,cor:`#F7DF1E`},{icone:LC,label:`React`,cor:`#61DAFB`},{icone:YC,label:`Tailwind`,cor:`#38BDF8`},{icone:RC,label:`Python`,cor:`#3776AB`},{icone:ZC,label:`Django`,cor:`#092E20`},{icone:zC,label:`PHP`,cor:`#777BB4`},{icone:XC,label:`MySQL`,cor:`#4479A1`},{icone:IC,label:`WordPress`,cor:`#21759B`},{icone:HC,label:`GitHub`,cor:`#F1F7F6`},{icone:UC,label:`Git`,cor:`#F05032`}],pT=z.div`
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    ${Gw}
+    ${Kw}
 
     &.visivel {
         animation-delay: 0.1s;
     }
-`,pT=z.span`
+`,mT=z.span`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.75rem;
-    color: ${Ww.caribbeanGreen};
+    color: ${Gw.caribbeanGreen};
     letter-spacing: 0.3em;
     text-transform: uppercase;
-`,mT=z.h3`
+`,hT=z.h3`
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-    color: ${Ww.white};
+    color: ${Gw.white};
     line-height: 1.4;
     margin-top: 0.25rem;
-`,hT=z.div`
+`,gT=z.div`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 0.75rem;
@@ -5334,7 +5334,7 @@ No matching component was found for:
     @media (min-width: 992px) {
         grid-template-columns: repeat(6, 1fr);
     }
-`,gT=z.div`
+`,_T=z.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -5365,7 +5365,7 @@ No matching component was found for:
             color: ${({$cor:e})=>e};
         }
     }
-`,_T=z.span`
+`,vT=z.span`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.6rem;
     color: rgba(241, 247, 246, 0.5);
@@ -5373,71 +5373,87 @@ No matching component was found for:
     letter-spacing: 0.03em;
     transition: color 0.3s ease;
 
-    ${gT}:hover & {
+    ${_T}:hover & {
         color: rgba(241, 247, 246, 0.9);
     }
-`;function vT(){let e=(0,v.useRef)(null),t=(0,v.useRef)(null),n=(0,v.useRef)(null),r=(0,v.useRef)(null);return(0,v.useEffect)(()=>{let i=[e.current,t.current,n.current,r.current].filter(Boolean),a=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&(e.target.classList.add(`visivel`),a.unobserve(e.target))})},{threshold:.15});return i.forEach(e=>a.observe(e)),()=>a.disconnect()},[]),(0,B.jsx)(Kw,{id:`about`,children:(0,B.jsxs)(qw,{children:[(0,B.jsxs)(Jw,{ref:e,children:[(0,B.jsx)(Yw,{children:`// about me`}),(0,B.jsxs)(Xw,{children:[`A little `,(0,B.jsx)(`span`,{children:`about`}),` me`]}),(0,B.jsx)(Zw,{})]}),(0,B.jsxs)(Qw,{ref:t,children:[(0,B.jsx)($w,{children:(0,B.jsx)(eT,{children:(0,B.jsx)(tT,{children:`A`})})}),(0,B.jsxs)(nT,{children:[(0,B.jsx)(rT,{children:`Hi, I'm Alex, a developer constantly involved and passionate about creating intuitive and functional web experiences. I focus on HTML, CSS, and responsive design, always striving to combine aesthetics and efficiency in every project I work on.`}),(0,B.jsx)(rT,{children:`My journey in programming is fueled by curiosity and a desire to turn ideas into reality. I love tackling technical challenges, seeing every line of code as an opportunity to learn and grow.`}),(0,B.jsx)(rT,{children:`When I'm not coding, you'll probably find me enjoying D&D, exploring new design concepts, or planning my next steps in the world of technology.`}),(0,B.jsxs)(iT,{ref:n,children:[(0,B.jsx)(aT,{children:`Too long? Didn't read? A summary for you:`}),(0,B.jsx)(oT,{children:uT.map(e=>(0,B.jsxs)(sT,{children:[(0,B.jsx)(cT,{children:e.icone}),(0,B.jsx)(lT,{children:e.texto})]},e.texto))})]})]})]}),(0,B.jsxs)(fT,{ref:r,children:[(0,B.jsxs)(`div`,{children:[(0,B.jsx)(pT,{children:`// known technologies`}),(0,B.jsx)(mT,{children:`What I work with`})]}),(0,B.jsx)(hT,{children:dT.map(e=>(0,B.jsxs)(gT,{$cor:e.cor,title:e.label,children:[(0,B.jsx)(e.icone,{}),(0,B.jsx)(_T,{children:e.label})]},e.label))})]})]})})}var yT={richBlack:`#000F08`,darkGreen:`#032221`,bangladeshGreen:`#03624C`,mountainMeadow:`#2CC295`,caribbeanGreen:`#00DF91`,white:`#F1F7F6`},bT=[{cargo:`Programming Instructor Intern`,empresa:`Microlins`,local:`Maceió, AL`,periodo:`Jun/2025 — Present`,atual:!0,descricao:[`Support for theoretical and practical classes, ensuring alignment with the teaching plan.`,`Individual student assistance, resolving doubts and monitoring academic progress.`,`Application of exercises and practical activities to reinforce content.`,`Collaboration in preparation and organization of teaching materials.`,`Development of communication, teaching and interpersonal relationship skills.`]},{cargo:`Front-End Developer`,empresa:`Freelancer — siegvfx.com`,local:`Remote`,periodo:`Aug/2024 — Sep/2024`,atual:!1,descricao:[`Development of siegvfx.com with focus on responsive design and user experience.`,`Application of coding best practices, ensuring performance and maintainability.`,`Implementation of adaptive layouts and cross-browser compatibility.`,`Versioning with Git and GitHub, demonstrating code control and best practices.`]},{cargo:`Customer Service Representative`,empresa:`AlmaViva do Brasil`,local:`Maceió, AL`,periodo:`Jun/2023 — Apr/2024`,atual:!1,descricao:[`Receptive customer service focused on problem resolution and satisfaction.`,`Strategic customer retention using argumentation and negotiation techniques.`,`Service sales, contributing to revenue growth and goal achievement.`,`Recording and tracking calls, ensuring quality and assertiveness in service.`]}],xT=[{curso:`Bachelor's in Computer Science`,instituicao:`Uninassau`,local:`Maceió, AL`,periodo:`2025 — Present`,atual:!0},{curso:`Technical Degree in Internet IT`,instituicao:`SENAI`,local:`Maceió, AL`,periodo:`2019 — 2021`,atual:!1}],ST=Ln`
+`;function yT(){let e=(0,v.useRef)(null),t=(0,v.useRef)(null),n=(0,v.useRef)(null),r=(0,v.useRef)(null);return(0,v.useEffect)(()=>{let i=[e.current,t.current,n.current,r.current].filter(Boolean),a=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&(e.target.classList.add(`visivel`),a.unobserve(e.target))})},{threshold:.15});return i.forEach(e=>a.observe(e)),()=>a.disconnect()},[]),(0,B.jsx)(qw,{id:`about`,children:(0,B.jsxs)(Jw,{children:[(0,B.jsxs)(Yw,{ref:e,children:[(0,B.jsx)(Xw,{children:`// about me`}),(0,B.jsxs)(Zw,{children:[`A little `,(0,B.jsx)(`span`,{children:`about`}),` me`]}),(0,B.jsx)(Qw,{})]}),(0,B.jsxs)($w,{ref:t,children:[(0,B.jsx)(eT,{children:(0,B.jsx)(tT,{children:(0,B.jsx)(nT,{children:`A`})})}),(0,B.jsxs)(rT,{children:[(0,B.jsx)(iT,{children:`Hi, I'm Alex, a developer constantly involved and passionate about creating intuitive and functional web experiences. I focus on HTML, CSS, and responsive design, always striving to combine aesthetics and efficiency in every project I work on.`}),(0,B.jsx)(iT,{children:`My journey in programming is fueled by curiosity and a desire to turn ideas into reality. I love tackling technical challenges, seeing every line of code as an opportunity to learn and grow.`}),(0,B.jsx)(iT,{children:`When I'm not coding, you'll probably find me enjoying D&D, exploring new design concepts, or planning my next steps in the world of technology.`}),(0,B.jsxs)(aT,{ref:n,children:[(0,B.jsx)(oT,{children:`Too long? Didn't read? A summary for you:`}),(0,B.jsx)(sT,{children:dT.map(e=>(0,B.jsxs)(cT,{children:[(0,B.jsx)(lT,{children:e.icone}),(0,B.jsx)(uT,{children:e.texto})]},e.texto))})]})]})]}),(0,B.jsxs)(pT,{ref:r,children:[(0,B.jsxs)(`div`,{children:[(0,B.jsx)(mT,{children:`// known technologies`}),(0,B.jsx)(hT,{children:`What I work with`})]}),(0,B.jsx)(gT,{children:fT.map(e=>(0,B.jsxs)(_T,{$cor:e.cor,title:e.label,children:[(0,B.jsx)(e.icone,{}),(0,B.jsx)(vT,{children:e.label})]},e.label))})]})]})})}var bT={richBlack:`#000F08`,darkGreen:`#032221`,bangladeshGreen:`#03624C`,mountainMeadow:`#2CC295`,caribbeanGreen:`#00DF91`,white:`#F1F7F6`},xT=[{cargo:`Programming Instructor Intern`,empresa:`Microlins`,local:`Maceió, AL`,periodo:`Jun/2025 — Present`,atual:!0,descricao:[`Support for theoretical and practical classes, ensuring alignment with the teaching plan.`,`Individual student assistance, resolving doubts and monitoring academic progress.`,`Application of exercises and practical activities to reinforce content.`,`Collaboration in preparation and organization of teaching materials.`,`Development of communication, teaching and interpersonal relationship skills.`]},{cargo:`Front-End Developer`,empresa:`Freelancer — siegvfx.com`,local:`Remote`,periodo:`Aug/2024 — Sep/2024`,atual:!1,descricao:[`Development of siegvfx.com with focus on responsive design and user experience.`,`Application of coding best practices, ensuring performance and maintainability.`,`Implementation of adaptive layouts and cross-browser compatibility.`,`Versioning with Git and GitHub, demonstrating code control and best practices.`]},{cargo:`Customer Service Representative`,empresa:`AlmaViva do Brasil`,local:`Maceió, AL`,periodo:`Jun/2023 — Apr/2024`,atual:!1,descricao:[`Receptive customer service focused on problem resolution and satisfaction.`,`Strategic customer retention using argumentation and negotiation techniques.`,`Service sales, contributing to revenue growth and goal achievement.`,`Recording and tracking calls, ensuring quality and assertiveness in service.`]}],ST=[{curso:`Bachelor's in Computer Science`,instituicao:`Uninassau`,local:`Maceió, AL`,periodo:`2025 — Present`,atual:!0},{curso:`Technical Degree in Internet IT`,instituicao:`SENAI`,local:`Maceió, AL`,periodo:`2019 — 2021`,atual:!1}],CT=Mn`
+    opacity: 0;
+    transform: translateY(24px);
+
+    &.visivel {
+        animation: ${Ln`
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0);    }
-`,CT=z.section`
+`} 0.7s ease forwards;
+    }
+`,wT=z.section`
     position: relative;
-    background-color: ${yT.richBlack};
+    background-color: ${bT.richBlack};
     padding: 5rem 1.5rem;
 
     @media (min-width: 768px) {
         padding: 7rem 3rem;
     }
-`,wT=z.div`
+`,TT=z.div`
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 4rem;
-`,TT=z.div`
+`,ET=z.div`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    animation: ${ST} 0.6s ease forwards;
-`,ET=z.span`
+    ${CT}
+
+    &.visivel {
+        animation-delay: 0s;
+    }
+`,DT=z.span`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.75rem;
-    color: ${yT.caribbeanGreen};
+    color: ${bT.caribbeanGreen};
     letter-spacing: 0.3em;
     text-transform: uppercase;
-`,DT=z.h2`
+`,OT=z.h2`
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: clamp(1.4rem, 4vw, 2rem);
-    color: ${yT.white};
+    color: ${bT.white};
     line-height: 1.4;
 
     span {
-        color: ${yT.caribbeanGreen};
+        color: ${bT.caribbeanGreen};
     }
-`,OT=z.div`
+`,kT=z.div`
     width: 60px;
     height: 2px;
-    background: linear-gradient(90deg, ${yT.caribbeanGreen}, transparent);
+    background: linear-gradient(90deg, ${bT.caribbeanGreen}, transparent);
     margin-top: 0.5rem;
-`,kT=z.div`
+`,AT=z.div`
     display: grid;
     grid-template-columns: 1fr;
     gap: 3rem;
+    ${CT}
+
+    &.visivel {
+        animation-delay: 0.2s;
+    }
 
     @media (min-width: 768px) {
         grid-template-columns: 1fr 1fr;
         gap: 5rem;
     }
-`,AT=z.div`
+`,jT=z.div`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-`,jT=z.h3`
+`,MT=z.h3`
     display: flex;
     align-items: center;
     gap: 0.6rem;
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: 0.75rem;
-    color: ${yT.mountainMeadow};
+    color: ${bT.mountainMeadow};
     letter-spacing: 0.1em;
     text-transform: uppercase;
     margin-bottom: 1.5rem;
@@ -5445,22 +5461,22 @@ No matching component was found for:
     /* Ícone da coluna */
     svg {
         font-size: 1rem;
-        color: ${yT.caribbeanGreen};
+        color: ${bT.caribbeanGreen};
         flex-shrink: 0;
     }
-`,MT=z.span`
+`,NT=z.span`
     display: inline-block;
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.6rem;
     letter-spacing: 0.08em;
-    color: ${yT.richBlack};
-    background: ${yT.caribbeanGreen};
+    color: ${bT.richBlack};
+    background: ${bT.caribbeanGreen};
     padding: 0.2rem 0.55rem;
     border-radius: 20px;
     margin-left: 0.5rem;
     vertical-align: middle;
     text-transform: uppercase;
-`,NT=z.span`
+`,PT=z.span`
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
@@ -5472,7 +5488,7 @@ No matching component was found for:
     svg {
         font-size: 0.65rem;
     }
-`,PT=z.div`
+`,FT=z.div`
     position: relative;
     display: flex;
     flex-direction: column;
@@ -5488,11 +5504,11 @@ No matching component was found for:
         width: 1px;
         background: linear-gradient(
             to bottom,
-            ${yT.caribbeanGreen},
+            ${bT.caribbeanGreen},
             transparent
         );
     }
-`,FT=z.div`
+`,IT=z.div`
     position: relative;
     padding-left: 2.5rem;
     padding-bottom: 2.5rem;
@@ -5506,39 +5522,39 @@ No matching component was found for:
         width: 15px;
         height: 15px;
         border-radius: 50%;
-        background: ${yT.bangladeshGreen};
-        border: 2px solid ${yT.caribbeanGreen};
+        background: ${bT.bangladeshGreen};
+        border: 2px solid ${bT.caribbeanGreen};
         z-index: 1;
     }
 
     &:last-child {
         padding-bottom: 0;
     }
-`,IT=z.span`
+`,LT=z.span`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.7rem;
-    color: ${yT.caribbeanGreen};
+    color: ${bT.caribbeanGreen};
     letter-spacing: 0.1em;
     display: block;
     margin-bottom: 0.4rem;
-`,LT=z.h4`
+`,RT=z.h4`
     font-family: "Press Start 2P", "Courier New", monospace;
     font-size: 0.65rem;
-    color: ${yT.white};
+    color: ${bT.white};
     line-height: 1.6;
     margin-bottom: 0.25rem;
-`,RT=z.span`
+`,zT=z.span`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.8rem;
-    color: ${yT.mountainMeadow};
+    color: ${bT.mountainMeadow};
     display: block;
     margin-bottom: 0.75rem;
-`,zT=z.ul`
+`,BT=z.ul`
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
     list-style: none;
-`,BT=z.li`
+`,VT=z.li`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.78rem;
     color: rgba(241, 247, 246, 0.6);
@@ -5550,6 +5566,202 @@ No matching component was found for:
         content: "›";
         position: absolute;
         left: 0;
-        color: ${yT.caribbeanGreen};
+        color: ${bT.caribbeanGreen};
     }
-`;function VT(){return(0,B.jsx)(CT,{id:`experience`,children:(0,B.jsxs)(wT,{children:[(0,B.jsxs)(TT,{children:[(0,B.jsx)(ET,{children:`// my journey`}),(0,B.jsxs)(DT,{children:[`Experience & `,(0,B.jsx)(`span`,{children:`Education`})]}),(0,B.jsx)(OT,{})]}),(0,B.jsxs)(kT,{children:[(0,B.jsxs)(AT,{children:[(0,B.jsxs)(jT,{children:[(0,B.jsx)(qC,{}),`Work Experience`]}),(0,B.jsx)(PT,{children:bT.map(e=>(0,B.jsxs)(FT,{children:[(0,B.jsxs)(IT,{children:[e.periodo,e.atual&&(0,B.jsx)(MT,{children:`Current`})]}),(0,B.jsx)(LT,{children:e.cargo}),(0,B.jsx)(RT,{children:e.empresa}),(0,B.jsxs)(NT,{children:[(0,B.jsx)(GC,{}),e.local]}),(0,B.jsx)(zT,{children:e.descricao.map((e,t)=>(0,B.jsx)(BT,{children:e},t))})]},e.empresa))})]}),(0,B.jsxs)(AT,{children:[(0,B.jsxs)(jT,{children:[(0,B.jsx)(KC,{}),`Education`]}),(0,B.jsx)(PT,{children:xT.map(e=>(0,B.jsxs)(FT,{children:[(0,B.jsxs)(IT,{children:[e.periodo,e.atual&&(0,B.jsx)(MT,{children:`Current`})]}),(0,B.jsx)(LT,{children:e.curso}),(0,B.jsx)(RT,{children:e.instituicao}),(0,B.jsxs)(NT,{children:[(0,B.jsx)(GC,{}),e.local]})]},e.instituicao))})]})]})]})})}function HT(){let[e,t]=(0,v.useState)(!1),n=(0,v.useRef)(null);return(0,B.jsxs)(B.Fragment,{children:[!e&&(0,B.jsx)(ar,{onCarregado:()=>t(!0),logoRef:n}),(0,B.jsx)(Cr,{visivel:e,logoRef:n}),(0,B.jsxs)(`main`,{children:[(0,B.jsx)(Uw,{}),(0,B.jsx)(vT,{}),(0,B.jsx)(VT,{})]})]})}(0,y.createRoot)(document.getElementById(`root`)).render((0,B.jsx)(v.StrictMode,{children:(0,B.jsx)(HT,{})}));
+`,HT=z.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 2.5rem;
+    border: 1px solid rgba(44, 194, 149, 0.15);
+    border-radius: 12px;
+    background: rgba(3, 98, 76, 0.08);
+    text-align: center;
+    ${CT}
+
+    &.visivel {
+        animation-delay: 0.3s;
+    }
+
+    @media (min-width: 768px) {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+`,UT=z.div`
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+`,WT=z.p`
+    font-family: "Press Start 2P", "Courier New", monospace;
+    font-size: 0.7rem;
+    color: ${bT.white};
+    line-height: 1.6;
+`,GT=z.p`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.8rem;
+    color: rgba(241, 247, 246, 0.5);
+`,KT=z.a`
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: ${bT.richBlack};
+    background: ${bT.caribbeanGreen};
+    padding: 0.85rem 1.75rem;
+    border-radius: 4px;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background 0.3s ease, transform 0.2s ease;
+
+    svg {
+        font-size: 0.9rem;
+    }
+
+    &:hover {
+        background: ${bT.mountainMeadow};
+        transform: translateY(-2px);
+    }
+`;function qT(){let e=(0,v.useRef)(null),t=(0,v.useRef)(null),n=(0,v.useRef)(null);return(0,v.useEffect)(()=>{let r=[e.current,t.current,n.current].filter(Boolean),i=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&(e.target.classList.add(`visivel`),i.unobserve(e.target))})},{threshold:.1});return r.forEach(e=>i.observe(e)),()=>i.disconnect()},[]),(0,B.jsx)(wT,{id:`experience`,children:(0,B.jsxs)(TT,{children:[(0,B.jsxs)(ET,{ref:e,children:[(0,B.jsx)(DT,{children:`// my journey`}),(0,B.jsxs)(OT,{children:[`Experience & `,(0,B.jsx)(`span`,{children:`Education`})]}),(0,B.jsx)(kT,{})]}),(0,B.jsxs)(AT,{ref:t,children:[(0,B.jsxs)(jT,{children:[(0,B.jsxs)(MT,{children:[(0,B.jsx)(JC,{}),`Work Experience`]}),(0,B.jsx)(FT,{children:xT.map(e=>(0,B.jsxs)(IT,{children:[(0,B.jsxs)(LT,{children:[e.periodo,e.atual&&(0,B.jsx)(NT,{children:`Current`})]}),(0,B.jsx)(RT,{children:e.cargo}),(0,B.jsx)(zT,{children:e.empresa}),(0,B.jsxs)(PT,{children:[(0,B.jsx)(GC,{}),e.local]}),(0,B.jsx)(BT,{children:e.descricao.map((e,t)=>(0,B.jsx)(VT,{children:e},t))})]},e.empresa))})]}),(0,B.jsxs)(jT,{children:[(0,B.jsxs)(MT,{children:[(0,B.jsx)(KC,{}),`Education`]}),(0,B.jsx)(FT,{children:ST.map(e=>(0,B.jsxs)(IT,{children:[(0,B.jsxs)(LT,{children:[e.periodo,e.atual&&(0,B.jsx)(NT,{children:`Current`})]}),(0,B.jsx)(RT,{children:e.curso}),(0,B.jsx)(zT,{children:e.instituicao}),(0,B.jsxs)(PT,{children:[(0,B.jsx)(GC,{}),e.local]})]},e.instituicao))})]})]}),(0,B.jsxs)(HT,{ref:n,children:[(0,B.jsxs)(UT,{children:[(0,B.jsx)(WT,{children:`Want to know more?`}),(0,B.jsx)(GT,{children:`Download my full resume for more details.`})]}),(0,B.jsxs)(KT,{href:`/portfolio-v2/resume.pdf`,download:`Alexsander_Albino_Resume.pdf`,target:`_blank`,rel:`noopener noreferrer`,children:[(0,B.jsx)(qC,{}),`Grab a copy`]})]})]})})}var JT={richBlack:`#000F08`,darkGreen:`#032221`,bangladeshGreen:`#03624C`,mountainMeadow:`#2CC295`,caribbeanGreen:`#00DF91`,white:`#F1F7F6`},YT=[{id:1,titulo:`Django Task Manager`,descricao:`A functional task management system featuring full CRUD capabilities for personal organization. Developed with Python using the Django framework with a clean MVT architecture. Fully responsive interface with modern CSS and media queries.`,tecnologias:[`Python`,`Django`,`SQLite`,`CSS`],linkSite:`https://primeiro-projeto-django-ke1o.onrender.com/`,linkGithub:`https://github.com/AlexOnn1/Primeiro-projeto-django`,imagem:null},{id:2,titulo:`Shopping Cart`,descricao:`A simple sales system featuring a shopping cart, product, customer and order registration. Developed with pure Python using Streamlit. Allows adding products to the cart, calculating totals, removing items, finalizing orders and viewing history.`,tecnologias:[`Python`,`Streamlit`],linkSite:`https://sistema-de-vendas.streamlit.app/`,linkGithub:`https://github.com/AlexOnn1/Sistema-de-vendas`,imagem:null},{id:3,titulo:`Huddle Base`,descricao:`A responsive landing page based on the Frontend Mentor challenge. Focus on creating a pixel-perfect design that adapts seamlessly to different screen sizes, refining HTML and CSS skills while implementing best practices for accessibility.`,tecnologias:[`HTML5`,`CSS3`],linkSite:`https://alexonn1.github.io/projeto-huddle-base/`,linkGithub:`https://github.com/AlexOnn1/projeto-huddle-base`,imagem:null},{id:4,titulo:`Landing Page`,descricao:`A project made to finish the HTML5 and CSS3 advanced module from the DevQuest course. Applied all concepts of Flexbox and Grid learned in the module, combining them to build a fully responsive and modern layout.`,tecnologias:[`HTML5`,`CSS3`],linkSite:`https://alexonn1.github.io/landing-page-com-grid/`,linkGithub:`https://github.com/AlexOnn1/landing-page-com-grid`,imagem:null},{id:5,titulo:`Sieg's Portfolio`,descricao:`My first big project — a portfolio for a graphic designer with 3 pages showing his Work, Studies and a page about him. Built with HTML5 and CSS3 only, before studying JavaScript, as a great opportunity to test my knowledge.`,tecnologias:[`HTML5`,`CSS3`],linkSite:`https://alexonn1.github.io/Sieg/`,linkGithub:`https://github.com/AlexOnn1/Sieg`,imagem:null}],XT=Ln`
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0);    }
+`,ZT=z.section`
+    position: relative;
+    background-color: ${JT.darkGreen};
+    padding: 5rem 1.5rem;
+
+    @media (min-width: 768px) {
+        padding: 7rem 3rem;
+    }
+`,QT=z.div`
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+`,$T=z.div`
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    animation: ${XT} 0.6s ease forwards;
+`,eE=z.span`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.75rem;
+    color: ${JT.caribbeanGreen};
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+`,tE=z.h2`
+    font-family: "Press Start 2P", "Courier New", monospace;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    color: ${JT.white};
+    line-height: 1.4;
+
+    span {
+        color: ${JT.caribbeanGreen};
+    }
+`,nE=z.div`
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, ${JT.caribbeanGreen}, transparent);
+    margin-top: 0.5rem;
+`,rE=z.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+
+    @media (min-width: 640px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+`,iE=z.button`
+    display: flex;
+    flex-direction: column;
+    background: rgba(3, 15, 8, 0.6);
+    border: 1px solid rgba(44, 194, 149, 0.12);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+        border-color: rgba(44, 194, 149, 0.4);
+        transform: translateY(-4px);
+    }
+`,aE=z.div`
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(
+        135deg,
+        ${JT.bangladeshGreen} 0%,
+        ${JT.richBlack} 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    /* Padrão decorativo de grade */
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(rgba(44, 194, 149, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(44, 194, 149, 0.05) 1px, transparent 1px);
+        background-size: 24px 24px;
+    }
+`,oE=z.span`
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.55rem;
+    color: rgba(44, 194, 149, 0.3);
+    letter-spacing: 0.1em;
+    position: relative;
+    z-index: 1;
+`,sE=z.div`
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.25rem;
+    flex: 1;
+`,cE=z.h3`
+    font-family: "Press Start 2P", "Courier New", monospace;
+    font-size: 0.65rem;
+    color: ${JT.white};
+    line-height: 1.6;
+`,lE=z.p`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.78rem;
+    color: rgba(241, 247, 246, 0.55);
+    line-height: 1.7;
+
+    /* Limita a 3 linhas no card */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+`,uE=z.div`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: auto;
+`,dE=z.span`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.65rem;
+    color: ${JT.caribbeanGreen};
+    background: rgba(0, 223, 145, 0.08);
+    border: 1px solid rgba(0, 223, 145, 0.2);
+    padding: 0.2rem 0.55rem;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+`;function fE(){return(0,B.jsx)(ZT,{id:`projects`,children:(0,B.jsxs)(QT,{children:[(0,B.jsxs)($T,{children:[(0,B.jsx)(eE,{children:`// what i've built`}),(0,B.jsxs)(tE,{children:[`My `,(0,B.jsx)(`span`,{children:`Projects`})]}),(0,B.jsx)(nE,{})]}),(0,B.jsx)(rE,{children:YT.map(e=>(0,B.jsxs)(iE,{children:[(0,B.jsx)(aE,{children:(0,B.jsx)(oE,{children:e.titulo.toUpperCase()})}),(0,B.jsxs)(sE,{children:[(0,B.jsx)(cE,{children:e.titulo}),(0,B.jsx)(lE,{children:e.descricao}),(0,B.jsx)(uE,{children:e.tecnologias.map(e=>(0,B.jsx)(dE,{children:e},e))})]})]},e.id))})]})})}function pE(){let[e,t]=(0,v.useState)(!1),n=(0,v.useRef)(null);return(0,B.jsxs)(B.Fragment,{children:[!e&&(0,B.jsx)(ar,{onCarregado:()=>t(!0),logoRef:n}),(0,B.jsx)(Cr,{visivel:e,logoRef:n}),(0,B.jsxs)(`main`,{children:[(0,B.jsx)(Ww,{}),(0,B.jsx)(yT,{}),(0,B.jsx)(qT,{}),(0,B.jsx)(fE,{})]})]})}(0,y.createRoot)(document.getElementById(`root`)).render((0,B.jsx)(v.StrictMode,{children:(0,B.jsx)(pE,{})}));
