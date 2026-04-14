@@ -35,7 +35,7 @@ const PROJETOS = [
         id: 2,
         titulo: "Django Task Manager",
         descricao: "A functional task management system featuring full CRUD capabilities for personal organization. Developed with Python using the Django framework with a clean MVT architecture. Fully responsive interface with modern CSS and media queries.",
-        tecnologias: ["Python", "Django", "SQLite", "CSS"],
+        tecnologias: ["Python", "Django", "SQLite", "CSS3"],
         linkSite: "https://primeiro-projeto-django-ke1o.onrender.com/",
         linkGithub: "https://github.com/AlexOnn1/Primeiro-projeto-django",
         imagem: null,
