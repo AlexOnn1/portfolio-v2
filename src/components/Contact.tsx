@@ -1,0 +1,416 @@
+import styled, { keyframes } from "styled-components"
+import { FaLinkedinIn, FaInstagram, FaGithub, FaEnvelope } from "react-icons/fa"
+
+/* ================================
+   Contact — Seção de contato
+   Mobile-first | Estrutura base
+   ================================ */
+
+// Paleta de cores
+const colors = {
+    richBlack: "#000F08",
+    darkGreen: "#032221",
+    bangladeshGreen: "#03624C",
+    mountainMeadow: "#2CC295",
+    caribbeanGreen: "#00DF91",
+    white: "#F1F7F6",
+}
+
+/* ================================
+   Redes sociais
+   ================================ */
+
+const SOCIAIS = [
+    {
+        icone: FaLinkedinIn,
+        label: "LinkedIn",
+        href: "https://www.linkedin.com/in/alexsander-albino-dev/",
+        cor: "#0A66C2",
+    },
+    {
+        icone: FaInstagram,
+        label: "Instagram",
+        cor: "#E1306C",
+        href: "https://www.instagram.com/alexon_dev/",
+    },
+    {
+        icone: FaGithub,
+        label: "GitHub",
+        cor: "#F1F7F6",
+        href: "https://github.com/AlexOnn1",
+    },
+    {
+        icone: FaEnvelope,
+        label: "Email",
+        cor: colors.caribbeanGreen,
+        href: "mailto:alexsander.santos.contato@gmail.com",
+    },
+]
+
+/* ================================
+   Animações
+   ================================ */
+
+const fadeSlideUp = keyframes`
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0);    }
+`
+
+/* ================================
+   Styled Components
+   ================================ */
+
+const Secao = styled.section`
+    position: relative;
+    background-color: ${colors.richBlack};
+    padding: 5rem 1.5rem 0;
+
+    @media (min-width: 768px) {
+        padding: 7rem 3rem 0;
+    }
+`
+
+const Container = styled.div`
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+`
+
+/* Título da seção */
+const TituloContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    animation: ${fadeSlideUp} 0.6s ease forwards;
+`
+
+const Rotulo = styled.span`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.75rem;
+    color: ${colors.caribbeanGreen};
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+`
+
+const Titulo = styled.h2`
+    font-family: "Press Start 2P", "Courier New", monospace;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    color: ${colors.white};
+    line-height: 1.4;
+
+    span {
+        color: ${colors.caribbeanGreen};
+    }
+`
+
+const LinhaDivisoria = styled.div`
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, ${colors.caribbeanGreen}, transparent);
+    margin-top: 0.5rem;
+`
+
+/* Grid principal — formulário + sociais */
+const Grid = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+
+    @media (min-width: 768px) {
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: start;
+    }
+`
+
+/* ================================
+   Coluna esquerda — formulário
+   ================================ */
+
+const FormContainer = styled.form`
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+`
+
+const CampoGrupo = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+`
+
+const Label = styled.label`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.75rem;
+    color: ${colors.caribbeanGreen};
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+`
+
+const Input = styled.input`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.88rem;
+    color: ${colors.white};
+    background: rgba(3, 98, 76, 0.12);
+    border: 1px solid rgba(44, 194, 149, 0.2);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    outline: none;
+    transition: border-color 0.3s ease, background 0.3s ease;
+
+    &::placeholder {
+        color: rgba(241, 247, 246, 0.25);
+    }
+
+    &:focus {
+        border-color: ${colors.caribbeanGreen};
+        background: rgba(3, 98, 76, 0.2);
+    }
+`
+
+const Textarea = styled.textarea`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.88rem;
+    color: ${colors.white};
+    background: rgba(3, 98, 76, 0.12);
+    border: 1px solid rgba(44, 194, 149, 0.2);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    outline: none;
+    resize: vertical;
+    min-height: 140px;
+    transition: border-color 0.3s ease, background 0.3s ease;
+
+    &::placeholder {
+        color: rgba(241, 247, 246, 0.25);
+    }
+
+    &:focus {
+        border-color: ${colors.caribbeanGreen};
+        background: rgba(3, 98, 76, 0.2);
+    }
+`
+
+const BotaoEnviar = styled.button`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.88rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: ${colors.richBlack};
+    background: ${colors.caribbeanGreen};
+    border: none;
+    border-radius: 6px;
+    padding: 0.9rem 1.75rem;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: background 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+        background: ${colors.mountainMeadow};
+        transform: translateY(-2px);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+`
+
+/* ================================
+   Coluna direita — sociais + info
+   ================================ */
+
+const InfoContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+`
+
+const InfoTexto = styled.p`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.88rem;
+    color: rgba(241, 247, 246, 0.6);
+    line-height: 1.8;
+`
+
+const SociaisGrid = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+`
+
+interface SocialItemProps {
+    $cor: string
+}
+
+const SocialItem = styled.a<SocialItemProps>`
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem 1rem;
+    background: rgba(3, 98, 76, 0.1);
+    border: 1px solid rgba(44, 194, 149, 0.1);
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.3s ease, border-color 0.3s ease,
+                transform 0.2s ease;
+
+    svg {
+        font-size: 1.1rem;
+        color: rgba(241, 247, 246, 0.5);
+        transition: color 0.3s ease;
+        flex-shrink: 0;
+    }
+
+    &:hover {
+        background: rgba(3, 98, 76, 0.22);
+        border-color: ${({ $cor }) => $cor}44;
+        transform: translateX(4px);
+
+        svg {
+            color: ${({ $cor }) => $cor};
+        }
+    }
+`
+
+const SocialLabel = styled.span`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.82rem;
+    color: rgba(241, 247, 246, 0.6);
+    transition: color 0.3s ease;
+
+    ${SocialItem}:hover & {
+        color: ${colors.white};
+    }
+`
+
+/* ================================
+   Footer
+   ================================ */
+
+const Footer = styled.footer`
+    margin-top: 4rem;
+    padding: 1.75rem 0;
+    border-top: 1px solid rgba(44, 194, 149, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    text-align: center;
+`
+
+const FooterTexto = styled.p`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.72rem;
+    color: rgba(241, 247, 246, 0.3);
+    letter-spacing: 0.05em;
+
+    span {
+        color: ${colors.caribbeanGreen};
+    }
+`
+
+/* ================================
+   Componente principal
+   ================================ */
+
+export default function Contact() {
+    return (
+        <Secao id="contact">
+            <Container>
+
+                {/* Título da seção */}
+                <TituloContainer>
+                    <Rotulo>// get in touch</Rotulo>
+                    <Titulo>
+                        Contact <span>Me</span>
+                    </Titulo>
+                    <LinhaDivisoria />
+                </TituloContainer>
+
+                {/* Grid formulário + sociais */}
+                <Grid>
+
+                    {/* Formulário */}
+                    <FormContainer>
+                        <CampoGrupo>
+                            <Label htmlFor="nome">Name</Label>
+                            <Input
+                                id="nome"
+                                name="name"
+                                type="text"
+                                placeholder="Your name"
+                                required
+                            />
+                        </CampoGrupo>
+
+                        <CampoGrupo>
+                            <Label htmlFor="email">Email</Label>
+                            <Input
+                                id="email"
+                                name="email"
+                                type="email"
+                                placeholder="your@email.com"
+                                required
+                            />
+                        </CampoGrupo>
+
+                        <CampoGrupo>
+                            <Label htmlFor="mensagem">Message</Label>
+                            <Textarea
+                                id="mensagem"
+                                name="message"
+                                placeholder="What's on your mind?"
+                                required
+                            />
+                        </CampoGrupo>
+
+                        <BotaoEnviar type="submit">
+                            Send Message
+                        </BotaoEnviar>
+                    </FormContainer>
+
+                    {/* Informações e redes sociais */}
+                    <InfoContainer>
+                        <InfoTexto>
+                            I'm always open to fresh ideas, collaborations,
+                            and opportunities to learn. Feel free to reach out
+                            through the form or any of the links below.
+                            Let's build something amazing together! 😁
+                        </InfoTexto>
+
+                        <SociaisGrid>
+                            {SOCIAIS.map((social) => (
+                                <SocialItem
+                                    key={social.label}
+                                    href={social.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    $cor={social.cor}
+                                    aria-label={social.label}
+                                >
+                                    <social.icone />
+                                    <SocialLabel>{social.label}</SocialLabel>
+                                </SocialItem>
+                            ))}
+                        </SociaisGrid>
+                    </InfoContainer>
+
+                </Grid>
+
+            </Container>
+
+            {/* Footer */}
+            <Footer>
+                <FooterTexto>
+                    © 2026 <span>Alexsander Albino</span>. All rights reserved.
+                </FooterTexto>
+                <FooterTexto>
+                    Built with <span>React</span> + <span>TypeScript</span> + <span>Vite</span>
+                </FooterTexto>
+            </Footer>
+
+        </Secao>
+    )
+}

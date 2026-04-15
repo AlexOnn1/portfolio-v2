@@ -5,9 +5,7 @@ import Hero from "./components/Hero"
 import About from "./components/About"
 import Experience from "./components/Experience"
 import Projects from "./components/Projects"
-
-// Seções do portfólio (serão importadas conforme formos construindo)
-// import Contact from "./components/Contact"
+import Contact from "./components/Contact"
 
 /* ================================
    App — Componente raiz
@@ -43,7 +41,8 @@ export default function App() {
                 <Projects />
             </main>
 
-            {/* <Contact /> */}
+            {/* Contact age como footer também — sem padding bottom na Secao */}
+            <Contact />
         </>
     )
 }
