@@ -1,5 +1,6 @@
+import { useState } from "react"
 import styled, { keyframes } from "styled-components"
-import { FaLinkedinIn, FaInstagram, FaGithub, FaEnvelope } from "react-icons/fa"
+import { FaLinkedinIn, FaInstagram, FaGithub, FaEnvelope, FaCheckCircle, FaExclamationCircle, FaPaperPlane } from "react-icons/fa"
 
 /* ================================
    Contact — Seção de contato
@@ -193,27 +194,94 @@ const Textarea = styled.textarea`
     }
 `
 
-const BotaoEnviar = styled.button`
+const BotaoEnviar = styled.button<{ $enviando: boolean }>`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.88rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: ${colors.richBlack};
-    background: ${colors.caribbeanGreen};
+    background: ${({ $enviando }) =>
+        $enviando ? colors.bangladeshGreen : colors.caribbeanGreen};
     border: none;
     border-radius: 6px;
     padding: 0.9rem 1.75rem;
-    cursor: pointer;
+    cursor: ${({ $enviando }) => ($enviando ? "not-allowed" : "pointer")};
     align-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     transition: background 0.3s ease, transform 0.2s ease;
 
-    &:hover {
+    svg {
+        font-size: 0.85rem;
+    }
+
+    &:hover:not(:disabled) {
         background: ${colors.mountainMeadow};
         transform: translateY(-2px);
     }
 
-    &:active {
+    &:active:not(:disabled) {
         transform: translateY(0);
+    }
+`
+
+/* Feedback de erro por campo */
+const ErroCampo = styled.span`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.7rem;
+    color: #ff6b6b;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+
+    svg {
+        font-size: 0.75rem;
+        flex-shrink: 0;
+    }
+`
+
+/* Input com estado de erro */
+interface InputEstadoProps {
+    $erro: boolean
+}
+
+const InputComEstado = styled(Input)<InputEstadoProps>`
+    border-color: ${({ $erro }) =>
+        $erro ? "#ff6b6b" : "rgba(44, 194, 149, 0.2)"};
+
+    &:focus {
+        border-color: ${({ $erro }) =>
+            $erro ? "#ff6b6b" : colors.caribbeanGreen};
+    }
+`
+
+const TextareaComEstado = styled(Textarea)<InputEstadoProps>`
+    border-color: ${({ $erro }) =>
+        $erro ? "#ff6b6b" : "rgba(44, 194, 149, 0.2)"};
+
+    &:focus {
+        border-color: ${({ $erro }) =>
+            $erro ? "#ff6b6b" : colors.caribbeanGreen};
+    }
+`
+
+/* Banner de sucesso após envio */
+const BannerSucesso = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    background: rgba(0, 223, 145, 0.08);
+    border: 1px solid rgba(0, 223, 145, 0.3);
+    border-radius: 8px;
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.82rem;
+    color: ${colors.caribbeanGreen};
+
+    svg {
+        font-size: 1.1rem;
+        flex-shrink: 0;
     }
 `
 
@@ -312,10 +380,103 @@ const FooterTexto = styled.p`
 `
 
 /* ================================
+   Tipos do formulário
+   ================================ */
+
+interface CamposForm {
+    nome: string
+    email: string
+    mensagem: string
+}
+
+interface ErrosForm {
+    nome?: string
+    email?: string
+    mensagem?: string
+}
+
+/* ================================
    Componente principal
    ================================ */
 
 export default function Contact() {
+    const [campos, setCampos] = useState<CamposForm>({
+        nome: "",
+        email: "",
+        mensagem: "",
+    })
+    const [erros, setErros]       = useState<ErrosForm>({})
+    const [enviando, setEnviando] = useState<boolean>(false)
+    const [enviado, setEnviado]   = useState<boolean>(false)
+
+    // Atualiza o campo e limpa o erro ao digitar
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+        const { name, value } = e.target
+        setCampos((prev) => ({ ...prev, [name]: value }))
+        setErros((prev) => ({ ...prev, [name]: undefined }))
+    }
+
+    // Validação dos campos antes do envio
+    const validar = (): boolean => {
+        const novosErros: ErrosForm = {}
+
+        if (!campos.nome.trim()) {
+            novosErros.nome = "Name is required."
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        if (!campos.email.trim()) {
+            novosErros.email = "Email is required."
+        } else if (!emailRegex.test(campos.email)) {
+            novosErros.email = "Please enter a valid email."
+        }
+
+        if (!campos.mensagem.trim()) {
+            novosErros.mensagem = "Message is required."
+        } else if (campos.mensagem.trim().length < 10) {
+            novosErros.mensagem = "Message must be at least 10 characters."
+        }
+
+        setErros(novosErros)
+        return Object.keys(novosErros).length === 0
+    }
+
+    /*
+       Envio via FormSubmit — mesmo serviço do V1.
+       Faz fetch em vez de submit nativo para manter o SPA
+       sem redirecionar para outra página.
+    */
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        if (!validar()) return
+
+        setEnviando(true)
+
+        try {
+            await fetch("https://formsubmit.co/ajax/3c01685e80d4102e15118937002fedab", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify({
+                    name: campos.nome,
+                    email: campos.email,
+                    message: campos.mensagem,
+                }),
+            })
+
+            setEnviado(true)
+            setCampos({ nome: "", email: "", mensagem: "" })
+        } catch {
+            setErros({ mensagem: "Something went wrong. Please try again." })
+        } finally {
+            setEnviando(false)
+        }
+    }
+
     return (
         <Secao id="contact">
             <Container>
@@ -333,42 +494,81 @@ export default function Contact() {
                 <Grid>
 
                     {/* Formulário */}
-                    <FormContainer>
+                    <FormContainer onSubmit={handleSubmit} noValidate>
+
+                        {/* Banner de sucesso — aparece após envio */}
+                        {enviado && (
+                            <BannerSucesso>
+                                <FaCheckCircle />
+                                Thank you! Your message has been sent successfully.
+                            </BannerSucesso>
+                        )}
+
                         <CampoGrupo>
                             <Label htmlFor="nome">Name</Label>
-                            <Input
+                            <InputComEstado
                                 id="nome"
-                                name="name"
+                                name="nome"
                                 type="text"
                                 placeholder="Your name"
-                                required
+                                value={campos.nome}
+                                onChange={handleChange}
+                                $erro={!!erros.nome}
                             />
+                            {erros.nome && (
+                                <ErroCampo>
+                                    <FaExclamationCircle />
+                                    {erros.nome}
+                                </ErroCampo>
+                            )}
                         </CampoGrupo>
 
                         <CampoGrupo>
                             <Label htmlFor="email">Email</Label>
-                            <Input
+                            <InputComEstado
                                 id="email"
                                 name="email"
                                 type="email"
                                 placeholder="your@email.com"
-                                required
+                                value={campos.email}
+                                onChange={handleChange}
+                                $erro={!!erros.email}
                             />
+                            {erros.email && (
+                                <ErroCampo>
+                                    <FaExclamationCircle />
+                                    {erros.email}
+                                </ErroCampo>
+                            )}
                         </CampoGrupo>
 
                         <CampoGrupo>
                             <Label htmlFor="mensagem">Message</Label>
-                            <Textarea
+                            <TextareaComEstado
                                 id="mensagem"
-                                name="message"
+                                name="mensagem"
                                 placeholder="What's on your mind?"
-                                required
+                                value={campos.mensagem}
+                                onChange={handleChange}
+                                $erro={!!erros.mensagem}
                             />
+                            {erros.mensagem && (
+                                <ErroCampo>
+                                    <FaExclamationCircle />
+                                    {erros.mensagem}
+                                </ErroCampo>
+                            )}
                         </CampoGrupo>
 
-                        <BotaoEnviar type="submit">
-                            Send Message
+                        <BotaoEnviar
+                            type="submit"
+                            disabled={enviando}
+                            $enviando={enviando}
+                        >
+                            <FaPaperPlane />
+                            {enviando ? "Sending..." : "Send Message"}
                         </BotaoEnviar>
+
                     </FormContainer>
 
                     {/* Informações e redes sociais */}
@@ -404,7 +604,7 @@ export default function Contact() {
             {/* Footer */}
             <Footer>
                 <FooterTexto>
-                    © 2026 <span>Alexsander Albino</span>. All rights reserved.
+                    © 2025 <span>Alexsander Albino</span>. All rights reserved.
                 </FooterTexto>
                 <FooterTexto>
                     Built with <span>React</span> + <span>TypeScript</span> + <span>Vite</span>
