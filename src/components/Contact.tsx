@@ -455,7 +455,7 @@ export default function Contact() {
         setEnviando(true)
 
         try {
-            await fetch("https://formsubmit.co/ajax/3c01685e80d4102e15118937002fedab", {
+            await fetch("https://formsubmit.co/alexsander.santos.contato@gmail.com", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
