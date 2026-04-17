@@ -2,6 +2,7 @@ import { useRef, useEffect } from "react"
 import styled, { keyframes, css } from "styled-components"
 import { FaReact, FaPython, FaJs, FaPhp, FaHtml5, FaCss3Alt, FaGithub, FaGitAlt, FaWordpress } from "react-icons/fa"
 import { SiMysql, SiTailwindcss, SiDjango } from "react-icons/si"
+import planetaImg from "../assets/planeta.png"
 
 /* ================================
    About — Seção sobre mim
@@ -162,26 +163,6 @@ const FotoWrapper = styled.div`
         width: 240px;
         height: 240px;
     }
-`
-
-/* Placeholder da foto — será substituído pela foto real */
-const FotoPlaceholder = styled.div`
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: linear-gradient(
-        135deg,
-        ${colors.bangladeshGreen} 0%,
-        ${colors.darkGreen} 100%
-    );
-    border: 2px solid rgba(44, 194, 149, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: "Press Start 2P", monospace;
-    font-size: 3rem;
-    color: ${colors.caribbeanGreen};
-    opacity: 0.6;
 `
 
 /* Coluna do texto */
@@ -429,12 +410,24 @@ export default function About() {
 
                 {/* Grid foto + texto */}
                 <Grid ref={gridRef}>
-
+                   
                     {/* Foto */}
                     <FotoContainer>
                         <FotoWrapper>
-                            {/* Placeholder — trocar por <img> quando tiver a foto */}
-                            <FotoPlaceholder>A</FotoPlaceholder>
+                            {/* Usando a imagem importada dos assets */}
+                            <img 
+                                src={planetaImg} 
+                                alt="Planeta AlexOn Dev" 
+                                style={{
+                                    width: "100%",
+                                    height: "100%",
+                                    borderRadius: "50%",
+                                    objectFit: "cover",
+                                    position: "relative",
+                                    zIndex: 2,
+                                    border: "2px solid rgba(44, 194, 149, 0.3)"
+                                }}
+                            />
                         </FotoWrapper>
                     </FotoContainer>
 

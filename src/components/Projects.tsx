@@ -1,6 +1,12 @@
 import { useState, useRef, useEffect } from "react"
 import styled, { keyframes, css } from "styled-components"
 import { FaGithub, FaExternalLinkAlt, FaTimes, FaSearch, FaArrowRight } from "react-icons/fa"
+import printCarrinho from "../assets/projetoCarrinho.png"
+import printTaskManager from "../assets/projetoTaskManager.png"
+import printLeaozinho from "../assets/projetoLeaozinho.png"
+import printHuddle from "../assets/projetoHuddle.png"
+import printLanding from "../assets/projetoLanding.png"
+import printSieg from "../assets/projetoSieg.png"   
 
 /* ================================
    Projects — Seção de projetos
@@ -29,7 +35,7 @@ const PROJETOS = [
         tecnologias: ["React", "TypeScript", "Vite", "Context API"],
         linkSite: "https://alexonn1.github.io/leaozinho-prototipo-app/",
         linkGithub: "https://github.com/AlexOnn1/nome-do-repositorio",
-        imagem: null,
+        imagem: printLeaozinho,
     },
     {
         id: 2,
@@ -38,7 +44,7 @@ const PROJETOS = [
         tecnologias: ["Python", "Django", "SQLite", "CSS3"],
         linkSite: "https://primeiro-projeto-django-ke1o.onrender.com/",
         linkGithub: "https://github.com/AlexOnn1/Primeiro-projeto-django",
-        imagem: null,
+        imagem: printTaskManager,
     },
     {
         id: 3,
@@ -47,7 +53,7 @@ const PROJETOS = [
         tecnologias: ["Python", "Streamlit"],
         linkSite: "https://sistema-de-vendas.streamlit.app/",
         linkGithub: "https://github.com/AlexOnn1/Sistema-de-vendas",
-        imagem: null,
+        imagem: printCarrinho,
     },
     {
         id: 4,
@@ -56,7 +62,7 @@ const PROJETOS = [
         tecnologias: ["HTML5", "CSS3"],
         linkSite: "https://alexonn1.github.io/projeto-huddle-base/",
         linkGithub: "https://github.com/AlexOnn1/projeto-huddle-base",
-        imagem: null,
+        imagem: printHuddle,
     },
     {
         id: 5,
@@ -65,7 +71,7 @@ const PROJETOS = [
         tecnologias: ["HTML5", "CSS3"],
         linkSite: "https://alexonn1.github.io/landing-page-com-grid/",
         linkGithub: "https://github.com/AlexOnn1/landing-page-com-grid",
-        imagem: null,
+        imagem: printLanding,
     },
     {
         id: 6,
@@ -74,7 +80,7 @@ const PROJETOS = [
         tecnologias: ["HTML5", "CSS3"],
         linkSite: "https://alexonn1.github.io/Sieg/",
         linkGithub: "https://github.com/AlexOnn1/Sieg",
-        imagem: null,
+        imagem: printSieg,
     },
 ]
 
@@ -225,21 +231,38 @@ const CardImagemOverlay = styled.div`
         opacity: 1;
     }
 `
+interface ImagemProps {
+    $imagem?: string | null;
+}
 
-/* Área da imagem — placeholder por enquanto */
-const CardImagem = styled.div`
+/* Área da imagem  */
+const CardImagem = styled.div<ImagemProps>`
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
-    background: linear-gradient(
-        135deg,
-        ${colors.bangladeshGreen} 0%,
-        ${colors.richBlack} 100%
-    );
+    
+    /* A MÁGICA DO FILTRO VERDE ACONTECE AQUI */
+    background: ${({ $imagem }) => $imagem
+        ? `linear-gradient(rgba(3, 98, 76, 0.45), rgba(0, 15, 8, 0.95)), url(${$imagem})`
+        : `linear-gradient(135deg, ${colors.bangladeshGreen} 0%, ${colors.richBlack} 100%)`};
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    transition: background 0.4s ease;
+
+    /* No hover do card, podemos deixar a imagem levemente mais clara (opcional) */
+    ${Card}:hover & {
+        background: ${({ $imagem }) => $imagem
+            ? `linear-gradient(rgba(3, 98, 76, 0.2), rgba(0, 15, 8, 0.8)), url(${$imagem})`
+            : `linear-gradient(135deg, ${colors.mountainMeadow} 0%, ${colors.richBlack} 100%)`};
+        background-size: cover;
+        background-position: center;
+    }
 
     /* Padrão decorativo de grade */
     &::before {
@@ -250,6 +273,7 @@ const CardImagem = styled.div`
             linear-gradient(rgba(44, 194, 149, 0.05) 1px, transparent 1px),
             linear-gradient(90deg, rgba(44, 194, 149, 0.05) 1px, transparent 1px);
         background-size: 24px 24px;
+        z-index: 1;
     }
 `
 
@@ -434,14 +458,17 @@ const ModalBox = styled.div`
     scrollbar-color: ${colors.bangladeshGreen} transparent;
 `
 
-const ModalImagem = styled.div`
+const ModalImagem = styled.div<ImagemProps>`
     width: 100%;
     aspect-ratio: 16 / 9;
-    background: linear-gradient(
-        135deg,
-        ${colors.bangladeshGreen} 0%,
-        ${colors.richBlack} 100%
-    );
+    
+    background: ${({ $imagem }) => $imagem
+        ? `url(${$imagem})`
+        : `linear-gradient(135deg, ${colors.bangladeshGreen} 0%, ${colors.richBlack} 100%)`};
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    
     display: flex;
     align-items: center;
     justify-content: center;
@@ -450,14 +477,16 @@ const ModalImagem = styled.div`
     position: relative;
     flex-shrink: 0;
 
+    
     &::before {
-        content: "";
+        content: ${({ $imagem }) => ($imagem ? "none" : '""')};
         position: absolute;
         inset: 0;
         background-image:
             linear-gradient(rgba(44, 194, 149, 0.06) 1px, transparent 1px),
             linear-gradient(90deg, rgba(44, 194, 149, 0.06) 1px, transparent 1px);
         background-size: 24px 24px;
+        z-index: 1;
     }
 `
 
@@ -595,10 +624,12 @@ function Modal({
                 </BtnFechar>
 
                 {/* Imagem / placeholder */}
-                <ModalImagem>
-                    <ModalImagemTexto>
-                        {projeto.titulo.toUpperCase()}
-                    </ModalImagemTexto>
+                <ModalImagem $imagem={projeto.imagem}>
+                    {!projeto.imagem && (
+                        <ModalImagemTexto>
+                            {projeto.titulo.toUpperCase()}
+                        </ModalImagemTexto>
+                    )}
                 </ModalImagem>
 
                 <ModalCorpo>
@@ -721,11 +752,13 @@ export default function Projects() {
                     {projetosFiltrados.map((projeto) => (
                         <Card key={projeto.id} onClick={() => abrirModal(projeto)}>
 
-                            {/* Imagem — placeholder enquanto não tem screenshot */}
-                            <CardImagem>
-                                <CardImagemTexto>
-                                    {projeto.titulo.toUpperCase()}
-                                </CardImagemTexto>
+                            {/* Imagem do Card */}
+                            <CardImagem $imagem={projeto.imagem}>
+                                {!projeto.imagem && (
+                                    <CardImagemTexto>
+                                        {projeto.titulo.toUpperCase()}
+                                    </CardImagemTexto>
+                                )}
                                 <CardImagemOverlay>
                                     <FaSearch />
                                 </CardImagemOverlay>
