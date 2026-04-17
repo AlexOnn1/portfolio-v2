@@ -1,10 +1,10 @@
-import { useState } from "react"
-import styled, { keyframes } from "styled-components"
+import { useState, useRef, useEffect } from "react"
+import styled, { keyframes, css } from "styled-components"
 import { FaLinkedinIn, FaInstagram, FaGithub, FaEnvelope, FaCheckCircle, FaExclamationCircle, FaPaperPlane } from "react-icons/fa"
 
 /* ================================
    Contact — Seção de contato
-   Mobile-first | Estrutura base
+   Mobile-first | Animações com IntersectionObserver
    ================================ */
 
 // Paleta de cores
@@ -49,12 +49,21 @@ const SOCIAIS = [
 ]
 
 /* ================================
-   Animações
+   Animações — disparadas pelo IntersectionObserver
    ================================ */
 
 const fadeSlideUp = keyframes`
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0);    }
+`
+
+const animacaoBase = css`
+    opacity: 0;
+    transform: translateY(24px);
+
+    &.visivel {
+        animation: ${fadeSlideUp} 0.7s ease forwards;
+    }
 `
 
 /* ================================
@@ -84,7 +93,11 @@ const TituloContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    animation: ${fadeSlideUp} 0.6s ease forwards;
+    ${animacaoBase}
+
+    &.visivel {
+        animation-delay: 0s;
+    }
 `
 
 const Rotulo = styled.span`
@@ -118,6 +131,11 @@ const Grid = styled.div`
     display: grid;
     grid-template-columns: 1fr;
     gap: 3rem;
+    ${animacaoBase}
+
+    &.visivel {
+        animation-delay: 0.2s;
+    }
 
     @media (min-width: 768px) {
         grid-template-columns: 1fr 1fr;
@@ -409,6 +427,32 @@ export default function Contact() {
     const [enviando, setEnviando] = useState<boolean>(false)
     const [enviado, setEnviado]   = useState<boolean>(false)
 
+    const tituloRef = useRef<HTMLDivElement>(null)
+    const gridRef   = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        const elementos = [
+            tituloRef.current,
+            gridRef.current,
+        ].filter(Boolean) as HTMLElement[]
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visivel")
+                        observer.unobserve(entry.target)
+                    }
+                })
+            },
+            { threshold: 0.1 }
+        )
+
+        elementos.forEach((el) => observer.observe(el))
+
+        return () => observer.disconnect()
+    }, [])
+
     // Atualiza o campo e limpa o erro ao digitar
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -482,7 +526,7 @@ export default function Contact() {
             <Container>
 
                 {/* Título da seção */}
-                <TituloContainer>
+                <TituloContainer ref={tituloRef}>
                     <Rotulo>// get in touch</Rotulo>
                     <Titulo>
                         Contact <span>Me</span>
@@ -491,7 +535,7 @@ export default function Contact() {
                 </TituloContainer>
 
                 {/* Grid formulário + sociais */}
-                <Grid>
+                <Grid ref={gridRef}>
 
                     {/* Formulário */}
                     <FormContainer onSubmit={handleSubmit} noValidate>

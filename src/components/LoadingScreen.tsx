@@ -291,6 +291,15 @@ export default function LoadingScreen({ onCarregado, logoRef }: LoadingScreenPro
         setTranslateY(logoCentroY - planetaCentroY)
     }
 
+    // Bloqueia o scroll do body enquanto o loading está ativo
+    useEffect(() => {
+        document.body.style.overflow = "hidden"
+
+        return () => {
+            document.body.style.overflow = ""
+        }
+    }, [])
+
     // Simula progresso de carregamento
     useEffect(() => {
         const intervalo = setInterval(() => {
