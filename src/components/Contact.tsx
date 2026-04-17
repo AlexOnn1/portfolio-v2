@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react"
 import styled, { keyframes, css } from "styled-components"
-import { FaLinkedinIn, FaInstagram, FaGithub, FaEnvelope, FaCheckCircle, FaExclamationCircle, FaPaperPlane } from "react-icons/fa"
+import { FaLinkedinIn, FaInstagram, FaGithub, FaEnvelope, FaCheckCircle, FaExclamationCircle, FaPaperPlane} from "react-icons/fa"
+import { BsRocket } from "react-icons/bs"
 
 /* ================================
    Contact — Seção de contato
@@ -372,27 +373,129 @@ const SocialLabel = styled.span`
 `
 
 /* ================================
-   Footer
+   Footer — polimento final
    ================================ */
 
+const pulsoVerde = keyframes`
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0, 223, 145, 0.4); }
+    50%       { box-shadow: 0 0 0 6px rgba(0, 223, 145, 0);  }
+`
+
+const subirRocket = keyframes`
+    0%   { transform: translateY(0);    opacity: 0.6; }
+    50%  { transform: translateY(-5px); opacity: 1;   }
+    100% { transform: translateY(0);    opacity: 0.6; }
+`
+
 const Footer = styled.footer`
-    margin-top: 4rem;
-    padding: 1.75rem 0;
+    margin-top: 5rem;
+    padding: 2rem 1.5rem;
     border-top: 1px solid rgba(44, 194, 149, 0.1);
+    display: flex; /* Mobile continua como flexbox normal */
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    text-align: center;
+
+    @media (min-width: 768px) {
+        padding: 2rem 3rem;
+        display: grid; /* No desktop, vira um Grid de 3 colunas */
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center; /* Alinhamento vertical */
+        text-align: left;
+    }
+`
+
+/* Status de disponibilidade */
+const StatusContainer = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    @media (min-width: 768px) {
+        justify-self: start; /* Joga para a ponta esquerda */
+    }
+`
+
+const StatusDot = styled.span`
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: ${colors.caribbeanGreen};
+    flex-shrink: 0;
+    animation: ${pulsoVerde} 2s ease-in-out infinite;
+`
+
+const StatusTexto = styled.span`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.72rem;
+    color: rgba(241, 247, 246, 0.5);
+    letter-spacing: 0.05em;
+
+    span {
+        color: ${colors.caribbeanGreen};
+    }
+`
+
+/* Textos centrais */
+const FooterCentro = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.4rem;
-    text-align: center;
+    gap: 0.3rem;
+
+    @media (min-width: 768px) {
+        justify-self: center; /* Fica cravado no centro da tela */
+    }
 `
 
 const FooterTexto = styled.p`
     font-family: "Share Tech Mono", "Courier New", monospace;
     font-size: 0.72rem;
-    color: rgba(241, 247, 246, 0.3);
+    color: rgba(241, 247, 246, 0.25);
     letter-spacing: 0.05em;
 
     span {
+        color: ${colors.caribbeanGreen};
+    }
+`
+
+/* Botão voltar ao topo — referência ao foguete do V1 */
+const VoltarTopo = styled.a`
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* O SEGREDO: Mantém o foguete e o texto alinhados pelo centro deles mesmos */
+    gap: 0.3rem;
+    text-decoration: none;
+    cursor: pointer;
+
+    @media (min-width: 768px) {
+        justify-self: end; /* Joga todo o bloco perfeitamente para a borda direita */
+    }
+`
+
+const RocketIcon = styled(BsRocket)`
+    font-size: 1.8rem; /* Aumentamos um pouco para dar mais destaque */
+    display: block;
+    color: rgba(241, 247, 246, 0.4); /* Cor neutra inicial */
+    animation: ${subirRocket} 1.8s ease-in-out infinite;
+    transition: color 0.3s ease, transform 0.3s ease;
+
+    /* Muda a cor para o verde da sua paleta ao passar o mouse */
+    ${VoltarTopo}:hover & {
+        color: ${colors.caribbeanGreen};
+    }
+`
+
+const VoltarTexto = styled.span`
+    font-family: "Share Tech Mono", "Courier New", monospace;
+    font-size: 0.62rem;
+    color: rgba(241, 247, 246, 0.25);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+
+    ${VoltarTopo}:hover & {
         color: ${colors.caribbeanGreen};
     }
 `
@@ -647,12 +750,31 @@ export default function Contact() {
 
             {/* Footer */}
             <Footer>
-                <FooterTexto>
-                    © 2025 <span>Alexsander Albino</span>. All rights reserved.
-                </FooterTexto>
-                <FooterTexto>
-                    Built with <span>React</span> + <span>TypeScript</span> + <span>Vite</span>
-                </FooterTexto>
+
+                {/* Status de disponibilidade */}
+                <StatusContainer>
+                    <StatusDot />
+                    <StatusTexto>
+                        <span>Available</span> for new opportunities
+                    </StatusTexto>
+                </StatusContainer>
+
+                {/* Copyright e stack */}
+                <FooterCentro>
+                    <FooterTexto>
+                        © 2026 <span>Alexsander Albino</span>. All rights reserved.
+                    </FooterTexto>
+                    <FooterTexto>
+                        Built with <span>React</span> + <span>TypeScript</span> + <span>Vite</span>
+                    </FooterTexto>
+                </FooterCentro>
+
+                {/* Voltar ao topo — referência ao foguete do V1 */}
+                <VoltarTopo href="#home">
+                    <RocketIcon />
+                    <VoltarTexto>Send me up!</VoltarTexto>
+                </VoltarTopo>
+
             </Footer>
 
         </Secao>
