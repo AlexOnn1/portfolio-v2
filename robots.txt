@@ -1,0 +1,11 @@
+# robots.txt — alexon.dev
+# https://www.robotstxt.org/robotstxt.html
+
+User-agent: *
+Allow: /
+
+# Bloqueia arquivos desnecessários para os crawlers
+Disallow: /src/
+Disallow: /*.json$
+
+Sitemap: https://alexon.dev/sitemap.xml
