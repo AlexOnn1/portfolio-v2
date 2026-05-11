@@ -6,7 +6,8 @@ import printTaskManager from "../assets/projetoTaskManager.png"
 import printLeaozinho from "../assets/projetoLeaozinho.png"
 import printHuddle from "../assets/projetoHuddle.png"
 import printLanding from "../assets/projetoLanding.png"
-import printSieg from "../assets/projetoSieg.png"   
+import printSieg from "../assets/projetoSieg.png"
+import printFatia$ from "../assets/projetoFatia$.png"
 
 /* ================================
    Projects — Seção de projetos
@@ -30,6 +31,15 @@ const colors = {
 const PROJETOS = [
     {
         id: 1,
+        titulo: "Fatia$ — Rodízio de Prejuízo",
+        descricao: "A mobile-first pizza slice tracker that calculates in real time whether you profited or lost money at an all-you-can-eat pizza buffet. Features a dynamic cost-per-slice calculator, breakeven progress indicator, and live profit/loss feedback with animated color states. Built with React, TypeScript, Vite and CSS Modules — zero external UI dependencies.",
+        tecnologias: ["React", "TypeScript", "Vite", "CSS3", "react-icons"],
+        linkSite: "https://fatias.vercel.app/",
+        linkGithub: "https://github.com/AlexOnn1/fatia-",
+        imagem: printFatia$,
+    },
+    {
+        id: 2,
         titulo: "O Leãozinho Digital Platform",
         descricao: "A complete digital platform prototype designed for a local restaurant. Features a dynamic digital menu, an interactive shopping cart, and a direct WhatsApp checkout flow. Built with React, TypeScript and Vite, implementing robust global state management using Context API and useReducer. A highly polished, responsive showcase of modern front-end architecture.",
         tecnologias: ["React", "TypeScript", "Vite", "Context API"],
@@ -38,7 +48,7 @@ const PROJETOS = [
         imagem: printLeaozinho,
     },
     {
-        id: 2,
+        id: 3,
         titulo: "Django Task Manager",
         descricao: "A functional task management system featuring full CRUD capabilities for personal organization. Developed with Python using the Django framework with a clean MVT architecture. Fully responsive interface with modern CSS and media queries.",
         tecnologias: ["Python", "Django", "SQLite", "CSS3"],
@@ -47,7 +57,7 @@ const PROJETOS = [
         imagem: printTaskManager,
     },
     {
-        id: 3,
+        id: 4,
         titulo: "Shopping Cart",
         descricao: "A simple sales system featuring a shopping cart, product, customer and order registration. Developed with pure Python using Streamlit. Allows adding products to the cart, calculating totals, removing items, finalizing orders and viewing history.",
         tecnologias: ["Python", "Streamlit"],
@@ -56,7 +66,7 @@ const PROJETOS = [
         imagem: printCarrinho,
     },
     {
-        id: 4,
+        id: 5,
         titulo: "Huddle Base",
         descricao: "A responsive landing page based on the Frontend Mentor challenge. Focus on creating a pixel-perfect design that adapts seamlessly to different screen sizes, refining HTML and CSS skills while implementing best practices for accessibility.",
         tecnologias: ["HTML5", "CSS3"],
@@ -65,7 +75,7 @@ const PROJETOS = [
         imagem: printHuddle,
     },
     {
-        id: 5,
+        id: 6,
         titulo: "Landing Page",
         descricao: "A project made to finish the HTML5 and CSS3 advanced module from the DevQuest course. Applied all concepts of Flexbox and Grid learned in the module, combining them to build a fully responsive and modern layout.",
         tecnologias: ["HTML5", "CSS3"],
@@ -74,7 +84,7 @@ const PROJETOS = [
         imagem: printLanding,
     },
     {
-        id: 6,
+        id: 7,
         titulo: "Sieg's Portfolio",
         descricao: "My first big project — a portfolio for a graphic designer with 3 pages showing his Work, Studies and a page about him. Built with HTML5 and CSS3 only, before studying JavaScript, as a great opportunity to test my knowledge.",
         tecnologias: ["HTML5", "CSS3"],
@@ -258,8 +268,8 @@ const CardImagem = styled.div<ImagemProps>`
     /* No hover do card, podemos deixar a imagem levemente mais clara (opcional) */
     ${Card}:hover & {
         background: ${({ $imagem }) => $imagem
-            ? `linear-gradient(rgba(3, 98, 76, 0.2), rgba(0, 15, 8, 0.8)), url(${$imagem})`
-            : `linear-gradient(135deg, ${colors.mountainMeadow} 0%, ${colors.richBlack} 100%)`};
+        ? `linear-gradient(rgba(3, 98, 76, 0.2), rgba(0, 15, 8, 0.8)), url(${$imagem})`
+        : `linear-gradient(135deg, ${colors.mountainMeadow} 0%, ${colors.richBlack} 100%)`};
         background-size: cover;
         background-position: center;
     }
@@ -678,10 +688,10 @@ function Modal({
    ================================ */
 
 export default function Projects() {
-    const [projetoAtivo, setProjetoAtivo]   = useState<Projeto | null>(null)
-    const [filtroAtivo, setFiltroAtivo]     = useState<string>("All")
+    const [projetoAtivo, setProjetoAtivo] = useState<Projeto | null>(null)
+    const [filtroAtivo, setFiltroAtivo] = useState<string>("All")
     const tituloRef = useRef<HTMLDivElement>(null)
-    const gridRef   = useRef<HTMLDivElement>(null)
+    const gridRef = useRef<HTMLDivElement>(null)
 
     // Projetos filtrados pela tecnologia selecionada
     const projetosFiltrados = filtroAtivo === "All"
@@ -711,7 +721,7 @@ export default function Projects() {
         return () => observer.disconnect()
     }, [])
 
-    const abrirModal  = (projeto: Projeto) => {
+    const abrirModal = (projeto: Projeto) => {
         setProjetoAtivo(projeto)
         document.body.style.overflow = "hidden"
     }
